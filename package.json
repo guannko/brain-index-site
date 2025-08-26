@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "yarn tinacms server:start -c \"next dev\"",
     "build": "yarn tinacms server:start -c \"next build\"",
-    "start": "yarn tinacms server:start -c \"next start -p ${PORT:-8080}\"",
+    "start": "next start -p ${PORT:-8080}\"",
     "lint": "next lint"
   },
   "dependencies": {
