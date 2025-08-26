@@ -1,0 +1,9 @@
+{
+  "name": "brain-index-site",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "private": true
+}
