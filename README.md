@@ -1,158 +1,116 @@
-<br/>
-<p align="center">
+[![Material Design for Bootstrap](https://mdbootstrap.com/wp-content/uploads/2018/03/saas.jpg)](https://mdbootstrap.com/freebies/jquery/saas/)
 
-  <a href="https://github.com/Blazity/next-saas-starter" >
-    <img src="https://i.imgur.com/jmc2Q1w.png" alt="Logo"  width="49%">
-  </a>
-   <a href="https://github.com/Blazity/next-saas-starter">
-    <img src="https://i.imgur.com/CxkjHhi.png" alt="Logo" width="49%">
-  </a> 
+# Bootstrap 4 & Material Design - SAAS Template 
 
-  <h3 align="center">✨ Free Next.js marketing website template for SaaS startups ✨</h3>
+Free, responsive Saas template containing pages and components designed for companies owning a “software as a service” product. Built with the newest Bootstrap 4 and Material Design. MIT license – free for personal and commercial use.
 
-  <p align="center">
-    Everything you need to build a great landing page / marketing website for your startup. Great SEO metrics, Green WebVitals, 🚀 Performance, Clean & Pragmatic Codebase out of the box.
-    <br/>
-    <br/>
-    <a href="https://next-saas-starter-ashy.vercel.app/">View Demo</a>
-    .
-    <a href="https://github.com/Blazity/next-saas-starter/issues">Report Bug</a>
-    .
-    <a href="https://github.com/Blazity/next-saas-starter/issues">Request Feature</a>
-  </p>
-</p>
+________
 
-<div align="center">
+# Live Previews: 
+## https://mdbootstrap.com/freebies/jquery/saas/
 
-![Contributors](https://img.shields.io/github/contributors/Blazity/next-saas-starter?color=dark-green) ![Issues](https://img.shields.io/github/issues/Blazity/next-saas-starter) ![License](https://img.shields.io/github/license/Blazity/next-saas-starter)
+# Most important features:
 
-</div>
+1. Fully responsive
 
-<p align="center"><b>Created with :heart: at Blazity </b></p>
-<p align="center"><a href="https://blazity.com/">Blazity</a> is a group of Next.js/Jamstack/Headless experts. Contact us at <a href="mailto:contact@blazity.com">contact@blazity.com</a> if you’d like to talk about your project or just to have a chat with us</p>
+2. Plenty of useful components
 
-<a href="https://discord.gg/fyWtyNKmfX" style="width: 100%; display: flex; justify-content: center;">
-  <img src="https://discordapp.com/api/guilds/1111676875782234175/widget.png?style=banner2" alt="Blazity Discord Banner"/>
-</a>
-<br />
+3. Easy installation
 
-## Table Of Contents
+4. Easy to use and customize
 
-- [Features](#-features)
-- [Getting Started](#-getting-started)
-- [One click deploy](#one-click-deploy)
-- [Built With](#-built-with)
-- [Contributing](#-contributing)
-  - [Creating A Pull Request](#creating-a-pull-request)
-- [Acknowledgements](#-acknowledgements)
-- [Contributors](#-contributors)
-- [License](#-license)
+5. Active community
 
-## Features
+6. Dedicated support forum
 
-- ⚡ **Next.js** - React framework for static rendering
-- **Best SEO setup** - Meta Tags, JSON-LD and Open Graph Tags
-- **[Tina CMS](https://tina.io/) integration** - local & (optional) production CMS
-- **Optimized for Web Vitals**
-- **Blog with MDX**
-- **Mailchimp Integration** - for newsletters
-- **Sendgrid Integration** - for sending emails
-- **Dark mode** - and customizable themes!
-- **No UI library** - just styled components, so you don't have to learn any new syntax
-- **One click deployment** - with Vercel or any other serverless deployment environment
-- **Eslint** - with Next.js's recommended settings and imports sorting rule
-- **Prettier**
+7. Detailed documentation
 
-## 🤓 Getting Started
+# Demo:  
+**Main demo**: https://mdbootstrap.com/previews/free-templates/saas/landing-page.html
 
-- Click `Use the template` or [this link](https://github.com/Blazity/next-saas-starter/generate)
-- Setup your [sendgrid](https://sendgrid.com/) API key and add it to environment variables (`SENDGRID_API_KEY` - `.env.local`)
-- Adjust the template to your needs (and checkout `env.ts` file)
-- Deploy the project on [Vercel](https://vercel.com/) **don't forget to add env variables**
-- _(optional)_ Create [Tina Cloud account](https://app.tina.io/), [a project](https://tina.io/docs/tina-cloud/) and fill these `NEXT_PUBLIC_ORGANIZATION_NAME`, `NEXT_PUBLIC_TINA_CLIENT_ID` env vars with proper values
-  > Tina's Content API authenticates directly with GitHub removing the need for users to create GitHub accounts. Access is granted through the dashboard, allowing users to login directly through your site and begin editing! Any changes that are saved by your editors will be commited to the configured branch in your GitHub repository.
-  - For more details [see the docs](https://tina.io/docs/tina-cloud/)
+# MDB Quick Start (5 minutes):
+**Written Tutorial**: https://mdbootstrap.com/education/bootstrap/quick-start/
 
-```
-# run the dev mode
-$ yarn dev
+**Video Tutorial**:https://www.youtube.com/watch?v=cXTThxoywNQ&t=9s
 
-# run the prod mode
-yarn start
+**npm installation**
+You can install MDBootstrap using NPM:
+- `npm install mdbootstrap`
 
-# build the app
-yarn build
-```
+# Additional tutorials:
 
-> Hint: To edit the blog pages go to [/admin](http://localhost:3000/admin) and navigate to a blog page to edit it. To exit editing mode navigate to [/admin/logout](http://localhost:3000/admin/logout)
+**MDB - Bootstrap tutorial**: https://mdbootstrap.com/education/bootstrap/
 
-## 🚀 One click deploy
+**MDB - Wordpress tutorial**: https://mdbootstrap.com/education/wordpress/
 
-Clone the repository and one-click deploy to Vercel for free!
+# Documentation:
 
-[![Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/Blazity/next-saas-starter)
+**Huge, detailed documentation avilable online on**: https://mdbootstrap.com/
 
-Clone the repository and one-click deploy to Netlify for free!
+# PRO templates:
 
-[![Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/Blazity/next-saas-starter)
+**MDB Templates Pro**: https://mdbootstrap.com/templates/
 
-## 🧰 Built With
+# Highlights:  
+**Bootstrap 4**  
+Thanks to MDB you can take advantage of all feature of newest Bootstrap 4.
 
-- Statically generated pages with [**Next.js** ](https://github.com/vercel/next.js)
-- [Styled components](https://github.com/styled-components/styled-components/)
-- [MDX](https://github.com/mdx-js/mdx)
-- [TypeScript](https://github.com/Microsoft/TypeScript)
+**Material Design for Bootstrap**  
+This template is built with MDBootstrap - powerful and free UI Kit, containing 400+ material UI elements, 600+ material icons, 74 CSS animations, SASS files, templates, tutorials and many more.  
 
-## 🤲🏻 Contributing
+**Free for personal and commercial use**  
+Our license is user-friendly. Feel free to use MDB for both private as well as commercial projects.   
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+**10 fresh ready to use templates**  
+We are going further and giving to you ready to use templates! Use them as you like, as an inspiration, prototype or final product for your customers.  
 
-- If you have suggestions for adding or removing projects, feel free to [open an issue](https://github.com/Blazity/next-saas-starter/issues/new) to discuss it, or directly create a pull request after you edit the _README.md_ file with necessary changes.
-- Create individual PR for each suggestion.
+**Fully responsive**  
+It doesn't matter whether your project will be displayed on desktop, laptop, tablet or mobile phone. MDB looks great on each screen.
 
-### Creating A Pull Request
+**Technical support**  
+We really care about reliability. If you have any questions - do not hesitate to contact us.  
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+**Active community**  
+Our society grows day by day. Visit **our forum** and check how it is to be a part of our family.  
 
-## 😎 Acknowledgements
+**Flex box**  
+MDB fully suppports Flex Box. You can forget about alignment issues.  
 
-Big thanks to authors of these libraries:
+**Latest jQuery**  
+MDB is integrated with newest jQuery, therefore you can use all the newest features which comes along with it.  
 
-- https://github.com/neg4n/next-api-og-image - generating open graph images
-- https://github.com/blazity/nextjs-color-mode - non-flickering dark mode
-- https://github.com/Brew-Brew/css-in-js-media - a convenient way of creating media queries
+**Detailed documentation:**  
+We give you detailed documentation at your disposal. It will help you to implement your ideas easily.  
 
-## Support
+A big **thank you to all our users** who are working with us to improve the software. We wouldn't be where we are without you.  
 
-If you're looking for help or simply want to share your thoughts about the project, we encourage you to join our Discord community. Here's the link: [https://blazity.com/discord](https://blazity.com/discord). It's a space where we exchange ideas and help one another. Everyone's input is appreciated, and we look forward to welcoming you.
+# Useful Links:  
 
-## ✨ Contributors
+Getting started: https://mdbootstrap.com/docs/jquery/getting-started/download/  
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+5 min quick start: https://mdbootstrap.com/education/bootstrap/quick-start/  
 
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="https://bstefanski.com/"><img src="https://avatars.githubusercontent.com/u/28964599?v=4?s=64" width="64px;" alt=""/><br /><sub><b>Bart Stefanski</b></sub></a><br /><a href="https://github.com/Blazity/next-saas-starter/commits?author=bmstefanski" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/ilasota"><img src="https://avatars.githubusercontent.com/u/34578189?v=4?s=64" width="64px;" alt=""/><br /><sub><b>Igor Lasota</b></sub></a><br /><a href="https://github.com/Blazity/next-saas-starter/commits?author=ilasota" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/jbryn"><img src="https://avatars.githubusercontent.com/u/52970664?v=4?s=64" width="64px;" alt=""/><br /><sub><b>Jan Bryński</b></sub></a><br /><a href="https://github.com/Blazity/next-saas-starter/commits?author=jbryn" title="Code">💻</a></td>
-    <td align="center"><a href="https://www.logana.dev/"><img src="https://avatars.githubusercontent.com/u/43075109?v=4?s=64" width="64px;" alt=""/><br /><sub><b>Logan Anderson</b></sub></a><br /><a href="https://github.com/Blazity/next-saas-starter/commits?author=logan-anderson" title="Code">💻</a> <a href="https://github.com/Blazity/next-saas-starter/commits?author=logan-anderson" title="Documentation">📖</a> <a href="#mentoring-logan-anderson" title="Mentoring">🧑‍🏫</a></td>
-  </tr>
-</table>
+Material Design + Bootstrap Tutorial: https://mdbootstrap.com/education/bootstrap/  
 
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
+Material Design + WordPress Tutorial: https://mdbootstrap.com/education/wordpress/  
 
-<!-- ALL-CONTRIBUTORS-LIST:END -->
+Other Freebies: https://mdbootstrap.com/freebies/  
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+Premium Templates: https://mdbootstrap.com/templates/  
 
-## 📝 License
 
-Distributed under the MIT License. See [LICENSE](https://github.com/Blazity/next-saas-starter/blob/main/LICENSE.md) for more information.
+# Social Media:  
+
+Twitter: https://twitter.com/MDBootstrap  
+
+Facebook: https://www.facebook.com/mdbootstrap  
+
+Pinterest: https://pl.pinterest.com/mdbootstrap 
+
+Google+: https://plus.google.com/u/0/b/107863090883699620484/+Mdbootstrap/posts  
+
+Dribbble: https://dribbble.com/mdbootstrap
+
+LinkedIn: https://www.linkedin.com/company/material-design-for-bootstrap
+
+# Visit our website: https://mdbootstrap.com/
