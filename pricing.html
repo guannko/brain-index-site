@@ -5,7 +5,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Material Design Bootstrap</title>
+  <title>Pricing - Brain Index</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
   <!-- Bootstrap core CSS -->
@@ -14,315 +16,242 @@
   <link href="css/mdb.min.css" rel="stylesheet">
   <!-- Your custom styles (optional) -->
   <link href="css/style.min.css" rel="stylesheet">
+  <!-- Brain Index custom styles -->
+  <link href="css/brain-index.css" rel="stylesheet">
 </head>
 
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar fixed-top navbar-expand-lg navbar-dark mdb-color darken-3">
-    <div class="container">
+  <header>
+    <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="background-color: rgba(255,255,255,0.95); backdrop-filter: blur(10px);">
+      <div class="container">
+        <!-- Brand -->
+        <a class="navbar-brand" href="index.html" style="font-size: 1.7rem; text-decoration: none; font-family: system-ui, -apple-system, sans-serif;">
+          <span style="color: #000; font-weight: 800;">BRAIN</span> <span style="color: #FF9500; font-weight: 400;">INDEX</span>
+        </a>
 
-      <!-- Brand -->
-      <a class="navbar-brand" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
-        <strong>MDB</strong>
-      </a>
+        <!-- Collapse -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-      <!-- Collapse -->
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        <!-- Links -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <!-- Centered nav -->
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+              <a class="nav-link text-dark" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-dark" href="index.html#features">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-dark" href="index.html#how-it-works">How it Works</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link text-dark" href="pricing.html">Pricing</a>
+            </li>
+          </ul>
 
-      <!-- Links -->
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-        <!-- Left -->
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://mdbootstrap.com/docs/jquery/" target="_blank">About MDB</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank">Free
-              download</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://mdbootstrap.com/education/bootstrap/" target="_blank">Free tutorials</a>
-          </li>
-        </ul>
-
-        <!-- Right -->
-        <ul class="navbar-nav nav-flex-icons">
-          <li class="nav-item">
-            <a href="https://www.facebook.com/mdbootstrap" class="nav-link" target="_blank">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="https://twitter.com/MDBootstrap" class="nav-link" target="_blank">
-              <i class="fab fa-twitter"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link" target="_blank">
-              <i class="fab fa-github mr-2"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded"
-              target="_blank">
-              <i class="fas fa-user mr-2"></i>Sing Up
-            </a>
-          </li>
-        </ul>
-
+          <!-- Right -->
+          <ul class="navbar-nav nav-flex-icons">
+            <li class="nav-item">
+              <a href="#" class="nav-link border border-primary rounded text-primary">
+                <i class="fas fa-user mr-2"></i>Sign Up
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
-
-    </div>
-  </nav>
-  <!-- Navbar -->
+    </nav>
+    <!-- Navbar -->
+  </header>
 
   <!--Main layout-->
-  <main class="mt-5 pt-4">
+  <main class="mt-5 pt-5">
     <div class="container">
 
-      <h3 class="my-5 h3 text-center">Our pricing plans</h3>
+      <!--Section: Pricing-->
+      <section class="text-center">
+        
+        <!-- Heading -->
+        <h2 class="h1-responsive font-weight-bold mt-5 mb-3">Choose Your Plan</h2>
+        <p class="lead grey-text mb-5">Start free and scale as you grow. No hidden fees.</p>
 
-      <!--Grid row-->
-      <div class="row d-flex justify-content-center">
+        <!-- Grid row -->
+        <div class="row">
 
-        <!--Grid column-->
-        <div class="col-md-8 text-center">
-
-          <p class="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo qui laboriosam nihil
-            reiciendis fugit eius nostrum
-            ipsum odio, voluptate debitis laborum perspiciatis voluptatibus? Culpa expedita rem totam eos fugit atque!</p>
-
-        </div>
-        <!--Grid column-->
-
-      </div>
-      <!--Grid row-->
-
-      <!--Grid row-->
-      <div class="row text-center wow fadeIn">
-
-        <!--Grid column-->
-        <div class="col-lg-4 col-md-12 mb-4">
-
-          <!--Card-->
-          <div class="card">
-
-            <!-- Card header -->
-            <div class="card-header">
-              <h4>
-                <strong>Free</strong>
-              </h4>
+          <!-- Free tier -->
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="font-weight-bold mt-2">Free</h5>
+                <div class="price pt-0">
+                  <h2 class="number mb-0">€0</h2>
+                </div>
+                <ul class="list-unstyled text-left mt-3">
+                  <li><i class="fas fa-check text-success mr-2"></i>5 AI checks per month</li>
+                  <li><i class="fas fa-check text-success mr-2"></i>Basic visibility score</li>
+                  <li><i class="fas fa-check text-success mr-2"></i>ChatGPT only</li>
+                  <li><i class="fas fa-times text-muted mr-2"></i>No competitor analysis</li>
+                  <li><i class="fas fa-times text-muted mr-2"></i>No monitoring</li>
+                  <li><i class="fas fa-times text-muted mr-2"></i>No API access</li>
+                </ul>
+                <a href="#" class="btn btn-outline-primary btn-block">Start Free</a>
+              </div>
             </div>
-
-            <!--Card content-->
-            <div class="card-body">
-
-              <h3 class="card-title pricing-card-title mb-4">$0
-                <small class="text-muted">/ mo</small>
-              </h3>
-
-              <ol class="list-unstyled mb-4">
-                <li>10 users included
-                  <i class="fas fa-check green-text ml-1"></i>
-                </li>
-                <hr>
-                <li>2 GB of storage
-                  <i class="fas fa-check green-text ml-1"></i>
-                </li>
-                <hr>
-                <li>Email support
-                  <i class="fas fa-check green-text ml-1"></i>
-                </li>
-                <hr>
-                <li>Help center access
-                  <i class="fas fa-check green-text ml-1"></i>
-                </li>
-              </ol>
-
-              <button type="button" class="btn btn-lg btn-block btn-outline-primary waves-effect">Sign up for free</button>
-
-            </div>
-
           </div>
-          <!--/.Card-->
 
-        </div>
-        <!--Grid column-->
-
-        <!--Grid column-->
-        <div class="col-lg-4 col-md-6 mb-4">
-
-          <!--Card-->
-          <div class="card">
-
-            <!-- Card header -->
-            <div class="card-header">
-              <h4>
-                <strong>Pro</strong>
-              </h4>
+          <!-- Starter tier -->
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="font-weight-bold mt-2">Starter</h5>
+                <div class="price pt-0">
+                  <h2 class="number mb-0">€99</h2>
+                  <p class="text-muted">per month</p>
+                </div>
+                <ul class="list-unstyled text-left mt-3">
+                  <li><i class="fas fa-check text-success mr-2"></i>50 AI checks per month</li>
+                  <li><i class="fas fa-check text-success mr-2"></i>Detailed reports</li>
+                  <li><i class="fas fa-check text-success mr-2"></i>3 AI systems</li>
+                  <li><i class="fas fa-check text-success mr-2"></i>Basic competitor analysis</li>
+                  <li><i class="fas fa-check text-success mr-2"></i>Weekly monitoring</li>
+                  <li><i class="fas fa-times text-muted mr-2"></i>No API access</li>
+                </ul>
+                <a href="#" class="btn btn-primary btn-block">Get Started</a>
+              </div>
             </div>
-
-            <!--Card content-->
-            <div class="card-body">
-
-              <h3 class="card-title pricing-card-title mb-4">$15
-                <small class="text-muted">/ mo</small>
-              </h3>
-
-              <ol class="list-unstyled mb-4">
-                <li>20 users included
-                  <i class="fas fa-check green-text ml-1"></i>
-                </li>
-                <hr>
-                <li>10 GB of storage
-                  <i class="fas fa-check green-text ml-1"></i>
-                </li>
-                <hr>
-                <li>Priority email support
-                  <i class="fas fa-check green-text ml-1"></i>
-                </li>
-                <hr>
-                <li>Help center access
-                  <i class="fas fa-check green-text ml-1"></i>
-                </li>
-              </ol>
-
-              <button type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
-
-            </div>
-
           </div>
-          <!--/.Card-->
 
-        </div>
-        <!--Grid column-->
-
-        <!--Grid column-->
-        <div class="col-lg-4 col-md-6 mb-4">
-
-          <!--Card-->
-          <div class="card">
-
-            <!-- Card header -->
-            <div class="card-header">
-              <h4>
-                <strong>Enterprise</strong>
-              </h4>
+          <!-- Professional tier - POPULAR -->
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card border-primary">
+              <div class="card-body">
+                <div class="ribbon ribbon-top-right"><span>POPULAR</span></div>
+                <h5 class="font-weight-bold mt-2">Professional</h5>
+                <div class="price pt-0">
+                  <h2 class="number text-primary mb-0">€399</h2>
+                  <p class="text-muted">per month</p>
+                </div>
+                <ul class="list-unstyled text-left mt-3">
+                  <li><i class="fas fa-check text-success mr-2"></i>200 AI checks per month</li>
+                  <li><i class="fas fa-check text-success mr-2"></i>Advanced analytics</li>
+                  <li><i class="fas fa-check text-success mr-2"></i>All AI systems</li>
+                  <li><i class="fas fa-check text-success mr-2"></i>Full competitor tracking</li>
+                  <li><i class="fas fa-check text-success mr-2"></i>Daily monitoring</li>
+                  <li><i class="fas fa-check text-success mr-2"></i>API access (1000 calls)</li>
+                </ul>
+                <a href="#" class="btn btn-primary btn-block">Get Started</a>
+              </div>
             </div>
-
-            <!--Card content-->
-            <div class="card-body">
-
-              <h3 class="card-title pricing-card-title mb-4">$29
-                <small class="text-muted">/ mo</small>
-              </h3>
-
-              <ol class="list-unstyled mb-4">
-                <li>30 users included
-                  <i class="fas fa-check green-text ml-1"></i>
-                </li>
-                <hr>
-                <li>15 GB of storage
-                  <i class="fas fa-check green-text ml-1"></i>
-                </li>
-                <hr>
-                <li>Phone and email support
-                  <i class="fas fa-check green-text ml-1"></i>
-                </li>
-                <hr>
-                <li>Help center access
-                  <i class="fas fa-check green-text ml-1"></i>
-                </li>
-              </ol>
-
-              <button type="button" class="btn btn-lg btn-block btn-primary waves-effect">Get started</button>
-
-            </div>
-
           </div>
-          <!--/.Card-->
+
+          <!-- Enterprise tier -->
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="font-weight-bold mt-2">Enterprise</h5>
+                <div class="price pt-0">
+                  <h2 class="number mb-0">€1999</h2>
+                  <p class="text-muted">per month</p>
+                </div>
+                <ul class="list-unstyled text-left mt-3">
+                  <li><i class="fas fa-check text-success mr-2"></i>Unlimited AI checks</li>
+                  <li><i class="fas fa-check text-success mr-2"></i>Custom reports</li>
+                  <li><i class="fas fa-check text-success mr-2"></i>All AI systems + custom</li>
+                  <li><i class="fas fa-check text-success mr-2"></i>Unlimited competitors</li>
+                  <li><i class="fas fa-check text-success mr-2"></i>Real-time monitoring</li>
+                  <li><i class="fas fa-check text-success mr-2"></i>Unlimited API access</li>
+                </ul>
+                <a href="#" class="btn btn-outline-primary btn-block">Contact Sales</a>
+              </div>
+            </div>
+          </div>
 
         </div>
-        <!--Grid column-->
+        <!-- Grid row -->
 
-      </div>
-      <!--Grid row-->
+        <!-- Agency tier -->
+        <div class="row mt-5">
+          <div class="col-md-8 mx-auto">
+            <div class="card bg-light">
+              <div class="card-body py-5">
+                <h3 class="font-weight-bold">Agency & White-label</h3>
+                <p class="lead">Need a custom solution for your agency or want to offer GEO services under your brand?</p>
+                <p class="h4 mb-4">Starting from <strong>€3999</strong>/month</p>
+                <ul class="list-inline">
+                  <li class="list-inline-item"><i class="fas fa-check text-success"></i> White-label dashboard</li>
+                  <li class="list-inline-item"><i class="fas fa-check text-success"></i> Multi-client management</li>
+                  <li class="list-inline-item"><i class="fas fa-check text-success"></i> Custom branding</li>
+                  <li class="list-inline-item"><i class="fas fa-check text-success"></i> Priority support</li>
+                </ul>
+                <a href="#" class="btn btn-primary btn-lg">Contact Us</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+      <!--Section: Pricing-->
+
+      <hr class="my-5">
+
+      <!--Section: FAQ-->
+      <section>
+        <h3 class="text-center mb-4 pb-2 font-weight-bold">FAQ</h3>
+        <p class="text-center mb-5">Find answers to frequently asked questions about our pricing and plans.</p>
+
+        <div class="row">
+          <div class="col-md-6 col-lg-4 mb-4">
+            <h6 class="mb-3 text-primary"><i class="far fa-paper-plane text-primary pe-2"></i> Can I change plans anytime?</h6>
+            <p>Yes! You can upgrade or downgrade your plan at any time. Changes take effect on your next billing cycle.</p>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4">
+            <h6 class="mb-3 text-primary"><i class="fas fa-pen-alt text-primary pe-2"></i> Is there a setup fee?</h6>
+            <p>No, there are no setup fees or hidden charges. You only pay the monthly subscription price.</p>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4">
+            <h6 class="mb-3 text-primary"><i class="fas fa-user text-primary pe-2"></i> Can I cancel anytime?</h6>
+            <p>Absolutely! You can cancel your subscription at any time with no cancellation fees.</p>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4">
+            <h6 class="mb-3 text-primary"><i class="fas fa-rocket text-primary pe-2"></i> What counts as an AI check?</h6>
+            <p>Each analysis of your brand across AI systems counts as one check. Reports and monitoring don't count extra.</p>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4">
+            <h6 class="mb-3 text-primary"><i class="fas fa-home text-primary pe-2"></i> Do you offer annual billing?</h6>
+            <p>Yes! Annual billing gives you 2 months free (pay for 10 months, get 12).</p>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4">
+            <h6 class="mb-3 text-primary"><i class="fas fa-book-open text-primary pe-2"></i> Is there a free trial?</h6>
+            <p>Our Free plan lets you test the platform with 5 checks per month, no credit card required.</p>
+          </div>
+        </div>
+      </section>
+      <!--Section: FAQ-->
 
     </div>
   </main>
   <!--Main layout-->
 
   <!--Footer-->
-  <footer class="page-footer text-center font-small mt-5 wow fadeIn">
-
-    <!--Call to action-->
-    <div class="pt-4">
-      <a class="btn btn-outline-white" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank"
-        role="button">Download MDB
-        <i class="fas fa-download ml-2"></i>
-      </a>
-      <a class="btn btn-outline-white" href="https://mdbootstrap.com/education/bootstrap/" target="_blank" role="button">Start
-        free tutorial
-        <i class="fas fa-graduation-cap ml-2"></i>
-      </a>
-    </div>
-    <!--/.Call to action-->
-
+  <footer class="page-footer text-center font-small mt-4 wow fadeIn">
     <hr class="my-4">
-
-    <!-- Social icons -->
-    <div class="pb-4">
-      <a href="https://www.facebook.com/mdbootstrap" target="_blank">
-        <i class="fab fa-facebook-f mr-3"></i>
-      </a>
-
-      <a href="https://twitter.com/MDBootstrap" target="_blank">
-        <i class="fab fa-twitter mr-3"></i>
-      </a>
-
-      <a href="https://www.youtube.com/watch?v=7MUISDJ5ZZ4" target="_blank">
-        <i class="fab fa-youtube mr-3"></i>
-      </a>
-
-      <a href="https://plus.google.com/u/0/b/107863090883699620484" target="_blank">
-        <i class="fab fa-google-plus-g mr-3"></i>
-      </a>
-
-      <a href="https://dribbble.com/mdbootstrap" target="_blank">
-        <i class="fab fa-dribbble mr-3"></i>
-      </a>
-
-      <a href="https://pinterest.com/mdbootstrap" target="_blank">
-        <i class="fab fa-pinterest mr-3"></i>
-      </a>
-
-      <a href="https://github.com/mdbootstrap/bootstrap-material-design" target="_blank">
-        <i class="fab fa-github mr-3"></i>
-      </a>
-
-      <a href="http://codepen.io/mdbootstrap/" target="_blank">
-        <i class="fab fa-codepen mr-3"></i>
-      </a>
-    </div>
-    <!-- Social icons -->
-
     <!--Copyright-->
     <div class="footer-copyright py-3">
-      © 2019 Copyright:
-      <a href="https://mdbootstrap.com/education/bootstrap/" target="_blank"> MDBootstrap.com </a>
+      © 2025 Brain Index. All rights reserved. | 
+      <a href="/privacy">Privacy Policy</a> | 
+      <a href="/terms">Terms of Service</a>
     </div>
     <!--/.Copyright-->
-
   </footer>
   <!--/.Footer-->
 
@@ -335,12 +264,38 @@
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="js/mdb.min.js"></script>
-  <!-- Initializations -->
-  <script type="text/javascript">
-    // Animations initialization
-    new WOW().init();
-
-  </script>
+  
+  <style>
+    .ribbon {
+      position: absolute;
+      right: -5px; top: -5px;
+      z-index: 1;
+      overflow: hidden;
+      width: 75px; height: 75px;
+      text-align: right;
+    }
+    .ribbon span {
+      font-size: 10px;
+      font-weight: bold;
+      color: #FFF;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 20px;
+      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+      width: 100px;
+      display: block;
+      background: #79A70A;
+      background: linear-gradient(#F70505 0%, #8F0808 100%);
+      box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+      position: absolute;
+      top: 19px; right: -21px;
+    }
+    .price h2 {
+      font-size: 3rem;
+      font-weight: 700;
+    }
+  </style>
 </body>
 
 </html>

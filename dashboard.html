@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Brain Index - Client Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+  <style>
+    :root {
+      --bs-primary: #1565C0;
+      --bs-orange: #FF6B35;
+    }
+    .sidebar { 
+      min-height: 100vh; 
+      background: linear-gradient(180deg, #1565C0 0%, #0D47A1 100%);
+    }
+    .sidebar .nav-link { 
+      color: rgba(255,255,255,0.8); 
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .sidebar .nav-link:hover { 
+      color: #fff; 
+      background: rgba(255,255,255,0.1);
+    }
+    .sidebar .nav-link.active { 
+      color: #fff; 
+      background: rgba(255,255,255,0.2);
+    }
+    .visibility-score {
+      font-size: 3rem;
+      font-weight: bold;
+    }
+    .score-good { color: #198754; }
+    .score-medium { color: #ffc107; }
+    .score-poor { color: #dc3545; }
+    .analysis-card {
+      border-left: 4px solid #FF6B35;
+      transition: transform 0.2s;
+    }
+    .analysis-card:hover {
+      transform: translateX(5px);
+    }
+  </style>
+</head>
+<body class="bg-light">
+  
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <nav class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+        <div class="position-sticky pt-3">
+          <div class="text-center text-white py-4">
+            <h5><span style="font-weight: 800;">BRAIN</span> <span style="font-weight: 400; color: #FF9500;">INDEX</span></h5>
+            <small class="text-white-50">Client Portal</small>
+          </div>
+          
+          <div class="px-3 mb-4">
+            <div class="card bg-white bg-opacity-10 text-white">
+              <div class="card-body">
+                <h6>Welcome back!</h6>
+                <p class="mb-0">John Doe</p>
+                <small>Professional Plan</small>
+              </div>
+            </div>
+          </div>
+
+          <ul class="nav flex-column px-3">
+            <li class="nav-item">
+              <a class="nav-link active" href="#dashboard">
+                <i class="bi bi-speedometer2"></i> Dashboard
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#analyses">
+                <i class="bi bi-graph-up"></i> My Analyses
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#reports">
+                <i class="bi bi-file-earmark-text"></i> Reports
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#competitors">
+                <i class="bi bi-people"></i> Competitors
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#subscription">
+                <i class="bi bi-credit-card"></i> Subscription
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#settings">
+                <i class="bi bi-gear"></i> Settings
+              </a>
+            </li>
+            <li class="nav-item mt-4">
+              <a class="nav-link text-white-50" href="#">
+                <i class="bi bi-box-arrow-right"></i> Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Main content -->
+      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <!-- Header -->
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h1 class="h2">Dashboard</h1>
+          <div class="btn-toolbar mb-2 mb-md-0">
+            <button type="button" class="btn btn-primary">
+              <i class="bi bi-plus-circle"></i> New Analysis
+            </button>
+          </div>
+        </div>
+
+        <!-- AI Visibility Score -->
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col-md-8">
+                    <h5 class="card-title">Your Overall AI Visibility Score</h5>
+                    <p class="text-muted">Based on analysis across ChatGPT, Claude, Gemini, and Perplexity</p>
+                    <div class="progress" style="height: 30px;">
+                      <div class="progress-bar bg-warning" role="progressbar" style="width: 68%;" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100">68%</div>
+                    </div>
+                    <div class="mt-3">
+                      <span class="badge bg-success me-2">ChatGPT: 75%</span>
+                      <span class="badge bg-warning me-2">Claude: 62%</span>
+                      <span class="badge bg-warning me-2">Gemini: 58%</span>
+                      <span class="badge bg-danger me-2">Perplexity: 45%</span>
+                    </div>
+                  </div>
+                  <div class="col-md-4 text-center">
+                    <div class="visibility-score score-medium">68%</div>
+                    <p class="text-muted">Room for improvement</p>
+                    <button class="btn btn-outline-primary">View Recommendations</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="row mb-4">
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="text-muted">Analyses This Month</h6>
+                <h3>47 / 200</h3>
+                <small class="text-success"><i class="bi bi-arrow-up"></i> 12% from last month</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="text-muted">Competitors Tracked</h6>
+                <h3>5</h3>
+                <small class="text-muted">Max: 10</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="text-muted">Reports Generated</h6>
+                <h3>23</h3>
+                <small class="text-success"><i class="bi bi-arrow-up"></i> New report available</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="text-muted">Plan Usage</h6>
+                <h3>23.5%</h3>
+                <small class="text-muted">153 checks remaining</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Analyses -->
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Recent Analyses</h5>
+                <a href="#" class="btn btn-sm btn-outline-primary">View All</a>
+              </div>
+              <div class="card-body">
+                <div class="analysis-card card mb-3">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                      <div>
+                        <h6>Brand Analysis - Main Website</h6>
+                        <p class="text-muted mb-1">Analyzed: December 15, 2024</p>
+                        <div>
+                          <span class="badge bg-success">ChatGPT: 82%</span>
+                          <span class="badge bg-warning">Claude: 65%</span>
+                          <span class="badge bg-danger">Gemini: 43%</span>
+                        </div>
+                      </div>
+                      <div>
+                        <button class="btn btn-sm btn-outline-primary">View Report</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="analysis-card card mb-3">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                      <div>
+                        <h6>Product Page Analysis</h6>
+                        <p class="text-muted mb-1">Analyzed: December 12, 2024</p>
+                        <div>
+                          <span class="badge bg-warning">ChatGPT: 71%</span>
+                          <span class="badge bg-warning">Claude: 68%</span>
+                          <span class="badge bg-success">Gemini: 76%</span>
+                        </div>
+                      </div>
+                      <div>
+                        <button class="btn btn-sm btn-outline-primary">View Report</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="analysis-card card">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                      <div>
+                        <h6>Competitor Comparison</h6>
+                        <p class="text-muted mb-1">Analyzed: December 10, 2024</p>
+                        <div>
+                          <span class="badge bg-info text-dark">3 Competitors</span>
+                          <span class="badge bg-success">You rank #2</span>
+                        </div>
+                      </div>
+                      <div>
+                        <button class="btn btn-sm btn-outline-primary">View Report</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recommendations -->
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="mb-0">Top Recommendations</h5>
+              </div>
+              <div class="card-body">
+                <div class="mb-3">
+                  <div class="d-flex align-items-center mb-2">
+                    <div class="badge bg-danger me-2">High Priority</div>
+                  </div>
+                  <h6>Add Schema.org Markup</h6>
+                  <p class="small text-muted">Implement structured data to improve AI understanding of your content</p>
+                  <small class="text-success">+15% visibility boost</small>
+                </div>
+                
+                <hr>
+                
+                <div class="mb-3">
+                  <div class="d-flex align-items-center mb-2">
+                    <div class="badge bg-warning text-dark me-2">Medium Priority</div>
+                  </div>
+                  <h6>Update Product Descriptions</h6>
+                  <p class="small text-muted">Make descriptions more factual and citation-friendly</p>
+                  <small class="text-success">+8% visibility boost</small>
+                </div>
+                
+                <hr>
+                
+                <div>
+                  <div class="d-flex align-items-center mb-2">
+                    <div class="badge bg-info text-dark me-2">Low Priority</div>
+                  </div>
+                  <h6>Add Wikipedia Citations</h6>
+                  <p class="small text-muted">Reference Wikipedia where relevant to build authority</p>
+                  <small class="text-success">+5% visibility boost</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

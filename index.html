@@ -5,7 +5,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Material Design Bootstrap</title>
+  <title>Brain Index - AI Visibility Analytics Platform</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
   <!-- Bootstrap core CSS -->
@@ -14,6 +16,8 @@
   <link href="css/mdb.min.css" rel="stylesheet">
   <!-- Your custom styles (optional) -->
   <link href="css/style.min.css" rel="stylesheet">
+  <!-- Brain Index custom styles -->
+  <link href="css/brain-index.css" rel="stylesheet">
   <style type="text/css">
     html,
     body,
@@ -23,7 +27,6 @@
     }
 
     @media (max-width: 740px) {
-
       html,
       body,
       header,
@@ -33,7 +36,6 @@
     }
 
     @media (min-width: 800px) and (max-width: 850px) {
-
       html,
       body,
       header,
@@ -41,27 +43,18 @@
         height: 700px;
       }
     }
-
-    @media (min-width: 800px) and (max-width: 850px) {
-      .navbar:not(.top-nav-collapse) {
-        background: #1C2331 !important;
-      }
-    }
-
   </style>
 </head>
 
 <body>
 
   <header>
-
     <!-- Navbar -->
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="background-color: rgba(255,255,255,0.95); backdrop-filter: blur(10px);">
       <div class="container">
-
         <!-- Brand -->
-        <a class="navbar-brand" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
-          <strong>MDB</strong>
+        <a class="navbar-brand" href="#" style="font-size: 1.7rem; text-decoration: none; font-family: system-ui, -apple-system, sans-serif;">
+          <span style="color: #000; font-weight: 800;">BRAIN</span> <span style="color: #FF9500; font-weight: 400;">INDEX</span>
         </a>
 
         <!-- Collapse -->
@@ -72,123 +65,86 @@
 
         <!-- Links -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-          <!-- Left -->
-          <ul class="navbar-nav mr-auto">
+          <!-- Centered nav -->
+          <ul class="navbar-nav mx-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Home
-                <span class="sr-only">(current)</span>
-              </a>
+              <a class="nav-link text-dark" href="#">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="https://mdbootstrap.com/docs/jquery/" target="_blank">About MDB</a>
+              <a class="nav-link text-dark" href="#features">Features</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank">Free
-                download</a>
+              <a class="nav-link text-dark" href="#how-it-works">How it Works</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="https://mdbootstrap.com/education/bootstrap/" target="_blank">Free tutorials</a>
+              <a class="nav-link text-dark" href="pricing.html">Pricing</a>
             </li>
           </ul>
 
           <!-- Right -->
           <ul class="navbar-nav nav-flex-icons">
             <li class="nav-item">
-              <a href="https://www.facebook.com/mdbootstrap" class="nav-link" target="_blank">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="https://twitter.com/MDBootstrap" class="nav-link" target="_blank">
-                <i class="fab fa-twitter"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link" target="_blank">
-                <i class="fab fa-github mr-2"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded"
-                target="_blank">
-                <i class="fas fa-user mr-2"></i>Sing Up
+              <a href="#" class="nav-link border border-primary rounded text-primary">
+                <i class="fas fa-user mr-2"></i>Sign Up
               </a>
             </li>
           </ul>
-
         </div>
-
       </div>
     </nav>
     <!-- Navbar -->
 
     <!-- Full Page Intro -->
     <div class="view full-page-intro">
-
-      <!--Video source-->
-      <video class="video-intro" autoplay loop muted>
-        <source src="https://mdbootstrap.com/img/video/animation-intro.mp4" type="video/mp4" />
-      </video>
-
       <!-- Mask & flexbox options-->
       <div class="mask rgba-blue-light d-flex justify-content-center align-items-center">
-
         <!-- Content -->
         <div class="container">
-
           <!--Grid row-->
           <div class="row d-flex h-100 justify-content-center align-items-center wow fadeIn">
-
             <!--Grid column-->
             <div class="col-md-6 mb-4 white-text text-center text-md-left">
-
-              <h1 class="display-4 font-weight-bold">Learn Bootstrap 4 with MDB</h1>
-
+              <h1 class="display-4 font-weight-bold">Is Your Brand Visible in AI?</h1>
               <hr class="hr-light">
-
               <p>
-                <strong>Best & free guide of responsive web design</strong>
+                <strong>Check how ChatGPT, Claude, and other AI systems see your brand</strong>
               </p>
-
               <p class="mb-4 d-none d-md-block">
-                <strong>The most comprehensive tutorial for the Bootstrap 4. Loved by over 500 000 users. Video and
-                  written versions
-                  available. Create your own, stunning website.</strong>
+                <strong>Discover your AI visibility score, track competitors, and get actionable insights to improve your presence in AI-powered search results.</strong>
               </p>
-
-              <a target="_blank" href="https://mdbootstrap.com/education/bootstrap/" class="btn btn-outline-white">Start
-                free tutorial
-                <i class="fas fa-graduation-cap ml-2"></i>
+              <a href="#analyze" class="btn btn-outline-white">Analyze Now
+                <i class="fas fa-search ml-2"></i>
               </a>
-              <a target="_blank" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" class="btn btn-outline-white">Download
-                MDB
-                <i class="fas fa-download ml-2"></i>
+              <a href="#features" class="btn btn-outline-white">Learn More
+                <i class="fas fa-arrow-right ml-2"></i>
               </a>
-
             </div>
             <!--Grid column-->
 
             <!--Grid column-->
             <div class="col-md-6 col-xl-5 mb-4">
-
-              <img src="https://mdbootstrap.com/img/Mockups/Transparent/Small/admin-new.png" alt="" class="img-fluid">
-
+              <div class="card">
+                <div class="card-body">
+                  <h3 class="text-center mb-4">Quick Analysis</h3>
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="brandInput" placeholder="Enter your brand name">
+                  </div>
+                  <button class="btn btn-primary btn-block" onclick="analyzeDemo()">
+                    <i class="fas fa-search mr-2"></i>Check AI Visibility
+                  </button>
+                  <p class="text-center mt-3 small">Free analysis • No credit card required</p>
+                </div>
+              </div>
             </div>
             <!--Grid column-->
-
           </div>
           <!--Grid row-->
-
         </div>
         <!-- Content -->
-
       </div>
       <!-- Mask & flexbox options-->
-
     </div>
     <!-- Full Page Intro -->
-
   </header>
 
   <!--Main layout-->
@@ -196,78 +152,428 @@
     <div class="container">
 
       <!--Section: Main info-->
-      <section class="mt-5 wow fadeIn">
-
+      <section class="mt-5 wow fadeIn" id="analyze">
         <!--Grid row-->
-        <div class="row">
-
+        <div class="row align-items-center">
           <!--Grid column-->
           <div class="col-md-6 mb-4">
-
-            <img src="https://mdbootstrap.com/img/Marketing/mdb-press-pack/mdb-main.jpg" class="img-fluid z-depth-1-half"
-              alt="">
-
+            <img src="img/logo-main.png" class="img-fluid z-depth-1-half" alt="Brain Index AI Analysis" style="max-width: 400px;">
           </div>
           <!--Grid column-->
 
           <!--Grid column-->
           <div class="col-md-6 mb-4">
-
             <!-- Main heading -->
-            <h3 class="h3 mb-3">Material Design for Bootstrap</h3>
-            <p>This template is created with Material Design for Bootstrap (
-              <strong>MDB</strong> ) framework.</p>
-            <p>Read details below to learn more about MDB.</p>
+            <h3 class="h3 mb-3">AI Visibility Analytics</h3>
+            <p class="lead">Understand how artificial intelligence systems perceive and present your brand to millions of users worldwide.</p>
+            <p class="lead">Get detailed insights and actionable recommendations.</p>
             <!-- Main heading -->
-
             <hr>
-
-            <p>
-              <strong>400+</strong> material UI elements,
-              <strong>600+</strong> material icons,
-              <strong>74</strong> CSS animations, SASS files, templates, tutorials and many more.
-              <strong>Free for personal and commercial use.</strong>
+            <p class="lead">
+              <strong>10+</strong> AI systems analyzed •
+              <strong>Real-time</strong> monitoring •
+              <strong>Competitor</strong> tracking •
+              <strong>Actionable</strong> insights
             </p>
-
             <!-- CTA -->
-            <a target="_blank" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" class="btn btn-indigo btn-md">Download
-              <i class="fas fa-download ml-1"></i>
+            <a href="#" class="btn btn-indigo btn-md">Start Free Trial
+              <i class="fas fa-play ml-1"></i>
             </a>
-            <a target="_blank" href="https://mdbootstrap.com/docs/jquery/components/" class="btn btn-indigo btn-md">Live
-              demo
-              <i class="far fa-image ml-1"></i>
-            </a>
-
           </div>
           <!--Grid column-->
-
         </div>
         <!--Grid row-->
-
       </section>
       <!--Section: Main info-->
 
       <hr class="my-5">
 
+      <!--Section: What is GEO-->
+      <section class="my-5" id="what-is-geo">
+        <h2 class="h1-responsive font-weight-bold text-center my-5">What is GEO?</h2>
+        <p class="lead grey-text text-center w-responsive mx-auto mb-5">
+          Generative Engine Optimization (GEO) is the new frontier of digital visibility
+        </p>
+
+        <div class="row align-items-center">
+          <div class="col-lg-7 mb-4 order-lg-1">
+            <h3 class="font-weight-bold mb-3">From SEO to GEO: The Evolution</h3>
+            <p class="lead">While SEO helped you rank in Google search results, <strong>GEO ensures AI systems recommend your brand</strong> when users ask questions.</p>
+            
+            <p class="lead">Think about it: When someone asks ChatGPT "What's the best CRM for startups?" or "Recommend a restaurant in London" - <strong>is YOUR business mentioned?</strong></p>
+            
+            <div class="mb-4">
+              <span class="badge badge-primary mr-2 p-2">ChatGPT</span>
+              <span class="badge badge-info mr-2 p-2">Claude</span>
+              <span class="badge badge-success mr-2 p-2">Gemini</span>
+              <span class="badge badge-warning mr-2 p-2">Perplexity</span>
+              <span class="badge badge-danger p-2">Copilot</span>
+            </div>
+            
+            <p class="lead text-muted">These AI systems are becoming the primary way people discover products and services.</p>
+            
+            <a href="#how-geo-works" class="btn btn-primary btn-md">Learn How It Works
+              <i class="fas fa-arrow-down ml-1"></i>
+            </a>
+          </div>
+          
+          <div class="col-lg-5 mb-4 order-lg-2">
+            <div class="view overlay rounded z-depth-2">
+              <img src="img/geo-diagram-1.png" class="img-fluid" alt="GEO Architecture">
+            </div>
+          </div>
+        </div>
+      </section>
+      <!--Section: What is GEO-->
+
+      <!--Section: Video Demo-->
+      <section class="my-5 py-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-lg-5 mb-4 text-white">
+              <h2 class="h1-responsive font-weight-bold mb-4">See Brain Index in Action</h2>
+              <p class="lead mb-4">Watch how our platform analyzes your brand visibility across multiple AI systems in real-time.</p>
+              
+              <div class="mb-4">
+                <div class="d-flex align-items-center mb-3">
+                  <i class="fas fa-check-circle fa-2x mr-3"></i>
+                  <span class="h5 mb-0">Live AI Analysis Demo</span>
+                </div>
+                <div class="d-flex align-items-center mb-3">
+                  <i class="fas fa-check-circle fa-2x mr-3"></i>
+                  <span class="h5 mb-0">Real Results in 60 Seconds</span>
+                </div>
+                <div class="d-flex align-items-center mb-3">
+                  <i class="fas fa-check-circle fa-2x mr-3"></i>
+                  <span class="h5 mb-0">Actionable Recommendations</span>
+                </div>
+              </div>
+              
+              <a href="#analyze" class="btn btn-white btn-lg">
+                <i class="fas fa-play mr-2"></i> Try It Yourself
+              </a>
+            </div>
+            
+            <div class="col-lg-7 mb-4">
+              <div class="embed-responsive embed-responsive-16by9 z-depth-2 rounded" id="videoContainer">
+                <video class="embed-responsive-item" id="demoVideo" autoplay loop muted playsinline>
+                  <source src="video/demo.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <div class="video-overlay" id="videoOverlay">
+                  <i class="fas fa-pause-circle"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!--Section: Video Demo-->
+
+      <hr class="my-5">
+
+      <!--Section: Why GEO is the Future-->
+      <section class="my-5">
+        <h2 class="h1-responsive font-weight-bold text-center my-5">Why GEO is the Future</h2>
+        
+        <div class="row align-items-center mb-5">
+          <div class="col-lg-6 mb-4">
+            <div class="view overlay rounded z-depth-2">
+              <img src="img/geo-diagram-2.png" class="img-fluid" alt="GEO Process Flow">
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <h3 class="font-weight-bold mb-3">The Paradigm Shift</h3>
+            <p class="lead">Users no longer browse through search results. They get direct answers from AI.</p>
+            <ul class="list-unstyled lead">
+              <li class="mb-3"><i class="fas fa-check text-success mr-2"></i>Zero-click searches increasing</li>
+              <li class="mb-3"><i class="fas fa-check text-success mr-2"></i>AI gives instant recommendations</li>
+              <li class="mb-3"><i class="fas fa-check text-success mr-2"></i>Trust in AI responses growing</li>
+              <li class="mb-3"><i class="fas fa-check text-success mr-2"></i>Traditional SEO becoming less effective</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col-lg-6 order-lg-2 mb-4">
+            <div class="view overlay rounded z-depth-2">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="text-center mb-4">GEO vs SEO: Key Differences</h4>
+                  <table class="table table-sm">
+                    <tr>
+                      <td><strong>SEO</strong></td>
+                      <td><strong>GEO</strong></td>
+                    </tr>
+                    <tr>
+                      <td>Keyword focused</td>
+                      <td>Context focused</td>
+                    </tr>
+                    <tr>
+                      <td>Backlinks matter</td>
+                      <td>Authority matters</td>
+                    </tr>
+                    <tr>
+                      <td>Rankings = success</td>
+                      <td>Mentions = success</td>
+                    </tr>
+                    <tr>
+                      <td>Monthly updates</td>
+                      <td>Real-time learning</td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 order-lg-1">
+            <h3 class="font-weight-bold mb-3">First Mover Advantage</h3>
+            <p class="lead">While 95% of businesses focus on traditional SEO, you can dominate AI recommendations.</p>
+            <div class="alert alert-success">
+              <h5 class="alert-heading">Opportunity Window: NOW</h5>
+              <p class="mb-0">Early adopters of GEO are seeing 300%+ increases in qualified traffic while competition is still low.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!--Section: Why GEO is the Future-->
+
+      <hr class="my-5">
+
+      <!--Section: How GEO Works-->
+      <section id="how-geo-works">
+        <h2 class="my-5 h1-responsive font-weight-bold text-center">How GEO Works</h2>
+        
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card-deck">
+              
+              <div class="card mb-4">
+                <div class="card-body">
+                  <h4 class="card-title">1. Content Structure</h4>
+                  <p class="card-text">AI systems prefer well-structured, authoritative content with clear facts and citations.</p>
+                  <ul class="list-unstyled">
+                    <li>✓ Clear headings and sections</li>
+                    <li>✓ Factual, cited information</li>
+                    <li>✓ Structured data markup</li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div class="card mb-4">
+                <div class="card-body">
+                  <h4 class="card-title">2. Knowledge Graph</h4>
+                  <p class="card-text">Build connections between your brand and relevant topics in AI training data.</p>
+                  <ul class="list-unstyled">
+                    <li>✓ Wikipedia presence</li>
+                    <li>✓ Academic citations</li>
+                    <li>✓ News mentions</li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div class="card mb-4">
+                <div class="card-body">
+                  <h4 class="card-title">3. Authority Signals</h4>
+                  <p class="card-text">AI systems trust authoritative sources more than promotional content.</p>
+                  <ul class="list-unstyled">
+                    <li>✓ Third-party reviews</li>
+                    <li>✓ Industry publications</li>
+                    <li>✓ Expert endorsements</li>
+                  </ul>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        
+        <div class="text-center mt-4">
+          <p class="h5 mb-4">Unlike SEO, GEO isn't about keywords - it's about <strong>context, credibility, and connections</strong></p>
+        </div>
+      </section>
+      <!--Section: How GEO Works-->
+
+      <hr class="my-5">
+
+      <!--Section: GEO vs SEO Comparison-->
+      <section class="my-5">
+        <h2 class="h1-responsive font-weight-bold text-center my-5">GEO vs Traditional SEO</h2>
+        
+        <div class="row">
+          <div class="col-lg-10 mx-auto">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col" class="font-weight-bold">Aspect</th>
+                  <th scope="col" class="text-center">Traditional SEO</th>
+                  <th scope="col" class="text-center bg-light">GEO (AI Optimization)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Primary Goal</strong></td>
+                  <td class="text-center">Rank in search results</td>
+                  <td class="text-center bg-light">Be recommended by AI</td>
+                </tr>
+                <tr>
+                  <td><strong>Focus</strong></td>
+                  <td class="text-center">Keywords & backlinks</td>
+                  <td class="text-center bg-light">Context & credibility</td>
+                </tr>
+                <tr>
+                  <td><strong>Content Type</strong></td>
+                  <td class="text-center">Blog posts, landing pages</td>
+                  <td class="text-center bg-light">Structured knowledge, facts</td>
+                </tr>
+                <tr>
+                  <td><strong>Success Metrics</strong></td>
+                  <td class="text-center">Rankings, traffic</td>
+                  <td class="text-center bg-light">AI mentions, recommendations</td>
+                </tr>
+                <tr>
+                  <td><strong>Update Frequency</strong></td>
+                  <td class="text-center">Google algorithm updates</td>
+                  <td class="text-center bg-light">AI model retraining cycles</td>
+                </tr>
+                <tr>
+                  <td><strong>Competition</strong></td>
+                  <td class="text-center">Millions of websites</td>
+                  <td class="text-center bg-light"><span class="badge badge-success">Early stage - huge opportunity!</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <div class="text-center mt-5">
+          <h4>The Bottom Line:</h4>
+          <p class="lead">While your competitors fight for Google rankings, you can dominate AI recommendations</p>
+        </div>
+      </section>
+      <!--Section: GEO vs SEO-->
+
+      <hr class="my-5">
+
+      <!--Section: Statistics-->
+      <section class="text-center my-5">
+        <h2 class="h1-responsive font-weight-bold my-5">The AI Revolution is Here</h2>
+        <p class="grey-text w-responsive mx-auto mb-5">Don't get left behind. AI is reshaping how customers find businesses.</p>
+        
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <i class="fas fa-chart-line fa-3x orange-text"></i>
+            <h1 class="font-weight-bold my-4">37%</h1>
+            <p class="grey-text">of product searches now start in AI assistants</p>
+          </div>
+          
+          <div class="col-md-4 mb-4">
+            <i class="fas fa-users fa-3x orange-text"></i>
+            <h1 class="font-weight-bold my-4">60M+</h1>
+            <p class="grey-text">daily active ChatGPT users making decisions</p>
+          </div>
+          
+          <div class="col-md-4 mb-4">
+            <i class="fas fa-rocket fa-3x orange-text"></i>
+            <h1 class="font-weight-bold my-4">200%</h1>
+            <p class="grey-text">year-over-year growth in AI-powered searches</p>
+          </div>
+        </div>
+      </section>
+      <!--Section: Statistics-->
+
+      <hr class="my-5">
+
+      <!--Section: Success Stories-->
+      <section class="my-5">
+        <h2 class="h1-responsive font-weight-bold text-center my-5">Real Results from GEO</h2>
+        <p class="text-center text-muted mb-5">Companies using GEO are seeing incredible results</p>
+        
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title text-primary">E-commerce Brand</h5>
+                <h3 class="font-weight-bold">+312%</h3>
+                <p class="text-muted">Increase in AI-driven traffic</p>
+                <hr>
+                <p class="small">"ChatGPT now recommends our products when users ask for category recommendations"</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-4 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title text-success">SaaS Platform</h5>
+                <h3 class="font-weight-bold">€45K/mo</h3>
+                <p class="text-muted">New revenue from AI referrals</p>
+                <hr>
+                <p class="small">"We're now the #1 recommendation in our category across all major AI platforms"</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-4 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title text-info">Local Restaurant</h5>
+                <h3 class="font-weight-bold">150+</h3>
+                <p class="text-muted">New customers per month</p>
+                <hr>
+                <p class="small">"AI assistants now recommend us when people ask for dining suggestions in our city"</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!--Section: Success Stories-->
+
+      <hr class="my-5">
+
+      <!--Section: Call to action-->
+      <section class="my-5">
+        <div class="card">
+          <div class="card-body text-center py-5 px-5 my-5">
+            <h2 class="h1-responsive font-weight-bold mb-5">Ready to Dominate AI Search?</h2>
+            <p class="grey-text mb-5">Get your free AI visibility report and discover how to improve your presence across all major AI platforms.</p>
+            
+            <div class="row justify-content-center">
+              <div class="col-md-6">
+                <div class="md-form">
+                  <input type="email" id="emailInput" class="form-control" placeholder="Enter your email">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <button class="btn btn-primary btn-block" onclick="requestReport()">
+                  Get Free Report
+                </button>
+              </div>
+            </div>
+            
+            <p class="small text-muted mt-3">No spam, ever. Unsubscribe anytime.</p>
+          </div>
+        </div>
+      </section>
+      <!--Section: Call to action-->
+
+      <hr class="my-5">
+
       <!--Section: Main features & Quick Start-->
       <section>
-
-        <h3 class="h3 text-center mb-5">About MDB</h3>
-
+        <h3 class="h3 text-center mb-5" id="features">Platform Features</h3>
         <!--Grid row-->
         <div class="row wow fadeIn">
-
           <!--Grid column-->
           <div class="col-lg-6 col-md-12 px-4">
-
             <!--First row-->
             <div class="row">
               <div class="col-1 mr-3">
-                <i class="fas fa-code fa-2x indigo-text"></i>
+                <i class="fas fa-robot fa-2x indigo-text"></i>
               </div>
               <div class="col-10">
-                <h5 class="feature-title">Bootstrap 4</h5>
-                <p class="grey-text">Thanks to MDB you can take advantage of all feature of newest Bootstrap 4.</p>
+                <h5 class="feature-title">Multi-AI Analysis</h5>
+                <p class="lead grey-text">Check your visibility across ChatGPT, Claude, Perplexity, and other major AI systems.</p>
               </div>
             </div>
             <!--/First row-->
@@ -277,14 +583,11 @@
             <!--Second row-->
             <div class="row">
               <div class="col-1 mr-3">
-                <i class="fas fa-book fa-2x blue-text"></i>
+                <i class="fas fa-chart-line fa-2x blue-text"></i>
               </div>
               <div class="col-10">
-                <h5 class="feature-title">Detailed documentation</h5>
-                <p class="grey-text">We give you detailed user-friendly documentation at your disposal. It will help
-                  you to implement your ideas
-                  easily.
-                </p>
+                <h5 class="feature-title">Real-time Monitoring</h5>
+                <p class="lead grey-text">Track your visibility score over time and get instant alerts when AI systems update their knowledge about your brand.</p>
               </div>
             </div>
             <!--/Second row-->
@@ -294,343 +597,93 @@
             <!--Third row-->
             <div class="row">
               <div class="col-1 mr-3">
-                <i class="fas fa-graduation-cap fa-2x cyan-text"></i>
+                <i class="fas fa-users fa-2x cyan-text"></i>
               </div>
               <div class="col-10">
-                <h5 class="feature-title">Lots of tutorials</h5>
-                <p class="grey-text">We care about the development of our users. We have prepared numerous tutorials,
-                  which allow you to learn
-                  how to use MDB as well as other technologies.</p>
+                <h5 class="feature-title">Competitor Analysis</h5>
+                <p class="lead grey-text">Compare your AI visibility with competitors and identify opportunities to improve your presence.</p>
               </div>
             </div>
             <!--/Third row-->
-
           </div>
           <!--/Grid column-->
 
           <!--Grid column-->
-          <div class="col-lg-6 col-md-12">
-
-            <p class="h5 text-center mb-4">Watch our "5 min Quick Start" tutorial</p>
-            <div class="embed-responsive embed-responsive-16by9">
-              <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ" allowfullscreen></iframe>
+          <div class="col-lg-6 col-md-12" id="how-it-works">
+            <p class="h5 text-center mb-4">How It Works</p>
+            <div class="text-center">
+              <div class="mb-4">
+                <h4><span class="badge badge-primary">1</span> Enter Your Brand</h4>
+                <p class="lead">Type your company or product name</p>
+              </div>
+              <div class="mb-4">
+                <h4><span class="badge badge-primary">2</span> AI Analysis</h4>
+                <p class="lead">We check multiple AI systems</p>
+              </div>
+              <div class="mb-4">
+                <h4><span class="badge badge-primary">3</span> Get Insights</h4>
+                <p class="lead">Receive detailed report with recommendations</p>
+              </div>
             </div>
           </div>
           <!--/Grid column-->
-
         </div>
         <!--/Grid row-->
-
       </section>
       <!--Section: Main features & Quick Start-->
 
       <hr class="my-5">
 
-      <!--Section: Not enough-->
+      <!--Section: Why Brain Index-->
       <section>
-
-        <h2 class="my-5 h3 text-center">Not enough?</h2>
-
+        <h2 class="my-5 h3 text-center">Why Brain Index?</h2>
         <!--First row-->
         <div class="row features-small mb-5 mt-3 wow fadeIn">
-
           <!--First column-->
           <div class="col-md-4">
-            <!--First row-->
             <div class="row">
               <div class="col-2">
                 <i class="fas fa-check-circle fa-2x indigo-text"></i>
               </div>
               <div class="col-10">
-                <h6 class="feature-title">Free for personal and commercial use</h6>
-                <p class="grey-text">Our license is user-friendly. Feel free to use MDB for both private as well as
-                  commercial projects.
-                </p>
-                <div style="height:15px"></div>
+                <h6 class="feature-title">Comprehensive Coverage</h6>
+                <p class="grey-text">We analyze all major AI platforms to give you complete visibility insights.</p>
               </div>
             </div>
-            <!--/First row-->
-
-            <!--Second row-->
-            <div class="row">
-              <div class="col-2">
-                <i class="fas fa-check-circle fa-2x indigo-text"></i>
-              </div>
-              <div class="col-10">
-                <h6 class="feature-title">400+ UI elements</h6>
-                <p class="grey-text">An impressive collection of flexible components allows you to develop any project.
-                </p>
-                <div style="height:15px"></div>
-              </div>
-            </div>
-            <!--/Second row-->
-
-            <!--Third row-->
-            <div class="row">
-              <div class="col-2">
-                <i class="fas fa-check-circle fa-2x indigo-text"></i>
-              </div>
-              <div class="col-10">
-                <h6 class="feature-title">600+ icons</h6>
-                <p class="grey-text">Hundreds of useful, scalable, vector icons at your disposal.</p>
-                <div style="height:15px"></div>
-              </div>
-            </div>
-            <!--/Third row-->
-
-            <!--Fourth row-->
-            <div class="row">
-              <div class="col-2">
-                <i class="fas fa-check-circle fa-2x indigo-text"></i>
-              </div>
-              <div class="col-10">
-                <h6 class="feature-title">Fully responsive</h6>
-                <p class="grey-text">It doesn't matter whether your project will be displayed on desktop, laptop,
-                  tablet or mobile phone. MDB
-                  looks great on each screen.</p>
-                <div style="height:15px"></div>
-              </div>
-            </div>
-            <!--/Fourth row-->
           </div>
           <!--/First column-->
 
           <!--Second column-->
-          <div class="col-md-4 flex-center">
-            <img src="https://mdbootstrap.com/img/Others/screens.png" alt="MDB Magazine Template displayed on iPhone"
-              class="z-depth-0 img-fluid">
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-2">
+                <i class="fas fa-check-circle fa-2x indigo-text"></i>
+              </div>
+              <div class="col-10">
+                <h6 class="feature-title">Real-time Updates</h6>
+                <p class="grey-text">Monitor changes in AI perception of your brand as they happen.</p>
+              </div>
+            </div>
           </div>
           <!--/Second column-->
 
           <!--Third column-->
-          <div class="col-md-4 mt-2">
-            <!--First row-->
+          <div class="col-md-4">
             <div class="row">
               <div class="col-2">
                 <i class="fas fa-check-circle fa-2x indigo-text"></i>
               </div>
               <div class="col-10">
-                <h6 class="feature-title">70+ CSS animations</h6>
-                <p class="grey-text">Neat and easy to use animations, which will increase the interactivity of your
-                  project and delight your visitors.
-                </p>
-                <div style="height:15px"></div>
+                <h6 class="feature-title">Actionable Insights</h6>
+                <p class="grey-text">Get specific recommendations to improve your AI visibility.</p>
               </div>
             </div>
-            <!--/First row-->
-
-            <!--Second row-->
-            <div class="row">
-              <div class="col-2">
-                <i class="fas fa-check-circle fa-2x indigo-text"></i>
-              </div>
-              <div class="col-10">
-                <h6 class="feature-title">Plenty of useful templates</h6>
-                <p class="grey-text">Need inspiration? Use one of our predefined templates for free.</p>
-                <div style="height:15px"></div>
-              </div>
-            </div>
-            <!--/Second row-->
-
-            <!--Third row-->
-            <div class="row">
-              <div class="col-2">
-                <i class="fas fa-check-circle fa-2x indigo-text"></i>
-              </div>
-              <div class="col-10">
-                <h6 class="feature-title">Easy installation</h6>
-                <p class="grey-text">5 minutes, a few clicks and... done. You will be surprised at how easy it is.
-                </p>
-                <div style="height:15px"></div>
-              </div>
-            </div>
-            <!--/Third row-->
-
-            <!--Fourth row-->
-            <div class="row">
-              <div class="col-2">
-                <i class="fas fa-check-circle fa-2x indigo-text"></i>
-              </div>
-              <div class="col-10">
-                <h6 class="feature-title">Easy to use and customize</h6>
-                <p class="grey-text">Using MDB is straightforward and pleasant. Components flexibility allows you deep
-                  customization. You will
-                  easily adjust each component to suit your needs.</p>
-                <div style="height:15px"></div>
-              </div>
-            </div>
-            <!--/Fourth row-->
           </div>
           <!--/Third column-->
-
         </div>
         <!--/First row-->
-
       </section>
-      <!--Section: Not enough-->
-
-      <hr class="mb-5">
-
-      <!--Section: More-->
-      <section>
-
-        <h2 class="my-5 h3 text-center">...and even more</h2>
-
-        <!--First row-->
-        <div class="row features-small mt-5 wow fadeIn">
-
-          <!--Grid column-->
-          <div class="col-xl-3 col-lg-6">
-            <!--Grid row-->
-            <div class="row">
-              <div class="col-2">
-                <i class="fab fa-firefox fa-2x mb-1 indigo-text" aria-hidden="true"></i>
-              </div>
-              <div class="col-10 mb-2 pl-3">
-                <h5 class="feature-title font-bold mb-1">Cross-browser compatibility</h5>
-                <p class="grey-text mt-2">Chrome, Firefox, IE, Safari, Opera, Microsoft Edge - MDB loves all browsers;
-                  all browsers love MDB.
-                </p>
-              </div>
-            </div>
-            <!--/Grid row-->
-          </div>
-          <!--/Grid column-->
-
-          <!--Grid column-->
-          <div class="col-xl-3 col-lg-6">
-            <!--Grid row-->
-            <div class="row">
-              <div class="col-2">
-                <i class="fas fa-level-up-alt fa-2x mb-1 indigo-text" aria-hidden="true"></i>
-              </div>
-              <div class="col-10 mb-2">
-                <h5 class="feature-title font-bold mb-1">Frequent updates</h5>
-                <p class="grey-text mt-2">MDB becomes better every month. We love the project and enhance as much as
-                  possible.
-                </p>
-              </div>
-            </div>
-            <!--/Grid row-->
-          </div>
-          <!--/Grid column-->
-
-          <!--Grid column-->
-          <div class="col-xl-3 col-lg-6">
-            <!--Grid row-->
-            <div class="row">
-              <div class="col-2">
-                <i class="fas fa-comments fa-2x mb-1 indigo-text" aria-hidden="true"></i>
-              </div>
-              <div class="col-10 mb-2">
-                <h5 class="feature-title font-bold mb-1">Active community</h5>
-                <p class="grey-text mt-2">Our society grows day by day. Visit our forum and check how it is to be a
-                  part of our family.
-                </p>
-              </div>
-            </div>
-            <!--/Grid row-->
-          </div>
-          <!--/Grid column-->
-
-          <!--Grid column-->
-          <div class="col-xl-3 col-lg-6">
-            <!--Grid row-->
-            <div class="row">
-              <div class="col-2">
-                <i class="fas fa-code fa-2x mb-1 indigo-text" aria-hidden="true"></i>
-              </div>
-              <div class="col-10 mb-2">
-                <h5 class="feature-title font-bold mb-1">jQuery 3.x</h5>
-                <p class="grey-text mt-2">MDB is integrated with newest jQuery. Therefore you can use all the latest
-                  features which come along with
-                  it.
-                </p>
-              </div>
-            </div>
-            <!--/Grid row-->
-          </div>
-          <!--/Grid column-->
-
-        </div>
-        <!--/First row-->
-
-        <!--Second row-->
-        <div class="row features-small mt-4 wow fadeIn">
-
-          <!--Grid column-->
-          <div class="col-xl-3 col-lg-6">
-            <!--Grid row-->
-            <div class="row">
-              <div class="col-2">
-                <i class="fas fa-cubes fa-2x mb-1 indigo-text" aria-hidden="true"></i>
-              </div>
-              <div class="col-10 mb-2">
-                <h5 class="feature-title font-bold mb-1">Modularity</h5>
-                <p class="grey-text mt-2">Material Design for Bootstrap comes with both, compiled, ready to use
-                  libraries including all features as
-                  well as modules for CSS (SASS files) and JS.</p>
-              </div>
-            </div>
-            <!--/Grid row-->
-          </div>
-          <!--/Grid column-->
-
-          <!--Grid column-->
-          <div class="col-xl-3 col-lg-6">
-            <!--Grid row-->
-            <div class="row">
-              <div class="col-2">
-                <i class="fas fa-question fa-2x mb-1 indigo-text" aria-hidden="true"></i>
-              </div>
-              <div class="col-10 mb-2">
-                <h5 class="feature-title font-bold mb-1">Technical support</h5>
-                <p class="grey-text mt-2">We care about reliability. If you have any questions - do not hesitate to
-                  contact us.
-                </p>
-              </div>
-            </div>
-            <!--/Grid row-->
-          </div>
-          <!--/Grid column-->
-
-          <!--Grid column-->
-          <div class="col-xl-3 col-lg-6">
-            <!--Grid row-->
-            <div class="row">
-              <div class="col-2">
-                <i class="fas fa-th fa-2x mb-1 indigo-text" aria-hidden="true"></i>
-              </div>
-              <div class="col-10 mb-2">
-                <h5 class="feature-title font-bold mb-1">Flexbox</h5>
-                <p class="grey-text mt-2">MDB fully supports Flex Box. You can forget about alignment issues.</p>
-              </div>
-            </div>
-            <!--/Grid row-->
-          </div>
-          <!--/Grid column-->
-
-          <!--Grid column-->
-          <div class="col-xl-3 col-lg-6">
-            <!--Grid row-->
-            <div class="row">
-              <div class="col-2">
-                <i class="far fa-file-code fa-2x mb-1 indigo-text" aria-hidden="true"></i>
-              </div>
-              <div class="col-10 mb-2">
-                <h5 class="feature-title font-bold mb-1">SASS files</h5>
-                <p class="grey-text mt-2">Arranged and well documented .scss files can't wait until you compile them.</p>
-              </div>
-            </div>
-            <!--/Grid row-->
-          </div>
-          <!--/Grid column-->
-
-        </div>
-        <!--/Second row-->
-
-      </section>
-      <!--Section: More-->
+      <!--Section: Why Brain Index-->
 
     </div>
   </main>
@@ -638,65 +691,87 @@
 
   <!--Footer-->
   <footer class="page-footer text-center font-small mt-4 wow fadeIn">
-
+    
+    <!--Footer content-->
+    <div class="footer-content-wrapper">
+      <div class="container-fluid text-center text-md-left">
+        <div class="row">
+        
+        <!-- First column -->
+        <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mb-4">
+          <h6 class="text-uppercase font-weight-bold">Brain Index</h6>
+          <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+          <p>The leading platform for AI visibility analytics. Ensure your brand is recommended by ChatGPT, Claude, and other AI systems.</p>
+        </div>
+        
+        <!-- Second column -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          <h6 class="text-uppercase font-weight-bold">Products</h6>
+          <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+          <p><a href="#analyze">AI Analysis</a></p>
+          <p><a href="#features">Platform Features</a></p>
+          <p><a href="pricing.html">Pricing</a></p>
+          <p><a href="/admin">Admin Panel</a></p>
+        </div>
+        
+        <!-- Third column -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          <h6 class="text-uppercase font-weight-bold">Resources</h6>
+          <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+          <p><a href="#what-is-geo">What is GEO?</a></p>
+          <p><a href="#how-geo-works">How it Works</a></p>
+          <p><a href="/blog">Blog</a></p>
+          <p><a href="/api-docs">API Documentation</a></p>
+        </div>
+        
+        <!-- Fourth column -->
+        <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <h6 class="text-uppercase font-weight-bold">Contact</h6>
+          <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+          <p><i class="fas fa-home mr-3"></i> Nicosia, Cyprus</p>
+          <p><i class="fas fa-envelope mr-3"></i> info@brainindex.ai</p>
+          <p><i class="fas fa-phone mr-3"></i> +357 99 XXX XXX</p>
+          <p><a href="/dashboard" class="btn btn-sm btn-outline-white">Client Portal</a></p>
+        </div>
+        
+      </div>
+        </div>
+      </div>
+      
     <!--Call to action-->
-    <div class="pt-4">
-      <a class="btn btn-outline-white" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank"
-        role="button">Download MDB
-        <i class="fas fa-download ml-2"></i>
+    <div class="pt-4 pb-2">
+      <a class="btn btn-outline-white" href="#analyze" role="button">Try Free Analysis
+        <i class="fas fa-search ml-2"></i>
       </a>
-      <a class="btn btn-outline-white" href="https://mdbootstrap.com/education/bootstrap/" target="_blank" role="button">Start
-        free tutorial
-        <i class="fas fa-graduation-cap ml-2"></i>
+      <a class="btn btn-outline-white" href="pricing.html" role="button">View Pricing
+        <i class="fas fa-tag ml-2"></i>
       </a>
     </div>
     <!--/.Call to action-->
 
     <hr class="my-4">
-
+    
     <!-- Social icons -->
     <div class="pb-4">
-      <a href="https://www.facebook.com/mdbootstrap" target="_blank">
-        <i class="fab fa-facebook-f mr-3"></i>
+      <a href="#" target="_blank">
+        <i class="fab fa-linkedin mr-3"></i>
       </a>
-
-      <a href="https://twitter.com/MDBootstrap" target="_blank">
+      <a href="#" target="_blank">
         <i class="fab fa-twitter mr-3"></i>
       </a>
-
-      <a href="https://www.youtube.com/watch?v=7MUISDJ5ZZ4" target="_blank">
-        <i class="fab fa-youtube mr-3"></i>
-      </a>
-
-      <a href="https://plus.google.com/u/0/b/107863090883699620484" target="_blank">
-        <i class="fab fa-google-plus-g mr-3"></i>
-      </a>
-
-      <a href="https://dribbble.com/mdbootstrap" target="_blank">
-        <i class="fab fa-dribbble mr-3"></i>
-      </a>
-
-      <a href="https://pinterest.com/mdbootstrap" target="_blank">
-        <i class="fab fa-pinterest mr-3"></i>
-      </a>
-
-      <a href="https://github.com/mdbootstrap/bootstrap-material-design" target="_blank">
+      <a href="#" target="_blank">
         <i class="fab fa-github mr-3"></i>
-      </a>
-
-      <a href="http://codepen.io/mdbootstrap/" target="_blank">
-        <i class="fab fa-codepen mr-3"></i>
       </a>
     </div>
     <!-- Social icons -->
 
     <!--Copyright-->
     <div class="footer-copyright py-3">
-      © 2019 Copyright:
-      <a href="https://mdbootstrap.com/education/bootstrap/" target="_blank"> MDBootstrap.com </a>
+      © 2025 Brain Index. All rights reserved. | 
+      <a href="/privacy">Privacy Policy</a> | 
+      <a href="/terms">Terms of Service</a>
     </div>
     <!--/.Copyright-->
-
   </footer>
   <!--/.Footer-->
 
@@ -709,11 +784,51 @@
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="js/mdb.min.js"></script>
-  <!-- Initializations -->
+  <!-- Custom JS -->
+  <script type="text/javascript" src="js/api.js"></script>
   <script type="text/javascript">
     // Animations initialization
     new WOW().init();
-
+    
+    // Video control script
+    document.addEventListener('DOMContentLoaded', function() {
+      const video = document.getElementById('demoVideo');
+      const videoContainer = document.getElementById('videoContainer');
+      const videoOverlay = document.getElementById('videoOverlay');
+      
+      if (video && videoContainer) {
+        let isPlaying = true;
+        
+        function updateOverlayIcon() {
+          if (videoOverlay) {
+            const icon = videoOverlay.querySelector('i');
+            if (icon) {
+              icon.className = isPlaying ? 'fas fa-pause-circle' : 'fas fa-play-circle';
+            }
+          }
+        }
+        
+        videoContainer.addEventListener('click', function() {
+          if (isPlaying) {
+            video.pause();
+          } else {
+            video.play();
+          }
+          isPlaying = !isPlaying;
+          updateOverlayIcon();
+        });
+        
+        video.addEventListener('play', function() {
+          isPlaying = true;
+          updateOverlayIcon();
+        });
+        
+        video.addEventListener('pause', function() {
+          isPlaying = false;
+          updateOverlayIcon();
+        });
+      }
+    });
   </script>
 </body>
 
