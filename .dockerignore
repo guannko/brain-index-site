@@ -1,0 +1,12 @@
+pages/
+components/
+hooks/
+contexts/
+utils/
+views/
+posts/
+next.config.js
+tsconfig.json
+next-env.d.ts
+yarn.lock
+renovate.json
