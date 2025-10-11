@@ -1,140 +1,608 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brain Index - AI Visibility Analytics</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <!-- SEO Meta Tags -->
+  <title>Brain Index - Ваш бренд теряет клиентов в AI-поиске?</title>
+  <meta name="description" content="Проверим бесплатно за 2 минуты, как ChatGPT, Claude и другие AI рекомендуют ваших конкурентов вместо вас. 37% поисков проходят через AI-системы - получите детальный анализ видимости.">
+  <meta name="keywords" content="AI visibility, ChatGPT, Claude, GEO, AI search optimization, brand visibility, AI analytics">
+  
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Brain Index - AI Visibility Analytics Platform">
+  <meta property="og:description" content="Discover how AI systems like ChatGPT perceive your brand. Get your free AI visibility report with actionable insights.">
+  <meta property="og:image" content="https://brain-index.com/img/og-image.png">
+  <meta property="og:url" content="https://brain-index.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Brain Index">
+  
+  <!-- Twitter Card Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Brain Index - AI Visibility Analytics">
+  <meta name="twitter:description" content="Check how AI systems see your brand. Free analysis, no credit card required.">
+  <meta name="twitter:image" content="https://brain-index.com/img/og-image.png">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+  
+  <!-- CDN CSS Files -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.20.0/css/mdb.min.css" rel="stylesheet">
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+  
+  <style type="text/css">
+    :root {
+      --primary-color: #007bff;
+      --secondary-color: #FF9500;
+      --text-dark: #333;
+      --bg-light: #f8f9fa;
+    }
     
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="css/style.css" rel="stylesheet">
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+    }
+    
+    .navbar-brand {
+      font-size: 1.7rem !important;
+      text-decoration: none !important;
+      font-family: system-ui, -apple-system, sans-serif !important;
+    }
+    
+    .brand-brain {
+      color: #000 !important;
+      font-weight: 800 !important;
+    }
+    
+    .brand-index {
+      color: #FF9500 !important;
+      font-weight: 400 !important;
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      color: white;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin: 2rem 0;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    .stat-text {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .urgency-message {
+      background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 0.5rem;
+      margin: 1.5rem 0;
+      text-align: center;
+      font-weight: 500;
+      box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+
+    .btn-custom-primary {
+      background: linear-gradient(135deg, #007bff, #0056b3);
+      border: none;
+      padding: 12px 30px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-custom-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,123,255,0.3);
+    }
+
+    .btn-outline-white:hover {
+      transform: translateY(-2px);
+      transition: all 0.3s ease;
+    }
+
+    .feature-card {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+      height: 100%;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .success-number {
+      font-size: 3rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #28a745, #20c997);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .trusted-section {
+      background: var(--bg-light);
+      padding: 60px 0;
+    }
+
+    .footer-section {
+      background: #2c3e50;
+      color: white;
+      padding: 50px 0;
+    }
+
+    @media (max-width: 768px) {
+      .hero-stats {
+        gap: 1.5rem;
+      }
+      .stat-number {
+        font-size: 2rem;
+      }
+      .display-4 {
+        font-size: 2rem !important;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .hero-stats {
+        gap: 1rem;
+      }
+      .stat-number {
+        font-size: 1.5rem;
+      }
+    }
+
+    .navbar {
+      background-color: rgba(255,255,255,0.95) !important;
+      backdrop-filter: blur(10px);
+    }
+  </style>
 </head>
+
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="#">Brain Index</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#how-it-works">How it Works</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
-                    <li class="nav-item"><a class="btn btn-primary ms-2" href="#demo">Try Demo</a></li>
-                </ul>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container">
+      <!-- Brand -->
+      <a class="navbar-brand" href="#">
+        <span class="brand-brain">BRAIN</span> <span class="brand-index">INDEX</span>
+      </a>
+
+      <!-- Collapse -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Links -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <!-- Centered nav -->
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="#features">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="#how-it-works">How it Works</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="#pricing">Pricing</a>
+          </li>
+        </ul>
+
+        <!-- Right -->
+        <ul class="navbar-nav">
+          <li class="nav-item me-2">
+            <a href="#login" class="nav-link text-dark">
+              <i class="fas fa-sign-in-alt me-2"></i>Login
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#register" class="nav-link border border-primary rounded text-primary">
+              <i class="fas fa-user-plus me-2"></i>Sign Up
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-4">
+          <h1 class="display-4 fw-bold mb-4">Ваш бренд теряет клиентов в AI-поиске? Проверим бесплатно за 2 минуты.</h1>
+          
+          <p class="lead mb-4">
+            Узнайте, как ChatGPT, Claude и другие AI рекомендуют ваших конкурентов, а не вас. 
+            <strong>37% поисков теперь проходят через AI-системы</strong> — получите детальный анализ 
+            видимости вашего бренда в 10+ AI-платформах и план действий по исправлению.
+          </p>
+
+          <!-- Stats Section -->
+          <div class="hero-stats">
+            <div class="stat-item">
+              <div class="stat-number">37%</div>
+              <div class="stat-text">поисков через AI</div>
             </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero-section text-center py-5 mt-5">
-        <div class="container">
-            <h1 class="display-4 fw-bold mb-4">Is Your Brand Visible in AI?</h1>
-            <p class="lead mb-4">Check how ChatGPT, Claude, and other AI systems see your brand</p>
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <div class="input-group input-group-lg mb-3">
-                        <input type="text" class="form-control" id="brandInput" placeholder="Enter your brand name...">
-                        <button class="btn btn-primary" id="analyzeBtn">Analyze Now</button>
-                    </div>
-                </div>
+            <div class="stat-item">
+              <div class="stat-number">60M+</div>
+              <div class="stat-text">пользователей ChatGPT</div>
             </div>
-            <p class="text-muted">Free analysis • No credit card required</p>
-        </div>
-    </section>
-
-    <!-- How It Works -->
-    <section id="how-it-works" class="py-5 bg-light">
-        <div class="container">
-            <h2 class="text-center mb-5">How It Works</h2>
-            <div class="row">
-                <div class="col-md-4 text-center mb-4">
-                    <h3>1️⃣</h3>
-                    <h4>Enter Your Brand</h4>
-                    <p>Type your company or product name</p>
-                </div>
-                <div class="col-md-4 text-center mb-4">
-                    <h3>2️⃣</h3>
-                    <h4>AI Analysis</h4>
-                    <p>We check multiple AI systems</p>
-                </div>
-                <div class="col-md-4 text-center mb-4">
-                    <h3>3️⃣</h3>
-                    <h4>Get Insights</h4>
-                    <p>Receive actionable recommendations</p>
-                </div>
+            <div class="stat-item">
+              <div class="stat-number">500+</div>
+              <div class="stat-text">компаний доверяют Brain Index</div>
             </div>
-        </div>
-    </section>
+          </div>
 
-    <!-- Pricing -->
-    <section id="pricing" class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-5">Simple Pricing</h2>
-            <div class="row">
-                <div class="col-md-3 mb-4">
-                    <div class="card text-center">
-                        <div class="card-header">
-                            <h4>Free</h4>
-                        </div>
-                        <div class="card-body">
-                            <h2>€0<small>/mo</small></h2>
-                            <p>5 checks/month</p>
-                            <a href="#" class="btn btn-outline-primary">Start Free</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <div class="card text-center">
-                        <div class="card-header bg-primary text-white">
-                            <h4>Starter</h4>
-                        </div>
-                        <div class="card-body">
-                            <h2>€99<small>/mo</small></h2>
-                            <p>50 checks/month</p>
-                            <a href="#" class="btn btn-primary">Get Started</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <div class="card text-center">
-                        <div class="card-header">
-                            <h4>Pro</h4>
-                        </div>
-                        <div class="card-body">
-                            <h2>€399<small>/mo</small></h2>
-                            <p>200 checks/month</p>
-                            <a href="#" class="btn btn-outline-primary">Get Started</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <div class="card text-center">
-                        <div class="card-header">
-                            <h4>Enterprise</h4>
-                        </div>
-                        <div class="card-body">
-                            <h2>€1999<small>/mo</small></h2>
-                            <p>Unlimited</p>
-                            <a href="#" class="btn btn-outline-primary">Contact</a>
-                        </div>
-                    </div>
-                </div>
+          <!-- Urgency Message -->
+          <div class="urgency-message">
+            ⚡ Осталось <strong>3 бесплатных анализа</strong> сегодня!
+          </div>
+
+          <div class="d-flex flex-wrap gap-3">
+            <a href="#analyze" class="btn btn-light btn-lg" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Hero Primary'});">
+              Получить бесплатный AI-audit <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+            <a href="#features" class="btn btn-outline-light btn-lg" onclick="gtag('event', 'click', {'event_category': 'Navigation', 'event_label': 'Learn More'});">
+              Как это работает <i class="fas fa-arrow-down ms-2"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card shadow-lg">
+            <div class="card-body p-4">
+              <h3 class="text-center mb-4">Быстрый анализ</h3>
+              <div class="mb-3">
+                <input type="text" class="form-control form-control-lg" id="brandInput" placeholder="Введите название вашего бренда">
+              </div>
+              <button class="btn btn-custom-primary btn-lg w-100" id="analyzeBtn">
+                <i class="fas fa-search me-2"></i>Проверить видимость в AI
+              </button>
+              <p class="text-center mt-3 small text-muted">Бесплатный анализ • Без регистрации • Результат за 2 минуты</p>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white py-4">
-        <div class="container text-center">
-            <p>&copy; 2025 Brain Index. All rights reserved.</p>
+  <!-- Trusted By Section -->
+  <section class="trusted-section" id="trusted-by">
+    <div class="container text-center">
+      <h2 class="mb-4">Trusted by 500+ Companies</h2>
+      <p class="lead text-muted mb-5">Join businesses that dominate AI recommendations</p>
+      <div class="row justify-content-center align-items-center">
+        <div class="col-md-3 col-6 mb-3">
+          <div class="p-3">
+            <i class="fab fa-microsoft fa-3x text-primary"></i>
+            <p class="mt-2 small">Enterprise</p>
+          </div>
         </div>
-    </footer>
+        <div class="col-md-3 col-6 mb-3">
+          <div class="p-3">
+            <i class="fab fa-shopify fa-3x text-success"></i>
+            <p class="mt-2 small">E-commerce</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-6 mb-3">
+          <div class="p-3">
+            <i class="fas fa-utensils fa-3x text-warning"></i>
+            <p class="mt-2 small">Restaurants</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-6 mb-3">
+          <div class="p-3">
+            <i class="fas fa-graduation-cap fa-3x text-info"></i>
+            <p class="mt-2 small">Education</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- How It Works -->
+  <section class="py-5" id="how-it-works">
+    <div class="container">
+      <h2 class="text-center mb-5">Как это работает</h2>
+      <p class="lead text-center text-muted mb-5">
+        Простой 3-шаговый процесс для анализа видимости вашего бренда в AI
+      </p>
+
+      <div class="row text-center">
+        <div class="col-md-4 mb-4">
+          <div class="feature-card">
+            <div class="mb-3">
+              <i class="fas fa-search fa-3x text-primary"></i>
+            </div>
+            <h4><span class="badge bg-primary rounded-pill">1</span> Анализ</h4>
+            <p class="lead">Вводите название бренда, мы проверяем его в 10+ AI-системах: ChatGPT, Claude, Gemini, Perplexity и других</p>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+          <div class="feature-card">
+            <div class="mb-3">
+              <i class="fas fa-robot fa-3x text-success"></i>
+            </div>
+            <h4><span class="badge bg-success rounded-pill">2</span> AI-проверка</h4>
+            <p class="lead">Наши алгоритмы анализируют, как AI рекомендует ваш бренд, и сравнивают с конкурентами</p>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+          <div class="feature-card">
+            <div class="mb-3">
+              <i class="fas fa-chart-line fa-3x text-info"></i>
+            </div>
+            <h4><span class="badge bg-info rounded-pill">3</span> Отчёт</h4>
+            <p class="lead">Получаете подробный отчёт с оценкой видимости и планом действий для улучшения</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Success Stories -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-5">Real Results from GEO</h2>
+      <p class="text-center text-muted mb-5">Companies using GEO are seeing incredible results</p>
+      
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 shadow">
+            <div class="card-body text-center">
+              <h5 class="card-title text-primary">E-commerce Brand</h5>
+              <div class="success-number">+312%</div>
+              <p class="text-muted">Increase in AI-driven traffic</p>
+              <hr>
+              <p class="small">"ChatGPT now recommends our products when users ask for category recommendations"</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 shadow">
+            <div class="card-body text-center">
+              <h5 class="card-title text-success">SaaS Platform</h5>
+              <div class="success-number">€45K/mo</div>
+              <p class="text-muted">New revenue from AI referrals</p>
+              <hr>
+              <p class="small">"We're now the #1 recommendation in our category across all major AI platforms"</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 shadow">
+            <div class="card-body text-center">
+              <h5 class="card-title text-info">Local Restaurant</h5>
+              <div class="success-number">150+</div>
+              <p class="text-muted">New customers per month</p>
+              <hr>
+              <p class="small">"AI assistants now recommend us when people ask for dining suggestions in our city"</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="py-5" id="features">
+    <div class="container">
+      <h3 class="text-center mb-5">Platform Features</h3>
+      <div class="row">
+        <div class="col-lg-6 mb-4">
+          <div class="d-flex mb-4">
+            <div class="me-3">
+              <i class="fas fa-robot fa-2x text-primary"></i>
+            </div>
+            <div>
+              <h5>Multi-AI Analysis</h5>
+              <p class="text-muted">Check your visibility across ChatGPT, Claude, Perplexity, and other major AI systems.</p>
+            </div>
+          </div>
+
+          <div class="d-flex mb-4">
+            <div class="me-3">
+              <i class="fas fa-chart-line fa-2x text-primary"></i>
+            </div>
+            <div>
+              <h5>Real-time Monitoring</h5>
+              <p class="text-muted">Track your visibility score over time and get instant alerts when AI systems update their knowledge about your brand.</p>
+            </div>
+          </div>
+
+          <div class="d-flex mb-4">
+            <div class="me-3">
+              <i class="fas fa-users fa-2x text-primary"></i>
+            </div>
+            <div>
+              <h5>Competitor Analysis</h5>
+              <p class="text-muted">Compare your AI visibility with competitors and identify opportunities to improve your presence.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="text-center">
+            <div class="mb-4">
+              <i class="fas fa-search fa-2x text-primary mb-3"></i>
+              <h5>Анализ 10+ AI-систем</h5>
+              <p class="text-muted">ChatGPT, Claude, Gemini, Perplexity, Copilot и других</p>
+            </div>
+            <div class="mb-4">
+              <i class="fas fa-clock fa-2x text-success mb-3"></i>
+              <h5>Мониторинг в реальном времени</h5>
+              <p class="text-muted">Отслеживание изменений 24/7</p>
+            </div>
+            <div class="mb-4">
+              <i class="fas fa-users fa-2x text-info mb-3"></i>
+              <h5>Анализ конкурентов</h5>
+              <p class="text-muted">Сравнение с лидерами отрасли</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-5 bg-primary text-white" id="analyze">
+    <div class="container text-center">
+      <h2 class="mb-4">Ready to Dominate AI Search?</h2>
+      <p class="lead mb-4">Join 500+ companies already winning in AI recommendations</p>
+      <div class="d-flex justify-content-center gap-3 flex-wrap">
+        <a href="#register" class="btn btn-light btn-lg" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Bottom CTA'});">
+          Start Free Trial <i class="fas fa-arrow-right ms-2"></i>
+        </a>
+        <a href="#pricing" class="btn btn-outline-light btn-lg">
+          View Pricing <i class="fas fa-tag ms-2"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 mb-4">
+          <h6 class="fw-bold mb-3">Brain Index</h6>
+          <p>The leading platform for AI visibility analytics. Ensure your brand is recommended by ChatGPT, Claude, and other AI systems.</p>
+        </div>
+        
+        <div class="col-md-3 mb-4">
+          <h6 class="fw-bold mb-3">Products</h6>
+          <p><a href="#analyze" class="text-light text-decoration-none">AI Analysis</a></p>
+          <p><a href="#features" class="text-light text-decoration-none">Platform Features</a></p>
+          <p><a href="#pricing" class="text-light text-decoration-none">Pricing</a></p>
+        </div>
+        
+        <div class="col-md-3 mb-4">
+          <h6 class="fw-bold mb-3">Resources</h6>
+          <p><a href="#how-it-works" class="text-light text-decoration-none">How it Works</a></p>
+          <p><a href="#blog" class="text-light text-decoration-none">Blog</a></p>
+          <p><a href="#api-docs" class="text-light text-decoration-none">API Documentation</a></p>
+        </div>
+        
+        <div class="col-md-3 mb-4">
+          <h6 class="fw-bold mb-3">Contact</h6>
+          <p><i class="fas fa-home me-2"></i> Nicosia, Cyprus</p>
+          <p><i class="fas fa-envelope me-2"></i> info@brainindex.ai</p>
+          <p><i class="fas fa-phone me-2"></i> +357 99 XXX XXX</p>
+        </div>
+      </div>
+      
+      <hr class="my-4">
+      
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <p class="mb-0">© 2025 Brain Index. All rights reserved.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <a href="#privacy" class="text-light text-decoration-none me-3">Privacy Policy</a>
+          <a href="#terms" class="text-light text-decoration-none">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    // Analyze button functionality
+    document.getElementById('analyzeBtn').addEventListener('click', function() {
+      const brand = document.getElementById('brandInput').value.trim();
+      if (brand) {
+        // Track conversion
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'conversion', {
+            'event_category': 'Analysis',
+            'event_label': 'Brand Analysis Started',
+            'value': brand
+          });
+        }
+        
+        // Show demo alert for now
+        alert(`🔥 Анализируем "${brand}"! Переходите на страницу регистрации для получения полного отчета!`);
+        // window.location.href = `/register?brand=${encodeURIComponent(brand)}`;
+      } else {
+        alert('Пожалуйста, введите название бренда!');
+        document.getElementById('brandInput').focus();
+      }
+    });
+    
+    // Enter key support
+    document.getElementById('brandInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        document.getElementById('analyzeBtn').click();
+      }
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+
 </body>
 </html>
