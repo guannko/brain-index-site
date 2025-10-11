@@ -14,19 +14,37 @@ export default function Hero() {
   return (
     <HeroWrapper>
       <Contents>
-        <CustomOverTitle>the coolest, saas product you have ever seen</CustomOverTitle>
-        <Heading>Make your life easier with our SaaS</Heading>
+        <CustomOverTitle>GEO - Generative Engine Optimization</CustomOverTitle>
+        <Heading>Ваш бренд теряет клиентов в AI-поиске? Проверим бесплатно за 2 минуты.</Heading>
         <Description>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, tempora qui. Explicabo voluptate iure ipsum molestias
-          repudiandae perspiciatis nostrum praesentium, unde pariatur tempora magni rem. Necessitatibus facilis obcaecati ratione.
+          Узнайте, как ChatGPT, Claude и другие AI рекомендуют ваших конкурентов, а не вас. 
+          <strong> 37% поисков теперь проходят через AI-системы</strong> — получите детальный анализ 
+          видимости вашего бренда в 10+ AI-платформах и план действий по исправлению.
         </Description>
+        <StatsSection>
+          <Stat>
+            <StatNumber>37%</StatNumber>
+            <StatText>поисков через AI</StatText>
+          </Stat>
+          <Stat>
+            <StatNumber>60M+</StatNumber>
+            <StatText>пользователей ChatGPT</StatText>
+          </Stat>
+          <Stat>
+            <StatNumber>500+</StatNumber>
+            <StatText>компаний доверяют Brain Index</StatText>
+          </Stat>
+        </StatsSection>
+        <UrgencyMessage>
+          ⚡ Осталось <strong>3 бесплатных анализа</strong> сегодня!
+        </UrgencyMessage>
         <CustomButtonGroup>
           <Button onClick={() => setIsModalOpened(true)}>
-            Subscribe to the newsletter <span>&rarr;</span>
+            Получить бесплатный AI-аudit <span>&rarr;</span>
           </Button>
-          <NextLink href="#whitepaper" passHref>
+          <NextLink href="#features" passHref>
             <Button transparent>
-              Features <span>&rarr;</span>
+              Как это работает <span>&rarr;</span>
             </Button>
           </NextLink>
         </CustomButtonGroup>
@@ -86,6 +104,11 @@ const Description = styled.p`
   opacity: 0.8;
   line-height: 1.6;
 
+  strong {
+    color: rgb(var(--primary));
+    opacity: 1;
+  }
+
   ${media('<=desktop')} {
     font-size: 1.5rem;
   }
@@ -105,5 +128,67 @@ const Heading = styled.h1`
   ${media('<=tablet')} {
     font-size: 4.6rem;
     margin-bottom: 2rem;
+  }
+`;
+
+const StatsSection = styled.div`
+  display: flex;
+  gap: 4rem;
+  margin: 3rem 0;
+  padding: 2rem 0;
+
+  ${media('<=tablet')} {
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+`;
+
+const Stat = styled.div`
+  text-align: center;
+
+  ${media('<=tablet')} {
+    flex: 1;
+    min-width: 10rem;
+  }
+`;
+
+const StatNumber = styled.div`
+  font-size: 3.2rem;
+  font-weight: bold;
+  color: rgb(var(--primary));
+  line-height: 1.2;
+
+  ${media('<=tablet')} {
+    font-size: 2.8rem;
+  }
+`;
+
+const StatText = styled.div`
+  font-size: 1.4rem;
+  opacity: 0.8;
+  margin-top: 0.5rem;
+
+  ${media('<=tablet')} {
+    font-size: 1.2rem;
+  }
+`;
+
+const UrgencyMessage = styled.div`
+  background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+  color: white;
+  padding: 1.5rem 2rem;
+  border-radius: 1rem;
+  font-size: 1.6rem;
+  text-align: center;
+  margin: 2rem 0;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+
+  strong {
+    font-weight: bold;
+  }
+
+  ${media('<=tablet')} {
+    font-size: 1.4rem;
+    padding: 1.2rem 1.5rem;
   }
 `;
