@@ -36,15 +36,6 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.20.0/css/mdb.min.css" rel="stylesheet">
   
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');
-  </script>
-  
   <style type="text/css">
     :root {
       --primary-color: #007bff;
@@ -286,10 +277,10 @@
           </div>
 
           <div class="d-flex flex-wrap gap-3">
-            <a href="#analyze" class="btn btn-light btn-lg" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Hero Primary'});">
+            <a href="#analyze" class="btn btn-light btn-lg">
               Получить бесплатный AI-audit <i class="fas fa-arrow-right ms-2"></i>
             </a>
-            <a href="#features" class="btn btn-outline-light btn-lg" onclick="gtag('event', 'click', {'event_category': 'Navigation', 'event_label': 'Learn More'});">
+            <a href="#features" class="btn btn-outline-light btn-lg">
               Как это работает <i class="fas fa-arrow-down ms-2"></i>
             </a>
           </div>
@@ -501,7 +492,7 @@
       <h2 class="mb-4">Ready to Dominate AI Search?</h2>
       <p class="lead mb-4">Join 500+ companies already winning in AI recommendations</p>
       <div class="d-flex justify-content-center gap-3 flex-wrap">
-        <a href="#register" class="btn btn-light btn-lg" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Bottom CTA'});">
+        <a href="#register" class="btn btn-light btn-lg">
           Start Free Trial <i class="fas fa-arrow-right ms-2"></i>
         </a>
         <a href="#pricing" class="btn btn-outline-light btn-lg">
@@ -564,18 +555,7 @@
     document.getElementById('analyzeBtn').addEventListener('click', function() {
       const brand = document.getElementById('brandInput').value.trim();
       if (brand) {
-        // Track conversion
-        if (typeof gtag !== 'undefined') {
-          gtag('event', 'conversion', {
-            'event_category': 'Analysis',
-            'event_label': 'Brand Analysis Started',
-            'value': brand
-          });
-        }
-        
-        // Show demo alert for now
-        alert(`🔥 Анализируем "${brand}"! Переходите на страницу регистрации для получения полного отчета!`);
-        // window.location.href = `/register?brand=${encodeURIComponent(brand)}`;
+        alert(`🔥 Анализируем "${brand}"! Скоро будет готов полный отчет!`);
       } else {
         alert('Пожалуйста, введите название бренда!');
         document.getElementById('brandInput').focus();
