@@ -1,60 +1,94 @@
 import { InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import styled from 'styled-components';
-import BasicSection from 'components/BasicSection';
-import Link from 'components/Link';
 import { EnvVars } from 'env';
 import { getAllPosts } from 'utils/postsFetcher';
 import Cta from 'views/HomePage/Cta';
 import Features from 'views/HomePage/Features';
-import FeaturesGallery from 'views/HomePage/FeaturesGallery';
 import Hero from 'views/HomePage/Hero';
+import HowItWorks from 'views/HomePage/HowItWorks';
+import FAQ from 'views/HomePage/FAQ';
 import Partners from 'views/HomePage/Partners';
-import ScrollableBlogPosts from 'views/HomePage/ScrollableBlogPosts';
 import Testimonials from 'views/HomePage/Testimonials';
 
 export default function Homepage({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
       <Head>
-        <title>{EnvVars.SITE_NAME}</title>
+        <title>Brain Index - AI Visibility Analysis | Проверьте видимость бренда в AI-системах</title>
         <meta
           name="description"
-          content="Tempor nostrud velit fugiat nostrud duis incididunt Lorem deserunt est tempor aute dolor ad elit."
+          content="Узнайте, как ChatGPT, Claude и другие AI рекомендуют ваших конкурентов вместо вас. Бесплатный анализ видимости в 10+ AI-платформах за 2 минуты. GEO оптимизация для AI-поиска."
         />
+        <meta property="og:title" content="Brain Index - AI Visibility Analysis" />
+        <meta property="og:description" content="Проверьте видимость вашего бренда в AI-системах. Бесплатный анализ за 2 минуты." />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Brain Index - AI Visibility Analysis" />
+        <meta name="twitter:description" content="Узнайте, рекомендуют ли AI-системы ваш бренд или конкурентов" />
+        
+        {/* Keywords for AI visibility, GEO, ChatGPT marketing */}
+        <meta name="keywords" content="AI visibility, GEO optimization, ChatGPT marketing, AI search ranking, generative engine optimization, AI brand analysis, ChatGPT SEO, AI marketing tools" />
+        
+        {/* Structured data for better AI understanding */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "Brain Index",
+            "description": "AI visibility analysis platform for brands and businesses",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD",
+              "description": "Free AI visibility analysis"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.8",
+              "reviewCount": "500"
+            }
+          })}
+        </script>
       </Head>
+      
       <HomepageWrapper>
+        {/* Hero Section with new CTA and messaging */}
         <WhiteBackgroundContainer>
           <Hero />
-          <Partners />
-          <BasicSection imageUrl="/demo-illustration-1.svg" title="Lorem ipsum dolor sit amet consectetur." overTitle="sit amet gogo">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, quidem error incidunt a doloremque voluptatem porro inventore
-              voluptate quo deleniti animi laboriosam.{' '}
-              <Link href="/help-center">Possimus ullam velit rem itaque consectetur, in distinctio?</Link> Lorem ipsum, dolor sit amet
-              consectetur adipisicing elit. Soluta repellendus quia quos obcaecati nihil. Laudantium non accusantium, voluptate eum nesciunt
-              at suscipit quis est soluta?
-            </p>
-          </BasicSection>
-          <BasicSection imageUrl="/demo-illustration-2.svg" title="Lorem ipsum dolor sit." overTitle="lorem ipsum" reversed>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, quidem error incidunt a doloremque voluptatem porro inventore{' '}
-              <strong>voluptate quo deleniti animi laboriosam</strong>. Possimus ullam velit rem itaque consectetur, in distinctio?
-            </p>
-            <ul>
-              <li>Professional point 1</li>
-              <li>Professional remark 2</li>
-              <li>Professional feature 3</li>
-            </ul>
-          </BasicSection>
         </WhiteBackgroundContainer>
+
+        {/* Social Proof - Companies that trust us */}
+        <TrustSection>
+          <Partners />
+        </TrustSection>
+
+        {/* How It Works - 3 step process */}
+        <WhiteBackgroundContainer>
+          <HowItWorks />
+        </WhiteBackgroundContainer>
+
+        {/* Platform Features - what users get */}
         <DarkerBackgroundContainer>
-          <Cta />
-          <FeaturesGallery />
           <Features />
-          <Testimonials />
-          <ScrollableBlogPosts posts={posts} />
         </DarkerBackgroundContainer>
+
+        {/* Social Proof - Testimonials */}
+        <WhiteBackgroundContainer>
+          <Testimonials />
+        </WhiteBackgroundContainer>
+
+        {/* FAQ - Address objections */}
+        <DarkerBackgroundContainer>
+          <FAQ />
+        </DarkerBackgroundContainer>
+
+        {/* Final CTA */}
+        <WhiteBackgroundContainer>
+          <Cta />
+        </WhiteBackgroundContainer>
       </HomepageWrapper>
     </>
   );
@@ -62,28 +96,23 @@ export default function Homepage({ posts }: InferGetStaticPropsType<typeof getSt
 
 const HomepageWrapper = styled.div`
   & > :last-child {
-    margin-bottom: 15rem;
+    margin-bottom: 0;
   }
 `;
 
 const DarkerBackgroundContainer = styled.div`
   background: rgb(var(--background));
-
-  & > *:not(:first-child) {
-    margin-top: 15rem;
-  }
 `;
 
 const WhiteBackgroundContainer = styled.div`
   background: rgb(var(--secondBackground));
+`;
 
-  & > :last-child {
-    padding-bottom: 15rem;
-  }
-
-  & > *:not(:first-child) {
-    margin-top: 15rem;
-  }
+const TrustSection = styled.div`
+  background: rgb(var(--background));
+  padding: 4rem 0;
+  border-top: 1px solid rgba(var(--textSecondary), 0.1);
+  border-bottom: 1px solid rgba(var(--textSecondary), 0.1);
 `;
 
 export async function getStaticProps() {
