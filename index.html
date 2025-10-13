@@ -104,6 +104,34 @@
       font-weight: 800;
       border-radius: 10px;
     }
+
+    /* ФИКС для белого текста на голубом фоне */
+    .hero-text-dark {
+      color: #2c3e50 !important;
+    }
+    
+    .hero-text-dark h1 {
+      color: #2c3e50 !important;
+    }
+    
+    .hero-text-dark p {
+      color: #34495e !important;
+    }
+
+    /* Placeholders для картинок */
+    .diagram-placeholder {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border: 2px dashed #dee2e6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      min-height: 250px;
+      color: #6c757d;
+      font-size: 1.2rem;
+      text-align: center;
+      font-weight: 600;
+    }
   </style>
 </head>
 
@@ -164,19 +192,19 @@
           <!--Grid row-->
           <div class="row d-flex h-100 justify-content-center align-items-center wow fadeIn">
             <!--Grid column-->
-            <div class="col-md-6 mb-4 white-text text-center text-md-left">
+            <div class="col-md-6 mb-4 hero-text-dark text-center text-md-left">
               <h1 class="display-4 font-weight-bold">Is Your Brand Visible in AI?</h1>
-              <hr class="hr-light">
+              <hr style="border-color: #34495e;">
               <p>
                 <strong>Check how ChatGPT, Claude, and other AI systems see your brand</strong>
               </p>
               <p class="mb-4 d-none d-md-block">
                 <strong>Discover your AI visibility score, track competitors, and get actionable insights to improve your presence in AI-powered search results.</strong>
               </p>
-              <a href="#analyze" class="btn btn-outline-white">Analyze Now
+              <a href="#analyze" class="btn btn-primary">Analyze Now
                 <i class="fas fa-search ms-2"></i>
               </a>
-              <a href="#features" class="btn btn-outline-white">Learn More
+              <a href="#features" class="btn btn-outline-primary">Learn More
                 <i class="fas fa-arrow-right ms-2"></i>
               </a>
             </div>
@@ -288,7 +316,15 @@
           
           <div class="col-lg-5 mb-4 order-lg-2">
             <div class="view overlay rounded z-depth-2">
-              <img src="demo-illustration-1.svg" class="img-fluid" alt="GEO Architecture">
+              <div class="diagram-placeholder">
+                <div>
+                  <i class="fas fa-sitemap fa-3x mb-3"></i>
+                  <br>
+                  <span>GEO Architecture</span>
+                  <br>
+                  <small>AI Systems Integration</small>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -348,7 +384,15 @@
         <div class="row align-items-center mb-5">
           <div class="col-lg-6 mb-4">
             <div class="view overlay rounded z-depth-2">
-              <img src="demo-illustration-2.svg" class="img-fluid" alt="GEO Process Flow">
+              <div class="diagram-placeholder">
+                <div>
+                  <i class="fas fa-arrow-right fa-3x mb-3"></i>
+                  <br>
+                  <span>GEO Process Flow</span>
+                  <br>
+                  <small>Traditional SEO → AI Optimization</small>
+                </div>
+              </div>
             </div>
           </div>
           <div class="col-lg-6">
