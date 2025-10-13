@@ -14,7 +14,7 @@
   <!-- Open Graph Tags -->
   <meta property="og:title" content="Brain Index - AI Visibility Analytics Platform">
   <meta property="og:description" content="Discover how AI systems like ChatGPT perceive your brand. Get your free AI visibility report with actionable insights.">
-  <meta property="og:image" content="https://brain-index-site.vercel.app/img/logo-main.png">
+  <meta property="og:image" content="https://brain-index-site.vercel.app/demo-illustration-3.png">
   <meta property="og:url" content="https://brain-index-site.vercel.app/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Brain Index">
@@ -23,7 +23,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Brain Index - AI Visibility Analytics">
   <meta name="twitter:description" content="Check how AI systems see your brand. Free analysis, no credit card required.">
-  <meta name="twitter:image" content="https://brain-index-site.vercel.app/img/logo-main.png">
+  <meta name="twitter:image" content="https://brain-index-site.vercel.app/demo-illustration-3.png">
   
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
@@ -92,6 +92,17 @@
 
     #videoContainer {
       position: relative;
+    }
+
+    .logo-placeholder {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: 800;
+      border-radius: 10px;
     }
   </style>
 </head>
@@ -207,7 +218,15 @@
         <div class="row align-items-center">
           <!--Grid column-->
           <div class="col-md-6 mb-4">
-            <img src="img/logo-main.png" class="img-fluid z-depth-1-half" alt="Brain Index AI Analysis" style="max-width: 400px;">
+            <div class="logo-placeholder z-depth-1-half" style="height: 300px; max-width: 400px;">
+              <div class="text-center">
+                <i class="fas fa-brain fa-3x mb-3"></i>
+                <br>
+                <span>BRAIN INDEX</span>
+                <br>
+                <small>AI Visibility Analytics</small>
+              </div>
+            </div>
           </div>
           <!--Grid column-->
 
@@ -269,7 +288,7 @@
           
           <div class="col-lg-5 mb-4 order-lg-2">
             <div class="view overlay rounded z-depth-2">
-              <img src="img/geo-diagram-1.png" class="img-fluid" alt="GEO Architecture">
+              <img src="demo-illustration-1.svg" class="img-fluid" alt="GEO Architecture">
             </div>
           </div>
         </div>
@@ -306,12 +325,12 @@
             
             <div class="col-lg-7 mb-4">
               <div class="embed-responsive embed-responsive-16by9 z-depth-2 rounded" id="videoContainer">
-                <video class="embed-responsive-item" id="demoVideo" autoplay loop muted playsinline>
-                  <source src="video/demo.mp4" type="video/mp4">
-                  Your browser does not support the video tag.
-                </video>
-                <div class="video-overlay" id="videoOverlay">
-                  <i class="fas fa-pause-circle"></i>
+                <div style="background: rgba(0,0,0,0.7); height: 300px; display: flex; align-items: center; justify-content: center; border-radius: 10px;">
+                  <div class="text-center text-white">
+                    <i class="fas fa-play-circle fa-5x mb-3"></i>
+                    <h5>Demo Video Coming Soon</h5>
+                    <p>Interactive AI Analysis Demo</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -329,7 +348,7 @@
         <div class="row align-items-center mb-5">
           <div class="col-lg-6 mb-4">
             <div class="view overlay rounded z-depth-2">
-              <img src="img/geo-diagram-2.png" class="img-fluid" alt="GEO Process Flow">
+              <img src="demo-illustration-2.svg" class="img-fluid" alt="GEO Process Flow">
             </div>
           </div>
           <div class="col-lg-6">
@@ -854,46 +873,6 @@
       } else {
         alert('Please enter a valid email address.');
         document.getElementById('emailInput').focus();
-      }
-    });
-    
-    // Video control script
-    document.addEventListener('DOMContentLoaded', function() {
-      const video = document.getElementById('demoVideo');
-      const videoContainer = document.getElementById('videoContainer');
-      const videoOverlay = document.getElementById('videoOverlay');
-      
-      if (video && videoContainer) {
-        let isPlaying = true;
-        
-        function updateOverlayIcon() {
-          if (videoOverlay) {
-            const icon = videoOverlay.querySelector('i');
-            if (icon) {
-              icon.className = isPlaying ? 'fas fa-pause-circle' : 'fas fa-play-circle';
-            }
-          }
-        }
-        
-        videoContainer.addEventListener('click', function() {
-          if (isPlaying) {
-            video.pause();
-          } else {
-            video.play();
-          }
-          isPlaying = !isPlaying;
-          updateOverlayIcon();
-        });
-        
-        video.addEventListener('play', function() {
-          isPlaying = true;
-          updateOverlayIcon();
-        });
-        
-        video.addEventListener('pause', function() {
-          isPlaying = false;
-          updateOverlayIcon();
-        });
       }
     });
 
