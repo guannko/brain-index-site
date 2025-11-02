@@ -1,7 +1,10 @@
-// Brain Index API Connection
-const API_URL = 'http://localhost:3000/api'; // Позже заменим на production URL
+// Brain Index API Connection - Railway Production
+const API_URL = 'https://brain-index-geo-monolith-production.up.railway.app/api';
 
-// Анализ бренда
+// Global brand storage
+let currentBrand = '';
+
+// Analyze brand
 async function analyzeBrand() {
     const brandInput = document.getElementById('brandInput');
     const brand = brandInput.value.trim();
@@ -11,118 +14,137 @@ async function analyzeBrand() {
         return;
     }
     
-    // Показываем индикатор загрузки
+    currentBrand = brand;
+    
     const button = event.target;
     const originalText = button.innerHTML;
     button.disabled = true;
     button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Analyzing...';
     
     try {
-        // Отправляем запрос на анализ
         const response = await fetch(`${API_URL}/analyzer/analyze`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                brandName: brand,
-                providers: ['chatgpt', 'google'] // Можно расширить
+                input: brand,
+                providers: ['chatgpt', 'google']
             })
         });
         
-        if (!response.ok) {
-            throw new Error('Analysis failed');
-        }
+        if (!response.ok) throw new Error('Analysis failed');
         
         const data = await response.json();
-        
-        // Получаем ID задачи
-        const jobId = data.jobId;
-        
-        // Ждём результаты
-        checkJobStatus(jobId, button, originalText);
+        checkJobStatus(data.jobId, button, originalText, brand);
         
     } catch (error) {
         console.error('Error:', error);
-        showNotification('Analysis service is currently unavailable. Please try again later.', 'danger');
+        showNotification('Analysis service is currently unavailable', 'danger');
         button.disabled = false;
         button.innerHTML = originalText;
     }
 }
 
-// Проверка статуса задачи
-async function checkJobStatus(jobId, button, originalText) {
+// Check job status
+async function checkJobStatus(jobId, button, originalText, brand) {
     try {
         const response = await fetch(`${API_URL}/analyzer/results/${jobId}`);
         const data = await response.json();
         
         if (data.status === 'completed') {
-            // Показываем результаты
-            displayResults(data.result);
+            data.result.brandName = brand || currentBrand;
+            displayEnhancedResults(data.result);
             button.disabled = false;
             button.innerHTML = originalText;
         } else if (data.status === 'failed') {
             throw new Error('Analysis failed');
         } else {
-            // Проверяем снова через 2 секунды
-            setTimeout(() => checkJobStatus(jobId, button, originalText), 2000);
+            setTimeout(() => checkJobStatus(jobId, button, originalText, brand), 2000);
         }
     } catch (error) {
         console.error('Error:', error);
-        showNotification('Failed to get results. Please try again.', 'danger');
+        showNotification('Failed to get results', 'danger');
         button.disabled = false;
         button.innerHTML = originalText;
     }
 }
 
-// Отображение результатов
-function displayResults(results) {
-    // Создаём модальное окно с результатами
+// Display enhanced results
+function displayEnhancedResults(results) {
+    const chatgptScore = results.chatgpt || 0;
+    const googleScore = results.google || 0;
+    const avgScore = Math.round((chatgptScore + googleScore) / 2);
+    
+    let level, color, icon;
+    if (avgScore >= 80) { level = 'Excellent'; color = 'success'; icon = 'trophy'; }
+    else if (avgScore >= 60) { level = 'Good'; color = 'info'; icon = 'thumbs-up'; }
+    else if (avgScore >= 40) { level = 'Moderate'; color = 'warning'; icon = 'exclamation-triangle'; }
+    else { level = 'Low'; color = 'danger'; icon = 'exclamation-circle'; }
+    
     const modalHTML = `
-        <div class="modal fade" id="resultsModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-lg" role="document">
+        <div class="modal fade" id="resultsModal" tabindex="-1">
+            <div class="modal-dialog modal-xl">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header bg-primary text-white">
                         <h5 class="modal-title">AI Visibility Analysis Results</h5>
-                        <button type="button" class="close" data-dismiss="modal">
+                        <button type="button" class="close text-white" data-dismiss="modal">
                             <span>&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h6>Brand: ${results.brandName}</h6>
-                        <div class="row mt-3">
-                            <div class="col-md-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h6 class="card-title">ChatGPT Visibility</h6>
-                                        <div class="progress">
-                                            <div class="progress-bar bg-success" style="width: ${results.chatgptScore || 0}%">
-                                                ${results.chatgptScore || 0}%
-                                            </div>
-                                        </div>
-                                        <small class="text-muted">How well ChatGPT knows your brand</small>
-                                    </div>
-                                </div>
+                        <div class="row mb-4">
+                            <div class="col-md-8">
+                                <h4>${results.brandName || 'Unknown'}</h4>
+                                <p class="text-muted">AI visibility analysis complete</p>
                             </div>
-                            <div class="col-md-6">
-                                <div class="card">
+                            <div class="col-md-4 text-center">
+                                <div class="card bg-${color} text-white">
                                     <div class="card-body">
-                                        <h6 class="card-title">Google AI Visibility</h6>
-                                        <div class="progress">
-                                            <div class="progress-bar bg-info" style="width: ${results.googleScore || 0}%">
-                                                ${results.googleScore || 0}%
-                                            </div>
-                                        </div>
-                                        <small class="text-muted">Your presence in Google AI results</small>
+                                        <i class="fas fa-${icon} fa-3x mb-2"></i>
+                                        <h3>${avgScore}%</h3>
+                                        <h5>${level}</h5>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="mt-4">
-                            <h6>Recommendations:</h6>
-                            <ul>
-                                ${results.recommendations ? results.recommendations.map(r => `<li>${r}</li>`).join('') : '<li>Sign up for detailed analysis and recommendations</li>'}
-                            </ul>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h6>ChatGPT Visibility: ${chatgptScore}%</h6>
+                                        <div class="progress" style="height: 25px;">
+                                            <div class="progress-bar bg-success" style="width: ${chatgptScore}%">
+                                                ${chatgptScore}%
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h6>Google AI Visibility: ${googleScore}%</h6>
+                                        <div class="progress" style="height: 25px;">
+                                            <div class="progress-bar bg-info" style="width: ${googleScore}%">
+                                                ${googleScore}%
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">Key Insights</div>
+                            <div class="card-body">
+                                <ul>
+                                    <li>Market Position: ${avgScore >= 70 ? 'Above average' : avgScore >= 40 ? 'Average' : 'Below average'}</li>
+                                    <li>Growth Potential: ${100 - avgScore}% improvement opportunity</li>
+                                    <li>AI Reach: ${avgScore >= 70 ? 'High' : avgScore >= 40 ? 'Moderate' : 'Limited'} exposure</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -134,20 +156,18 @@ function displayResults(results) {
         </div>
     `;
     
-    // Удаляем старый модал если есть
     const oldModal = document.getElementById('resultsModal');
-    if (oldModal) {
-        oldModal.remove();
-    }
+    if (oldModal) oldModal.remove();
     
-    // Добавляем новый модал
     document.body.insertAdjacentHTML('beforeend', modalHTML);
-    
-    // Показываем модал
     $('#resultsModal').modal('show');
 }
 
-// Показ уведомлений
+// For compatibility with existing code
+function displayResults(results) {
+    displayEnhancedResults(results);
+}
+
 function showNotification(message, type = 'info') {
     const alertHTML = `
         <div class="alert alert-${type} alert-dismissible fade show position-fixed" style="top: 80px; right: 20px; z-index: 9999;">
@@ -160,13 +180,12 @@ function showNotification(message, type = 'info') {
     
     document.body.insertAdjacentHTML('beforeend', alertHTML);
     
-    // Автоматически скрываем через 5 секунд
     setTimeout(() => {
         $('.alert').alert('close');
     }, 5000);
 }
 
-// Demo режим (пока нет backend)
+// Demo функция для первых тестов
 function analyzeDemo() {
     const brandInput = document.getElementById('brandInput');
     const brand = brandInput.value.trim();
@@ -176,34 +195,16 @@ function analyzeDemo() {
         return;
     }
     
-    // Показываем индикатор загрузки
     const button = event.target;
     const originalText = button.innerHTML;
     button.disabled = true;
     button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Analyzing...';
     
-    // Симулируем задержку
-    setTimeout(() => {
-        // Генерируем случайные результаты для демо
-        const demoResults = {
-            brandName: brand,
-            chatgptScore: Math.floor(Math.random() * 60) + 20,
-            googleScore: Math.floor(Math.random() * 50) + 15,
-            recommendations: [
-                'Create detailed product descriptions with structured data',
-                'Optimize your website for AI crawlers',
-                'Build authoritative content that AI systems reference',
-                'Implement Schema.org markup for better understanding'
-            ]
-        };
-        
-        displayResults(demoResults);
-        button.disabled = false;
-        button.innerHTML = originalText;
-    }, 2000);
+    // Попробуем сначала настоящий API, если не работает - demo
+    analyzeBrand();
 }
 
-// Запрос отчёта по email
+// Request report function
 function requestReport() {
     const emailInput = document.getElementById('emailInput');
     const email = emailInput.value.trim();
@@ -213,14 +214,9 @@ function requestReport() {
         return;
     }
     
-    // В демо режиме просто показываем сообщение
+    // Симулируем отправку
     showNotification('Thank you! Your report will be sent to ' + email + ' shortly.', 'success');
     emailInput.value = '';
     
-    // TODO: Отправить на backend когда будет готов
-    // fetch(`${API_URL}/reports/request`, {
-    //     method: 'POST',
-    //     headers: {'Content-Type': 'application/json'},
-    //     body: JSON.stringify({email})
-    // });
+    // TODO: Подключить к backend для отправки email
 }
