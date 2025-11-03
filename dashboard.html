@@ -1,308 +1,541 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Brain Index - Client Dashboard</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-  <style>
-    :root {
-      --bs-primary: #1565C0;
-      --bs-orange: #FF6B35;
-    }
-    .sidebar { 
-      min-height: 100vh; 
-      background: linear-gradient(180deg, #1565C0 0%, #0D47A1 100%);
-    }
-    .sidebar .nav-link { 
-      color: rgba(255,255,255,0.8); 
-      padding: 1rem;
-      border-radius: 0.5rem;
-      margin-bottom: 0.5rem;
-    }
-    .sidebar .nav-link:hover { 
-      color: #fff; 
-      background: rgba(255,255,255,0.1);
-    }
-    .sidebar .nav-link.active { 
-      color: #fff; 
-      background: rgba(255,255,255,0.2);
-    }
-    .visibility-score {
-      font-size: 3rem;
-      font-weight: bold;
-    }
-    .score-good { color: #198754; }
-    .score-medium { color: #ffc107; }
-    .score-poor { color: #dc3545; }
-    .analysis-card {
-      border-left: 4px solid #FF6B35;
-      transition: transform 0.2s;
-    }
-    .analysis-card:hover {
-      transform: translateX(5px);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Index - Dashboard</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles -->
+    <link href="css/style.min.css" rel="stylesheet">
+    <link href="css/brain-index.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4a6cf7;
+            --secondary-color: #6c757d;
+            --dark-color: #212529;
+            --light-color: #f8f9fa;
+            --bg-color: #f5f7ff;
+            --text-color: #212529;
+            --card-bg: #ffffff;
+            --border-color: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        
+        .sidebar {
+            background-color: var(--dark-color);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            padding-top: 20px;
+            width: 250px;
+        }
+        
+        .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 10px 20px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+        
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .sidebar .nav-link i {
+            margin-right: 10px;
+        }
+        
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            margin-top: 60px;
+        }
+        
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px var(--border-color);
+            margin-bottom: 20px;
+            border: none;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+        }
+        
+        .stat-card {
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-card i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .stat-card h3 {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-card p {
+            color: var(--secondary-color);
+            margin-bottom: 0;
+        }
+        
+        .navbar {
+            background-color: var(--card-bg);
+            box-shadow: 0 2px 4px var(--border-color);
+        }
+        
+        .score-badge {
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+        
+        .score-high { background-color: #28a745; color: white; }
+        .score-medium { background-color: #ffc107; color: #212529; }
+        .score-low { background-color: #dc3545; color: white; }
+        
+        .btn-loading {
+            pointer-events: none;
+            opacity: 0.65;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar { 
+                width: 100%; 
+                height: auto; 
+                position: relative; 
+            }
+            .main-content { 
+                margin-left: 0; 
+                margin-top: 20px;
+            }
+        }
+    </style>
 </head>
-<body class="bg-light">
-  
-  <div class="container-fluid">
-    <div class="row">
-      <!-- Sidebar -->
-      <nav class="col-md-3 col-lg-2 d-md-block sidebar collapse">
-        <div class="position-sticky pt-3">
-          <div class="text-center text-white py-4">
-            <h5><span style="font-weight: 800;">BRAIN</span> <span style="font-weight: 400; color: #FF9500;">INDEX</span></h5>
-            <small class="text-white-50">Client Portal</small>
-          </div>
-          
-          <div class="px-3 mb-4">
-            <div class="card bg-white bg-opacity-10 text-white">
-              <div class="card-body">
-                <h6>Welcome back!</h6>
-                <p class="mb-0">John Doe</p>
-                <small>Professional Plan</small>
-              </div>
-            </div>
-          </div>
-
-          <ul class="nav flex-column px-3">
-            <li class="nav-item">
-              <a class="nav-link active" href="#dashboard">
-                <i class="bi bi-speedometer2"></i> Dashboard
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#analyses">
-                <i class="bi bi-graph-up"></i> My Analyses
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#reports">
-                <i class="bi bi-file-earmark-text"></i> Reports
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#competitors">
-                <i class="bi bi-people"></i> Competitors
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#subscription">
-                <i class="bi bi-credit-card"></i> Subscription
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#settings">
-                <i class="bi bi-gear"></i> Settings
-              </a>
-            </li>
-            <li class="nav-item mt-4">
-              <a class="nav-link text-white-50" href="#">
-                <i class="bi bi-box-arrow-right"></i> Logout
-              </a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-
-      <!-- Main content -->
-      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <!-- Header -->
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">Dashboard</h1>
-          <div class="btn-toolbar mb-2 mb-md-0">
-            <button type="button" class="btn btn-primary">
-              <i class="bi bi-plus-circle"></i> New Analysis
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html" style="font-size: 1.5rem; font-family: system-ui;">
+                <span style="color: #000; font-weight: 800;">BRAIN</span> 
+                <span style="color: #FF9500; font-weight: 400;">INDEX</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
             </button>
-          </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown">
+                            <i class="fas fa-user-circle mr-1"></i> Account
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Settings</a></li>
+                            <li><a class="dropdown-item" href="pricing.html"><i class="fas fa-credit-card mr-2"></i>Subscription</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" id="logoutBtn"><i class="fas fa-sign-out-alt mr-2"></i>Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
+    </nav>
 
-        <!-- AI Visibility Score -->
-        <div class="row mb-4">
-          <div class="col-md-12">
-            <div class="card">
-              <div class="card-body">
-                <div class="row align-items-center">
-                  <div class="col-md-8">
-                    <h5 class="card-title">Your Overall AI Visibility Score</h5>
-                    <p class="text-muted">Based on analysis across ChatGPT, Claude, Gemini, and Perplexity</p>
-                    <div class="progress" style="height: 30px;">
-                      <div class="progress-bar bg-warning" role="progressbar" style="width: 68%;" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100">68%</div>
-                    </div>
-                    <div class="mt-3">
-                      <span class="badge bg-success me-2">ChatGPT: 75%</span>
-                      <span class="badge bg-warning me-2">Claude: 62%</span>
-                      <span class="badge bg-warning me-2">Gemini: 58%</span>
-                      <span class="badge bg-danger me-2">Perplexity: 45%</span>
-                    </div>
-                  </div>
-                  <div class="col-md-4 text-center">
-                    <div class="visibility-score score-medium">68%</div>
-                    <p class="text-muted">Room for improvement</p>
-                    <button class="btn btn-outline-primary">View Recommendations</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Stats Cards -->
-        <div class="row mb-4">
-          <div class="col-md-3">
-            <div class="card">
-              <div class="card-body">
-                <h6 class="text-muted">Analyses This Month</h6>
-                <h3>47 / 200</h3>
-                <small class="text-success"><i class="bi bi-arrow-up"></i> 12% from last month</small>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card">
-              <div class="card-body">
-                <h6 class="text-muted">Competitors Tracked</h6>
-                <h3>5</h3>
-                <small class="text-muted">Max: 10</small>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card">
-              <div class="card-body">
-                <h6 class="text-muted">Reports Generated</h6>
-                <h3>23</h3>
-                <small class="text-success"><i class="bi bi-arrow-up"></i> New report available</small>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card">
-              <div class="card-body">
-                <h6 class="text-muted">Plan Usage</h6>
-                <h3>23.5%</h3>
-                <small class="text-muted">153 checks remaining</small>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Recent Analyses -->
+    <!-- Sidebar -->
+    <div class="container-fluid">
         <div class="row">
-          <div class="col-md-8">
-            <div class="card">
-              <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">Recent Analyses</h5>
-                <a href="#" class="btn btn-sm btn-outline-primary">View All</a>
-              </div>
-              <div class="card-body">
-                <div class="analysis-card card mb-3">
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start">
-                      <div>
-                        <h6>Brand Analysis - Main Website</h6>
-                        <p class="text-muted mb-1">Analyzed: December 15, 2024</p>
-                        <div>
-                          <span class="badge bg-success">ChatGPT: 82%</span>
-                          <span class="badge bg-warning">Claude: 65%</span>
-                          <span class="badge bg-danger">Gemini: 43%</span>
-                        </div>
-                      </div>
-                      <div>
-                        <button class="btn btn-sm btn-outline-primary">View Report</button>
-                      </div>
-                    </div>
-                  </div>
+            <nav class="col-md-3 col-lg-2 d-md-block sidebar">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <i class="fas fa-tachometer-alt"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">
+                                <i class="fas fa-search"></i> New Analysis
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-history"></i> History
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-chart-line"></i> Reports
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-cog"></i> Settings
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                
-                <div class="analysis-card card mb-3">
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start">
-                      <div>
-                        <h6>Product Page Analysis</h6>
-                        <p class="text-muted mb-1">Analyzed: December 12, 2024</p>
-                        <div>
-                          <span class="badge bg-warning">ChatGPT: 71%</span>
-                          <span class="badge bg-warning">Claude: 68%</span>
-                          <span class="badge bg-success">Gemini: 76%</span>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 main-content">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Dashboard</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group mr-2">
+                            <button type="button" class="btn btn-sm btn-outline-primary" id="exportCSV">
+                                <span class="btn-text"><i class="fas fa-file-csv mr-1"></i> Export CSV</span>
+                                <span class="spinner-border spinner-border-sm d-none" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </span>
+                            </button>
                         </div>
-                      </div>
-                      <div>
-                        <button class="btn btn-sm btn-outline-primary">View Report</button>
-                      </div>
+                        <button type="button" class="btn btn-sm btn-primary" id="newAnalysisBtn" data-toggle="modal" data-target="#newAnalysisModal">
+                            <i class="fas fa-plus mr-1"></i> New Analysis
+                        </button>
                     </div>
-                  </div>
                 </div>
 
-                <div class="analysis-card card">
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start">
-                      <div>
-                        <h6>Competitor Comparison</h6>
-                        <p class="text-muted mb-1">Analyzed: December 10, 2024</p>
-                        <div>
-                          <span class="badge bg-info text-dark">3 Competitors</span>
-                          <span class="badge bg-success">You rank #2</span>
+                <!-- Stats Cards -->
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card stat-card">
+                            <i class="fas fa-chart-bar"></i>
+                            <h3 id="totalAnalyses">0</h3>
+                            <p>Total Analyses</p>
                         </div>
-                      </div>
-                      <div>
-                        <button class="btn btn-sm btn-outline-primary">View Report</button>
-                      </div>
                     </div>
-                  </div>
+                    <div class="col-md-3">
+                        <div class="card stat-card">
+                            <i class="fas fa-star"></i>
+                            <h3 id="averageScore">0</h3>
+                            <p>Average Score</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card stat-card">
+                            <i class="fas fa-arrow-trend-up"></i>
+                            <h3 id="improvementRate">0%</h3>
+                            <p>Monthly Change</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card stat-card">
+                            <i class="fas fa-robot"></i>
+                            <h3 id="aiMentions">0</h3>
+                            <p>AI Mentions</p>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
 
-          <!-- Recommendations -->
-          <div class="col-md-4">
-            <div class="card">
-              <div class="card-header">
-                <h5 class="mb-0">Top Recommendations</h5>
-              </div>
-              <div class="card-body">
-                <div class="mb-3">
-                  <div class="d-flex align-items-center mb-2">
-                    <div class="badge bg-danger me-2">High Priority</div>
-                  </div>
-                  <h6>Add Schema.org Markup</h6>
-                  <p class="small text-muted">Implement structured data to improve AI understanding of your content</p>
-                  <small class="text-success">+15% visibility boost</small>
+                <!-- Charts -->
+                <div class="row mt-4">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Analysis History</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container">
+                                    <canvas id="analysisChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">AI Systems Distribution</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container">
+                                    <canvas id="aiSystemsChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                <hr>
-                
-                <div class="mb-3">
-                  <div class="d-flex align-items-center mb-2">
-                    <div class="badge bg-warning text-dark me-2">Medium Priority</div>
-                  </div>
-                  <h6>Update Product Descriptions</h6>
-                  <p class="small text-muted">Make descriptions more factual and citation-friendly</p>
-                  <small class="text-success">+8% visibility boost</small>
+
+                <!-- Recent Analyses Table -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Recent Analyses</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Brand</th>
+                                                <th>ChatGPT</th>
+                                                <th>Google</th>
+                                                <th>Total Score</th>
+                                                <th>Date</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="analysesTable">
+                                            <tr>
+                                                <td colspan="6" class="text-center">Loading analyses...</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                <hr>
-                
-                <div>
-                  <div class="d-flex align-items-center mb-2">
-                    <div class="badge bg-info text-dark me-2">Low Priority</div>
-                  </div>
-                  <h6>Add Wikipedia Citations</h6>
-                  <p class="small text-muted">Reference Wikipedia where relevant to build authority</p>
-                  <small class="text-success">+5% visibility boost</small>
-                </div>
-              </div>
-            </div>
-          </div>
+            </main>
         </div>
-
-      </main>
     </div>
-  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- New Analysis Modal -->
+    <div class="modal fade" id="newAnalysisModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">New Analysis</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="newAnalysisForm">
+                        <div class="form-group">
+                            <label for="brandName">Brand Name</label>
+                            <input type="text" class="form-control" id="brandName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>AI Systems</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="checkChatGPT" checked>
+                                <label class="form-check-label" for="checkChatGPT">ChatGPT</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="checkGoogle" checked>
+                                <label class="form-check-label" for="checkGoogle">Google AI</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="startAnalysisBtn">
+                        <span class="btn-text">Start Analysis</span>
+                        <span class="spinner-border spinner-border-sm d-none" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/mdb.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/api.js"></script>
+    <script>
+        // Dashboard configuration
+        const API_URL = 'https://brain-index-geo-monolith-production.up.railway.app/api';
+        
+        // Loading button helper
+        function setButtonLoading(btn, loading) {
+            const btnText = btn.querySelector('.btn-text');
+            const spinner = btn.querySelector('.spinner-border');
+            
+            if (loading) {
+                btn.classList.add('btn-loading');
+                btn.disabled = true;
+                if (btnText) btnText.classList.add('d-none');
+                if (spinner) spinner.classList.remove('d-none');
+            } else {
+                btn.classList.remove('btn-loading');
+                btn.disabled = false;
+                if (btnText) btnText.classList.remove('d-none');
+                if (spinner) spinner.classList.add('d-none');
+            }
+        }
+
+        // Dashboard initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDashboardData();
+            initCharts();
+        });
+        
+        async function loadDashboardData() {
+            try {
+                // Simulated data for demo - replace with real API call
+                const stats = {
+                    totalAnalyses: Math.floor(Math.random() * 50) + 10,
+                    averageScore: Math.floor(Math.random() * 30) + 60,
+                    improvementRate: Math.floor(Math.random() * 20) + 5,
+                    aiMentions: Math.floor(Math.random() * 200) + 50
+                };
+                
+                document.getElementById('totalAnalyses').textContent = stats.totalAnalyses;
+                document.getElementById('averageScore').textContent = stats.averageScore;
+                document.getElementById('improvementRate').textContent = '+' + stats.improvementRate + '%';
+                document.getElementById('aiMentions').textContent = stats.aiMentions;
+                
+                loadRecentAnalyses();
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+            }
+        }
+        
+        function loadRecentAnalyses() {
+            const tbody = document.getElementById('analysesTable');
+            tbody.innerHTML = '';
+            
+            // Demo data
+            const analyses = [
+                { brand: 'Tesla', chatgpt: 92, google: 88, date: '2025-01-15' },
+                { brand: 'Nike', chatgpt: 85, google: 79, date: '2025-01-14' },
+                { brand: 'Apple', chatgpt: 95, google: 91, date: '2025-01-13' }
+            ];
+            
+            analyses.forEach(analysis => {
+                const totalScore = Math.round((analysis.chatgpt + analysis.google) / 2);
+                const scoreClass = totalScore >= 70 ? 'score-high' : totalScore >= 40 ? 'score-medium' : 'score-low';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${analysis.brand}</td>
+                    <td>${analysis.chatgpt}</td>
+                    <td>${analysis.google}</td>
+                    <td><span class="badge ${scoreClass}">${totalScore}</span></td>
+                    <td>${new Date(analysis.date).toLocaleDateString()}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary">View</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function initCharts() {
+            // Analysis History Chart
+            const ctx1 = document.getElementById('analysisChart').getContext('2d');
+            new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'ChatGPT Score',
+                        data: [65, 70, 75, 72, 78, 80, 85],
+                        borderColor: '#4a6cf7',
+                        tension: 0.4,
+                        fill: false
+                    }, {
+                        label: 'Google Score',
+                        data: [60, 65, 70, 68, 72, 75, 80],
+                        borderColor: '#28a745',
+                        tension: 0.4,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'top' }
+                    }
+                }
+            });
+
+            // AI Systems Chart
+            const ctx2 = document.getElementById('aiSystemsChart').getContext('2d');
+            new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: ['ChatGPT', 'Google', 'Claude', 'Other'],
+                    datasets: [{
+                        data: [35, 30, 20, 15],
+                        backgroundColor: ['#4a6cf7', '#28a745', '#ffc107', '#6c757d']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+        }
+
+        // Export CSV
+        document.getElementById('exportCSV').addEventListener('click', function() {
+            setButtonLoading(this, true);
+            
+            setTimeout(() => {
+                let csvContent = 'Brand,ChatGPT Score,Google Score,Total Score,Date\\n';
+                csvContent += 'Tesla,92,88,90,2025-01-15\\n';
+                csvContent += 'Nike,85,79,82,2025-01-14\\n';
+                
+                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'brain-index-analyses.csv';
+                a.click();
+                
+                setButtonLoading(this, false);
+            }, 1000);
+        });
+
+        // New Analysis
+        document.getElementById('startAnalysisBtn').addEventListener('click', function() {
+            const brandName = document.getElementById('brandName').value.trim();
+            
+            if (!brandName) {
+                showNotification('Please enter a brand name', 'warning');
+                return;
+            }
+            
+            setButtonLoading(this, true);
+            
+            setTimeout(() => {
+                $('#newAnalysisModal').modal('hide');
+                showNotification(`Analysis started for ${brandName}!`, 'success');
+                document.getElementById('newAnalysisForm').reset();
+                setButtonLoading(this, false);
+                
+                // Refresh dashboard data
+                loadDashboardData();
+            }, 2000);
+        });
+    </script>
 </body>
 </html>
