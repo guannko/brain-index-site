@@ -56,7 +56,7 @@ export default function Hero() {
         <AnalyzerForm onSubmit={handleSubmit}>
           <AnalyzerInput
             type="text"
-            placeholder="Введите ваш бренд или сайт (например: Apple или apple.com)"
+            placeholder="Apple, Nike, Coca-Cola или ваш сайт: example.com"
             value={brandInput}
             onChange={(e) => setBrandInput(e.target.value)}
             required
@@ -66,6 +66,10 @@ export default function Hero() {
             {isLoading ? 'Анализируем...' : 'Проверить бесплатно →'}
           </AnalyzerButton>
         </AnalyzerForm>
+        
+        <ExamplesText>
+          <strong>Попробуйте:</strong> Apple • tesla.com • Nike • microsoft.com • Ваш бренд
+        </ExamplesText>
         
         <SecondaryLink>
           <NextLink href="#features" passHref>
@@ -255,6 +259,18 @@ const AnalyzerButton = styled(Button)`
   ${media('<=tablet')} {
     height: 5rem;
     font-size: 1.4rem;
+  }
+`;
+
+const ExamplesText = styled.p`
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 1.4rem;
+  color: rgba(var(--text), 0.6);
+  
+  strong {
+    font-weight: 600;
+    color: rgba(var(--text), 0.8);
   }
 `;
 
