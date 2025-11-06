@@ -1,5 +1,5 @@
 // Brain Index API Connection - Railway Production
-const API_URL = 'https://brain-index-geo-monolith-production.up.railway.app/api';
+const API_URL = 'https://annoris-production.up.railway.app/api';
 
 // Global brand storage
 let currentBrand = '';
