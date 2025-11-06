@@ -119,7 +119,7 @@ export default function AnalyzerPage() {
               <SearchForm onSubmit={(e) => { e.preventDefault(); handleAnalyze(); }}>
                 <SearchInput
                   type="text"
-                  placeholder="Введите название бренда или URL сайта"
+                  placeholder="Apple, Nike или ваш сайт: example.com, mycompany.io"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   disabled={loading}
@@ -128,6 +128,19 @@ export default function AnalyzerPage() {
                   {loading ? 'Анализируем...' : 'Анализировать'}
                 </SearchButton>
               </SearchForm>
+              
+              <ExamplesSection>
+                <ExamplesTitle>Примеры для анализа:</ExamplesTitle>
+                <ExamplesGrid>
+                  <ExampleChip onClick={() => { setInput('Apple'); handleAnalyze('Apple'); }}>Apple</ExampleChip>
+                  <ExampleChip onClick={() => { setInput('tesla.com'); handleAnalyze('tesla.com'); }}>tesla.com</ExampleChip>
+                  <ExampleChip onClick={() => { setInput('Nike'); handleAnalyze('Nike'); }}>Nike</ExampleChip>
+                  <ExampleChip onClick={() => { setInput('microsoft.com'); handleAnalyze('microsoft.com'); }}>microsoft.com</ExampleChip>
+                  <ExampleChip onClick={() => { setInput('Coca-Cola'); handleAnalyze('Coca-Cola'); }}>Coca-Cola</ExampleChip>
+                  <ExampleChip onClick={() => { setInput('amazon.com'); handleAnalyze('amazon.com'); }}>amazon.com</ExampleChip>
+                </ExamplesGrid>
+              </ExamplesSection>
+              
               {error && <ErrorMessage>{error}</ErrorMessage>}
             </SearchSection>
           )}
@@ -269,6 +282,43 @@ const SearchButton = styled(Button)`
   padding: 0 3rem;
   font-size: 1.6rem;
   white-space: nowrap;
+`;
+
+const ExamplesSection = styled.div`
+  margin-top: 3rem;
+  text-align: center;
+`;
+
+const ExamplesTitle = styled.p`
+  font-size: 1.4rem;
+  color: rgba(var(--text), 0.6);
+  margin-bottom: 1.5rem;
+`;
+
+const ExamplesGrid = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  max-width: 60rem;
+  margin: 0 auto;
+`;
+
+const ExampleChip = styled.button`
+  background: rgba(var(--primary), 0.1);
+  border: 1px solid rgba(var(--primary), 0.2);
+  border-radius: 2rem;
+  padding: 0.8rem 1.8rem;
+  font-size: 1.4rem;
+  color: rgb(var(--text));
+  cursor: pointer;
+  transition: all 0.2s;
+  
+  &:hover {
+    background: rgba(var(--primary), 0.2);
+    border-color: rgba(var(--primary), 0.4);
+    transform: translateY(-2px);
+  }
 `;
 
 const ErrorMessage = styled.p`
