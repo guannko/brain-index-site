@@ -1,17 +1,29 @@
 'use client';
 
 import NextLink from 'next/link';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import Button from 'components/Button';
-import ButtonGroup from 'components/ButtonGroup';
 import Container from 'components/Container';
 import HeroIllustration from 'components/HeroIllustation';
 import OverTitle from 'components/OverTitle';
-import { useNewsletterModalContext } from 'contexts/newsletter-modal.context';
+import Input from 'components/Input';
 import { media } from 'utils/media';
 
 export default function Hero() {
-  const { setIsModalOpened } = useNewsletterModalContext();
+  const [brandInput, setBrandInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!brandInput.trim()) return;
+    
+    setIsLoading(true);
+    // Переходим на страницу анализатора с параметром
+    router.push(`/analyzer?q=${encodeURIComponent(brandInput.trim())}`);
+  };
 
   return (
     <HeroWrapper>
@@ -40,16 +52,28 @@ export default function Hero() {
         <UrgencyMessage>
           ⚡ Осталось <strong>3 бесплатных анализа</strong> сегодня!
         </UrgencyMessage>
-        <CustomButtonGroup>
-          <Button onClick={() => setIsModalOpened(true)}>
-            Получить бесплатный AI-аudit <span>&rarr;</span>
-          </Button>
+        
+        <AnalyzerForm onSubmit={handleSubmit}>
+          <AnalyzerInput
+            type="text"
+            placeholder="Введите ваш бренд или сайт (например: Apple или apple.com)"
+            value={brandInput}
+            onChange={(e) => setBrandInput(e.target.value)}
+            required
+            disabled={isLoading}
+          />
+          <AnalyzerButton type="submit" disabled={isLoading || !brandInput.trim()}>
+            {isLoading ? 'Анализируем...' : 'Проверить бесплатно →'}
+          </AnalyzerButton>
+        </AnalyzerForm>
+        
+        <SecondaryLink>
           <NextLink href="#features" passHref>
             <Button transparent>
               Как это работает <span>&rarr;</span>
             </Button>
           </NextLink>
-        </CustomButtonGroup>
+        </SecondaryLink>
       </Contents>
       <ImageContainer>
         <HeroIllustration />
@@ -76,10 +100,6 @@ const Contents = styled.div`
   ${media('<=desktop')} {
     max-width: 100%;
   }
-`;
-
-const CustomButtonGroup = styled(ButtonGroup)`
-  margin-top: 4rem;
 `;
 
 const ImageContainer = styled.div`
@@ -193,4 +213,52 @@ const UrgencyMessage = styled.div`
     font-size: 1.4rem;
     padding: 1.2rem 1.5rem;
   }
+`;
+
+const AnalyzerForm = styled.form`
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 3rem;
+  
+  ${media('<=tablet')} {
+    flex-direction: column;
+  }
+`;
+
+const AnalyzerInput = styled(Input)`
+  flex: 1;
+  height: 5.6rem;
+  font-size: 1.6rem;
+  padding: 0 2rem;
+  border: 2px solid rgba(var(--primary), 0.2);
+  border-radius: 1rem;
+  transition: all 0.2s;
+  
+  &:focus {
+    border-color: rgb(var(--primary));
+    box-shadow: 0 0 0 3px rgba(var(--primary), 0.1);
+  }
+  
+  ${media('<=tablet')} {
+    height: 5rem;
+    font-size: 1.4rem;
+  }
+`;
+
+const AnalyzerButton = styled(Button)`
+  height: 5.6rem;
+  padding: 0 3rem;
+  font-size: 1.6rem;
+  font-weight: bold;
+  white-space: nowrap;
+  
+  ${media('<=tablet')} {
+    height: 5rem;
+    font-size: 1.4rem;
+  }
+`;
+
+const SecondaryLink = styled.div`
+  margin-top: 2rem;
+  text-align: center;
 `;
