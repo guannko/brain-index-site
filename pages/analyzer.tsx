@@ -11,16 +11,25 @@ import { media } from 'utils/media';
 // Конфиг API
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://annoris-production.up.railway.app';
 
+interface ProviderScore {
+  name: string;
+  score: number;
+  error?: string;
+}
+
 interface AnalysisResult {
   jobId: string;
   status: string;
   result?: {
-    chatgpt: number;
-    google: number;
+    providers: ProviderScore[];
+    averageScore: number;
     analysis: string;
     recommendations?: string[];
     brandName: string;
     domain?: string;
+    // Legacy support
+    chatgpt?: number;
+    google?: number;
   };
 }
 
@@ -91,13 +100,13 @@ export default function AnalyzerPage() {
       }
     }, 1000);
 
-    // Таймаут 30 секунд
+    // Таймаут 60 секунд для multi-provider анализа
     const timeout = setTimeout(() => {
       clearInterval(pollInterval);
       setLoading(false);
       setPolling(false);
       setError('Анализ занимает больше времени чем обычно. Попробуйте позже.');
-    }, 30000);
+    }, 60000);
 
     return () => {
       clearInterval(pollInterval);
@@ -148,8 +157,8 @@ export default function AnalyzerPage() {
           {loading && (
             <LoadingSection>
               <LoadingSpinner />
-              <LoadingText>Анализируем видимость в AI системах...</LoadingText>
-              <LoadingSubtext>Это может занять до 30 секунд</LoadingSubtext>
+              <LoadingText>Анализируем видимость в 5+ AI системах...</LoadingText>
+              <LoadingSubtext>Это может занять до 60 секунд</LoadingSubtext>
             </LoadingSection>
           )}
 
@@ -160,27 +169,72 @@ export default function AnalyzerPage() {
                 {result.result.domain && <DomainName>{result.result.domain}</DomainName>}
               </ResultHeader>
 
-              <ScoresGrid>
-                <ScoreCard>
-                  <ScoreLabel>ChatGPT Visibility</ScoreLabel>
-                  <ScoreValue color={getScoreColor(result.result.chatgpt)}>
-                    {result.result.chatgpt}/100
-                  </ScoreValue>
-                  <ScoreBar>
-                    <ScoreBarFill width={result.result.chatgpt} color={getScoreColor(result.result.chatgpt)} />
-                  </ScoreBar>
-                </ScoreCard>
+              {/* Средний скор */}
+              {result.result.averageScore !== undefined && (
+                <AverageScoreCard>
+                  <AverageScoreLabel>Средняя AI-видимость</AverageScoreLabel>
+                  <AverageScoreValue color={getScoreColor(result.result.averageScore)}>
+                    {Math.round(result.result.averageScore)}/100
+                  </AverageScoreValue>
+                  <AverageScoreBar>
+                    <AverageScoreBarFill 
+                      width={result.result.averageScore} 
+                      color={getScoreColor(result.result.averageScore)} 
+                    />
+                  </AverageScoreBar>
+                </AverageScoreCard>
+              )}
 
-                <ScoreCard>
-                  <ScoreLabel>Google AI Visibility</ScoreLabel>
-                  <ScoreValue color={getScoreColor(result.result.google)}>
-                    {result.result.google}/100
-                  </ScoreValue>
-                  <ScoreBar>
-                    <ScoreBarFill width={result.result.google} color={getScoreColor(result.result.google)} />
-                  </ScoreBar>
-                </ScoreCard>
-              </ScoresGrid>
+              {/* Multi-provider scores */}
+              {result.result.providers && result.result.providers.length > 0 ? (
+                <ProvidersGrid>
+                  {result.result.providers.map((provider, index) => (
+                    <ProviderCard key={index}>
+                      <ProviderLabel>{provider.name}</ProviderLabel>
+                      {provider.error ? (
+                        <ProviderError>Ошибка анализа</ProviderError>
+                      ) : (
+                        <>
+                          <ProviderValue color={getScoreColor(provider.score)}>
+                            {provider.score}/100
+                          </ProviderValue>
+                          <ProviderBar>
+                            <ProviderBarFill 
+                              width={provider.score} 
+                              color={getScoreColor(provider.score)} 
+                            />
+                          </ProviderBar>
+                        </>
+                      )}
+                    </ProviderCard>
+                  ))}
+                </ProvidersGrid>
+              ) : (
+                // Legacy fallback для старого формата
+                result.result.chatgpt !== undefined && result.result.google !== undefined && (
+                  <ScoresGrid>
+                    <ScoreCard>
+                      <ScoreLabel>ChatGPT Visibility</ScoreLabel>
+                      <ScoreValue color={getScoreColor(result.result.chatgpt)}>
+                        {result.result.chatgpt}/100
+                      </ScoreValue>
+                      <ScoreBar>
+                        <ScoreBarFill width={result.result.chatgpt} color={getScoreColor(result.result.chatgpt)} />
+                      </ScoreBar>
+                    </ScoreCard>
+
+                    <ScoreCard>
+                      <ScoreLabel>Google AI Visibility</ScoreLabel>
+                      <ScoreValue color={getScoreColor(result.result.google)}>
+                        {result.result.google}/100
+                      </ScoreValue>
+                      <ScoreBar>
+                        <ScoreBarFill width={result.result.google} color={getScoreColor(result.result.google)} />
+                      </ScoreBar>
+                    </ScoreCard>
+                  </ScoresGrid>
+                )
+              )}
 
               <AnalysisSection>
                 <AnalysisTitle>Анализ</AnalysisTitle>
@@ -382,6 +436,105 @@ const DomainName = styled.p`
   color: rgba(var(--text), 0.6);
 `;
 
+// Average score card
+const AverageScoreCard = styled.div`
+  background: linear-gradient(135deg, rgba(var(--primary), 0.15), rgba(var(--primary), 0.05));
+  padding: 3rem;
+  border-radius: 1.2rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  border: 2px solid rgba(var(--primary), 0.2);
+`;
+
+const AverageScoreLabel = styled.h3`
+  font-size: 1.8rem;
+  color: rgba(var(--text), 0.9);
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+`;
+
+const AverageScoreValue = styled.div<{ color: string }>`
+  font-size: 5.2rem;
+  font-weight: bold;
+  color: ${props => props.color};
+  margin-bottom: 2rem;
+`;
+
+const AverageScoreBar = styled.div`
+  width: 100%;
+  height: 1.2rem;
+  background: rgba(var(--text), 0.1);
+  border-radius: 0.6rem;
+  overflow: hidden;
+`;
+
+const AverageScoreBarFill = styled.div<{ width: number; color: string }>`
+  width: ${props => props.width}%;
+  height: 100%;
+  background: ${props => props.color};
+  transition: width 1s ease;
+`;
+
+// Multi-provider grid
+const ProvidersGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+
+  ${media('<=tablet')} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  ${media('<=phone')} {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const ProviderCard = styled.div`
+  background: rgba(var(--cardBackground));
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  border: 1px solid rgba(var(--text), 0.1);
+`;
+
+const ProviderLabel = styled.h4`
+  font-size: 1.4rem;
+  color: rgba(var(--text), 0.7);
+  margin-bottom: 1rem;
+  font-weight: 600;
+`;
+
+const ProviderValue = styled.div<{ color: string }>`
+  font-size: 3.2rem;
+  font-weight: bold;
+  color: ${props => props.color};
+  margin-bottom: 1rem;
+`;
+
+const ProviderBar = styled.div`
+  width: 100%;
+  height: 0.6rem;
+  background: rgba(var(--text), 0.1);
+  border-radius: 0.3rem;
+  overflow: hidden;
+`;
+
+const ProviderBarFill = styled.div<{ width: number; color: string }>`
+  width: ${props => props.width}%;
+  height: 100%;
+  background: ${props => props.color};
+  transition: width 1s ease;
+`;
+
+const ProviderError = styled.p`
+  font-size: 1.2rem;
+  color: #ef4444;
+  font-style: italic;
+`;
+
+// Legacy 2-column grid
 const ScoresGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
