@@ -7,7 +7,7 @@ Check how ChatGPT, Claude, Perplexity, and other AI systems see your brand. Get 
 ## 🚀 Production Deployment
 
 **Live Site:** https://brain-index.com
-**Status:** Production ready - Multi-provider AI analysis
+**Status:** Production ready - Multi-provider AI analysis with /analyzer page
 
 ## 🛠 Tech Stack
 
