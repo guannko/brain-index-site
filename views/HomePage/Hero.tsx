@@ -249,12 +249,29 @@ const AnalyzerInput = styled(Input)`
   }
 `;
 
-const AnalyzerButton = styled(Button)`
+const AnalyzerButton = styled.button`
   height: 5.6rem;
   padding: 0 3rem;
   font-size: 1.6rem;
   font-weight: bold;
   white-space: nowrap;
+  border: none;
+  background: rgb(var(--primary));
+  color: rgb(var(--textSecondary));
+  text-transform: uppercase;
+  font-family: var(--font);
+  border-radius: 0.4rem;
+  cursor: pointer;
+  transition: transform 0.3s, opacity 0.3s;
+  
+  &:hover:not(:disabled) {
+    transform: scale(1.025);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
   
   ${media('<=tablet')} {
     height: 5rem;
