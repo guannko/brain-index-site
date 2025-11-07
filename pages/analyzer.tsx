@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import Page from 'components/Page';
 import Button from 'components/Button';
 import Container from 'components/Container';
-import SectionTitle from 'components/SectionTitle';
 import Input from 'components/Input';
+import Page from 'components/Page';
+import SectionTitle from 'components/SectionTitle';
 import { media } from 'utils/media';
 
 // Конфиг API
@@ -42,17 +42,8 @@ export default function AnalyzerPage() {
   const [error, setError] = useState('');
   const [polling, setPolling] = useState(false);
 
-  // Обработка параметра из URL
-  useEffect(() => {
-    if (router.query.q) {
-      setInput(router.query.q as string);
-      // Автоматически запускаем анализ
-      setTimeout(() => handleAnalyze(router.query.q as string), 100);
-    }
-  }, [router.query.q]);
-
   // Функция анализа
-  const handleAnalyze = async (inputValue?: string) => {
+  const handleAnalyze = useCallback(async (inputValue?: string) => {
     const brandToAnalyze = inputValue || input;
     if (!brandToAnalyze.trim()) return;
 
@@ -78,7 +69,16 @@ export default function AnalyzerPage() {
       setError('Произошла ошибка при анализе. Попробуйте позже.');
       setLoading(false);
     }
-  };
+  }, [input]);
+
+  // Обработка параметра из URL
+  useEffect(() => {
+    if (router.query.q) {
+      setInput(router.query.q as string);
+      // Автоматически запускаем анализ
+      setTimeout(() => handleAnalyze(router.query.q as string), 100);
+    }
+  }, [router.query.q, handleAnalyze]);
 
   // Получение результатов
   useEffect(() => {
