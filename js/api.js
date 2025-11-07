@@ -4,11 +4,8 @@ const API_URL = 'https://annoris-production.up.railway.app/api';
 // Global brand storage
 let currentBrand = '';
 
-// Analyze brand
-async function analyzeBrand() {
-    const brandInput = document.getElementById('brandInput');
-    const brand = brandInput.value.trim();
-    
+// Analyze brand - main function
+async function analyzeBrand(button, brand) {
     if (!brand) {
         showNotification('Please enter your brand name', 'warning');
         return;
@@ -16,12 +13,13 @@ async function analyzeBrand() {
     
     currentBrand = brand;
     
-    const button = event.target;
     const originalText = button.innerHTML;
     button.disabled = true;
     button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Analyzing...';
     
     try {
+        console.log('Sending request to:', `${API_URL}/analyzer/analyze`);
+        
         const response = await fetch(`${API_URL}/analyzer/analyze`, {
             method: 'POST',
             headers: {
@@ -33,14 +31,20 @@ async function analyzeBrand() {
             })
         });
         
-        if (!response.ok) throw new Error('Analysis failed');
+        console.log('Response status:', response.status);
+        
+        if (!response.ok) {
+            throw new Error(`Analysis failed with status ${response.status}`);
+        }
         
         const data = await response.json();
+        console.log('Job created:', data.jobId);
+        
         checkJobStatus(data.jobId, button, originalText, brand);
         
     } catch (error) {
-        console.error('Error:', error);
-        showNotification('Analysis service is currently unavailable', 'danger');
+        console.error('Error in analyzeBrand:', error);
+        showNotification('Analysis service is currently unavailable. Please try again.', 'danger');
         button.disabled = false;
         button.innerHTML = originalText;
     }
@@ -52,6 +56,8 @@ async function checkJobStatus(jobId, button, originalText, brand) {
         const response = await fetch(`${API_URL}/analyzer/results/${jobId}`);
         const data = await response.json();
         
+        console.log('Job status:', data.status);
+        
         if (data.status === 'completed') {
             data.result.brandName = brand || currentBrand;
             displayEnhancedResults(data.result);
@@ -60,10 +66,11 @@ async function checkJobStatus(jobId, button, originalText, brand) {
         } else if (data.status === 'failed') {
             throw new Error('Analysis failed');
         } else {
+            // Still processing, check again in 2 seconds
             setTimeout(() => checkJobStatus(jobId, button, originalText, brand), 2000);
         }
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Error checking job status:', error);
         showNotification('Failed to get results', 'danger');
         button.disabled = false;
         button.innerHTML = originalText;
@@ -185,7 +192,7 @@ function showNotification(message, type = 'info') {
     }, 5000);
 }
 
-// Demo функция для первых тестов
+// Demo функция - вызывается из HTML
 function analyzeDemo() {
     const brandInput = document.getElementById('brandInput');
     const brand = brandInput.value.trim();
@@ -195,13 +202,17 @@ function analyzeDemo() {
         return;
     }
     
-    const button = event.target;
-    const originalText = button.innerHTML;
-    button.disabled = true;
-    button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Analyzing...';
+    // Get button from event
+    const button = event && event.target ? event.target : document.querySelector('#brandInput').nextElementSibling;
     
-    // Попробуем сначала настоящий API, если не работает - demo
-    analyzeBrand();
+    if (!button) {
+        console.error('Button not found!');
+        showNotification('Error: Button not found', 'danger');
+        return;
+    }
+    
+    // Call the main analyze function
+    analyzeBrand(button, brand);
 }
 
 // Request report function
@@ -214,9 +225,9 @@ function requestReport() {
         return;
     }
     
-    // Симулируем отправку
+    // Simulate sending
     showNotification('Thank you! Your report will be sent to ' + email + ' shortly.', 'success');
     emailInput.value = '';
     
-    // TODO: Подключить к backend для отправки email
+    // TODO: Connect to backend for email sending
 }
