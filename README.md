@@ -6,37 +6,38 @@ Check how ChatGPT, Claude, Perplexity, and other AI systems see your brand. Get 
 
 ## 🚀 Production Deployment
 
-**Live Site:** Coming soon with custom domain
-**Status:** Production ready - English GEO landing page
+**Live Site:** https://brain-index.com
+**Status:** Production ready - Multi-provider AI analysis
 
 ## 🛠 Tech Stack
 
-- Static HTML/CSS/JS
-- Bootstrap 5.3.2
-- Font Awesome 6.5.0
+- Next.js + TypeScript
+- Styled Components
+- Multi-provider AI analysis (OpenAI, DeepSeek, Mistral, Grok, Gemini)
 - Deployed on Vercel
 
 ## 🎯 Features
 
-- Multi-AI system analysis (ChatGPT, Claude, Gemini, Perplexity, Copilot)
+- Multi-AI system analysis (5 providers)
 - Real-time visibility monitoring
 - Competitor tracking
 - GEO (Generative Engine Optimization) insights
+- Honest baseline scoring
 
 ## 📊 Backend Services (Railway)
 
 - Redis - Session/cache management
-- PostgreSQL - Data storage
-- API endpoints for analysis
+- Qdrant - Vector database
+- API endpoints for multi-provider analysis
 
 ## 🔗 Links
 
 - **Repository:** https://github.com/guannko/brain-index-site
 - **Vercel Project:** brain-index-site
-- **Railway:** Redis + PostgreSQL services
+- **Railway:** API + Qdrant services
 
 ---
 
 **Brain Index** - Making brands visible in the AI era 🚀
 
-Last updated: November 2, 2025
+Last updated: November 7, 2025
