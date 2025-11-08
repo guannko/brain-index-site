@@ -46,6 +46,7 @@ export default function AnalyzerPage() {
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [error, setError] = useState('');
   const [polling, setPolling] = useState(false);
+  const [autoAnalyzed, setAutoAnalyzed] = useState(false);
 
   // Функция анализа
   const handleAnalyze = useCallback(async (inputValue?: string) => {
@@ -76,14 +77,42 @@ export default function AnalyzerPage() {
     }
   }, [input]);
 
-  // Обработка параметра из URL
+  // Обработка параметра из URL - FIX: убираем handleAnalyze из dependencies
   useEffect(() => {
-    if (router.query.q) {
-      setInput(router.query.q as string);
-      // Автоматически запускаем анализ
-      setTimeout(() => handleAnalyze(router.query.q as string), 100);
+    if (router.query.q && !autoAnalyzed) {
+      const queryValue = router.query.q as string;
+      setInput(queryValue);
+      setAutoAnalyzed(true);
+      
+      // Запускаем анализ напрямую
+      (async () => {
+        if (!queryValue.trim()) return;
+
+        setLoading(true);
+        setError('');
+        setResult(null);
+
+        try {
+          const response = await fetch(`${API_URL}/api/analyzer/analyze`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ input: queryValue.trim() }),
+          });
+
+          if (!response.ok) throw new Error('Ошибка анализа');
+
+          const data = await response.json();
+          setJobId(data.jobId);
+          setPolling(true);
+        } catch (err) {
+          setError('Произошла ошибка при анализе. Попробуйте позже.');
+          setLoading(false);
+        }
+      })();
     }
-  }, [router.query.q, handleAnalyze]);
+  }, [router.query.q, autoAnalyzed]);
 
   // Получение результатов
   useEffect(() => {
@@ -122,7 +151,7 @@ export default function AnalyzerPage() {
   const finalScore = result?.result?.score || result?.result?.averageScore || 0;
 
   return (
-    <Page title=\"AI Visibility Analyzer - Brain Index\" description=\"Проверьте видимость вашего бренда в AI системах\">
+    <Page title="AI Visibility Analyzer - Brain Index" description="Проверьте видимость вашего бренда в AI системах">
       <Container>
         <Content>
           <Header>
@@ -134,13 +163,13 @@ export default function AnalyzerPage() {
             <SearchSection>
               <SearchForm onSubmit={(e) => { e.preventDefault(); handleAnalyze(); }}>
                 <SearchInput
-                  type=\"text\"
-                  placeholder=\"Apple, Nike или ваш сайт: example.com, mycompany.io\"
+                  type="text"
+                  placeholder="Apple, Nike или ваш сайт: example.com, mycompany.io"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   disabled={loading}
                 />
-                <SearchButton type=\"submit\" disabled={loading || !input.trim()}>
+                <SearchButton type="submit" disabled={loading || !input.trim()}>
                   {loading ? 'Анализируем...' : 'Анализировать'}
                 </SearchButton>
               </SearchForm>
@@ -206,7 +235,7 @@ export default function AnalyzerPage() {
                 </CTAButtons>
               </CTASection>
 
-              <NewAnalysisButton onClick={() => { setResult(null); setInput(''); }}>
+              <NewAnalysisButton onClick={() => { setResult(null); setInput(''); setAutoAnalyzed(false); }}>
                 Новый анализ
               </NewAnalysisButton>
             </ResultsSection>
@@ -232,7 +261,7 @@ const getScoreColor = (score: number): string => {
   return '#6b7280';
 };
 
-// Styled components (сокращённая версия для экономии токенов)
+// Styled components
 const Content = styled.div`max-width: 80rem; margin: 0 auto; padding: 8rem 0; ${media('<=tablet')} { padding: 4rem 0; }`;
 const Header = styled.div`text-align: center; margin-bottom: 4rem;`;
 const Subtitle = styled.p`font-size: 1.8rem; color: rgba(var(--text), 0.8); margin-top: 1rem;`;
