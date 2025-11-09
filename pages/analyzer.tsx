@@ -53,12 +53,16 @@ export default function AnalyzerPage() {
     const brandToAnalyze = inputValue || input;
     if (!brandToAnalyze.trim()) return;
 
+    console.log('🔍 Starting analysis for:', brandToAnalyze);
     setLoading(true);
     setError('');
     setResult(null);
 
     try {
-      const response = await fetch(`${API_URL}/api/analyzer/analyze`, {
+      const url = `${API_URL}/api/analyzer/analyze`;
+      console.log('📡 Sending request to:', url);
+      
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -66,21 +70,27 @@ export default function AnalyzerPage() {
         body: JSON.stringify({ input: brandToAnalyze.trim() }),
       });
 
+      console.log('📥 Response status:', response.status);
+      
       if (!response.ok) throw new Error('Ошибка анализа');
 
       const data = await response.json();
+      console.log('📦 Received data:', data);
+      
       setJobId(data.jobId);
       setPolling(true);
     } catch (err) {
+      console.error('❌ Analysis error:', err);
       setError('Произошла ошибка при анализе. Попробуйте позже.');
       setLoading(false);
     }
   }, [input]);
 
-  // Обработка параметра из URL - FIX: убираем handleAnalyze из dependencies
+  // Обработка параметра из URL
   useEffect(() => {
     if (router.query.q && !autoAnalyzed) {
       const queryValue = router.query.q as string;
+      console.log('🔗 URL query detected:', queryValue);
       setInput(queryValue);
       setAutoAnalyzed(true);
       
@@ -88,12 +98,16 @@ export default function AnalyzerPage() {
       (async () => {
         if (!queryValue.trim()) return;
 
+        console.log('🔍 Auto-starting analysis for:', queryValue);
         setLoading(true);
         setError('');
         setResult(null);
 
         try {
-          const response = await fetch(`${API_URL}/api/analyzer/analyze`, {
+          const url = `${API_URL}/api/analyzer/analyze`;
+          console.log('📡 Sending request to:', url);
+          
+          const response = await fetch(url, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -101,12 +115,17 @@ export default function AnalyzerPage() {
             body: JSON.stringify({ input: queryValue.trim() }),
           });
 
+          console.log('📥 Response status:', response.status);
+
           if (!response.ok) throw new Error('Ошибка анализа');
 
           const data = await response.json();
+          console.log('📦 Received data:', data);
+          
           setJobId(data.jobId);
           setPolling(true);
         } catch (err) {
+          console.error('❌ Analysis error:', err);
           setError('Произошла ошибка при анализе. Попробуйте позже.');
           setLoading(false);
         }
@@ -118,24 +137,31 @@ export default function AnalyzerPage() {
   useEffect(() => {
     if (!jobId || !polling) return;
 
+    console.log('🔄 Starting polling for jobId:', jobId);
+    
     const pollInterval = setInterval(async () => {
       try {
-        const response = await fetch(`${API_URL}/api/analyzer/results/${jobId}`);
+        const url = `${API_URL}/api/analyzer/results/${jobId}`;
+        const response = await fetch(url);
         const data = await response.json();
 
+        console.log('📊 Poll status:', data.status, data);
+
         if (data.status === 'completed' && data.result) {
+          console.log('✅ Analysis completed!', data.result);
           setResult(data);
           setLoading(false);
           setPolling(false);
           clearInterval(pollInterval);
         }
       } catch (err) {
-        console.error('Polling error:', err);
+        console.error('❌ Polling error:', err);
       }
     }, 2000);
 
     // Таймаут 60 секунд
     const timeout = setTimeout(() => {
+      console.log('⏱️ Polling timeout reached');
       clearInterval(pollInterval);
       setLoading(false);
       setPolling(false);
@@ -149,6 +175,8 @@ export default function AnalyzerPage() {
   }, [jobId, polling]);
 
   const finalScore = result?.result?.score || result?.result?.averageScore || 0;
+  
+  console.log('🎯 Final score:', finalScore, 'Result:', result);
 
   return (
     <Page title="AI Visibility Analyzer - Brain Index" description="Проверьте видимость вашего бренда в AI системах">
