@@ -4,8 +4,11 @@ const API_URL = 'https://annoris-production.up.railway.app/api';
 // Global brand storage
 let currentBrand = '';
 
-// Analyze brand - main function
-async function analyzeBrand(button, brand) {
+// Analyze brand
+async function analyzeBrand() {
+    const brandInput = document.getElementById('brandInput');
+    const brand = brandInput.value.trim();
+    
     if (!brand) {
         showNotification('Please enter your brand name', 'warning');
         return;
@@ -13,38 +16,33 @@ async function analyzeBrand(button, brand) {
     
     currentBrand = brand;
     
+    const button = event.target;
     const originalText = button.innerHTML;
     button.disabled = true;
     button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Analyzing...';
     
+    console.log('📡 Sending request to:', `${API_URL}/analyzer/analyze`);
+    
     try {
-        console.log('Sending request to:', `${API_URL}/analyzer/analyze`);
-        
         const response = await fetch(`${API_URL}/analyzer/analyze`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                input: brand,
-                providers: ['chatgpt', 'google']
-            })
+            body: JSON.stringify({ input: brand })
         });
         
-        console.log('Response status:', response.status);
+        console.log('📥 Response status:', response.status);
         
-        if (!response.ok) {
-            throw new Error(`Analysis failed with status ${response.status}`);
-        }
+        if (!response.ok) throw new Error('Analysis failed');
         
         const data = await response.json();
-        console.log('Job created:', data.jobId);
-        
+        console.log('📦 Job created:', data.jobId);
         checkJobStatus(data.jobId, button, originalText, brand);
         
     } catch (error) {
-        console.error('Error in analyzeBrand:', error);
-        showNotification('Analysis service is currently unavailable. Please try again.', 'danger');
+        console.error('❌ Error:', error);
+        showNotification('Analysis service is currently unavailable', 'danger');
         button.disabled = false;
         button.innerHTML = originalText;
     }
@@ -56,9 +54,10 @@ async function checkJobStatus(jobId, button, originalText, brand) {
         const response = await fetch(`${API_URL}/analyzer/results/${jobId}`);
         const data = await response.json();
         
-        console.log('Job status:', data.status);
+        console.log('📊 Job status:', data.status);
         
         if (data.status === 'completed') {
+            console.log('✅ Analysis completed:', data.result);
             data.result.brandName = brand || currentBrand;
             displayEnhancedResults(data.result);
             button.disabled = false;
@@ -66,11 +65,10 @@ async function checkJobStatus(jobId, button, originalText, brand) {
         } else if (data.status === 'failed') {
             throw new Error('Analysis failed');
         } else {
-            // Still processing, check again in 2 seconds
             setTimeout(() => checkJobStatus(jobId, button, originalText, brand), 2000);
         }
     } catch (error) {
-        console.error('Error checking job status:', error);
+        console.error('❌ Error:', error);
         showNotification('Failed to get results', 'danger');
         button.disabled = false;
         button.innerHTML = originalText;
@@ -79,14 +77,19 @@ async function checkJobStatus(jobId, button, originalText, brand) {
 
 // Display enhanced results
 function displayEnhancedResults(results) {
-    const chatgptScore = results.chatgpt || 0;
-    const googleScore = results.google || 0;
-    const avgScore = Math.round((chatgptScore + googleScore) / 2);
+    // FIX: Use results.score from Ultimate GEO v3.1 API
+    const finalScore = results.score || results.averageScore || 0;
+    
+    // Legacy support for old API format
+    const chatgptScore = results.chatgpt || finalScore;
+    const googleScore = results.google || finalScore;
+    
+    console.log('🎯 Final score:', finalScore, 'Results:', results);
     
     let level, color, icon;
-    if (avgScore >= 80) { level = 'Excellent'; color = 'success'; icon = 'trophy'; }
-    else if (avgScore >= 60) { level = 'Good'; color = 'info'; icon = 'thumbs-up'; }
-    else if (avgScore >= 40) { level = 'Moderate'; color = 'warning'; icon = 'exclamation-triangle'; }
+    if (finalScore >= 80) { level = 'Excellent'; color = 'success'; icon = 'trophy'; }
+    else if (finalScore >= 60) { level = 'Good'; color = 'info'; icon = 'thumbs-up'; }
+    else if (finalScore >= 40) { level = 'Moderate'; color = 'warning'; icon = 'exclamation-triangle'; }
     else { level = 'Low'; color = 'danger'; icon = 'exclamation-circle'; }
     
     const modalHTML = `
@@ -109,7 +112,7 @@ function displayEnhancedResults(results) {
                                 <div class="card bg-${color} text-white">
                                     <div class="card-body">
                                         <i class="fas fa-${icon} fa-3x mb-2"></i>
-                                        <h3>${avgScore}%</h3>
+                                        <h3>${Math.round(finalScore)}%</h3>
                                         <h5>${level}</h5>
                                     </div>
                                 </div>
@@ -120,10 +123,10 @@ function displayEnhancedResults(results) {
                             <div class="col-md-6">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h6>ChatGPT Visibility: ${chatgptScore}%</h6>
+                                        <h6>ChatGPT Visibility: ${Math.round(chatgptScore)}%</h6>
                                         <div class="progress" style="height: 25px;">
                                             <div class="progress-bar bg-success" style="width: ${chatgptScore}%">
-                                                ${chatgptScore}%
+                                                ${Math.round(chatgptScore)}%
                                             </div>
                                         </div>
                                     </div>
@@ -132,10 +135,10 @@ function displayEnhancedResults(results) {
                             <div class="col-md-6">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h6>Google AI Visibility: ${googleScore}%</h6>
+                                        <h6>Google AI Visibility: ${Math.round(googleScore)}%</h6>
                                         <div class="progress" style="height: 25px;">
                                             <div class="progress-bar bg-info" style="width: ${googleScore}%">
-                                                ${googleScore}%
+                                                ${Math.round(googleScore)}%
                                             </div>
                                         </div>
                                     </div>
@@ -147,9 +150,9 @@ function displayEnhancedResults(results) {
                             <div class="card-header">Key Insights</div>
                             <div class="card-body">
                                 <ul>
-                                    <li>Market Position: ${avgScore >= 70 ? 'Above average' : avgScore >= 40 ? 'Average' : 'Below average'}</li>
-                                    <li>Growth Potential: ${100 - avgScore}% improvement opportunity</li>
-                                    <li>AI Reach: ${avgScore >= 70 ? 'High' : avgScore >= 40 ? 'Moderate' : 'Limited'} exposure</li>
+                                    <li>Market Position: ${finalScore >= 70 ? 'Above average' : finalScore >= 40 ? 'Average' : 'Below average'}</li>
+                                    <li>Growth Potential: ${100 - Math.round(finalScore)}% improvement opportunity</li>
+                                    <li>AI Reach: ${finalScore >= 70 ? 'High' : finalScore >= 40 ? 'Moderate' : 'Limited'} exposure</li>
                                 </ul>
                             </div>
                         </div>
@@ -192,7 +195,7 @@ function showNotification(message, type = 'info') {
     }, 5000);
 }
 
-// Demo функция - вызывается из HTML
+// Demo функция для первых тестов
 function analyzeDemo() {
     const brandInput = document.getElementById('brandInput');
     const brand = brandInput.value.trim();
@@ -202,17 +205,13 @@ function analyzeDemo() {
         return;
     }
     
-    // Get button from event
-    const button = event && event.target ? event.target : document.querySelector('#brandInput').nextElementSibling;
+    const button = event.target;
+    const originalText = button.innerHTML;
+    button.disabled = true;
+    button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Analyzing...';
     
-    if (!button) {
-        console.error('Button not found!');
-        showNotification('Error: Button not found', 'danger');
-        return;
-    }
-    
-    // Call the main analyze function
-    analyzeBrand(button, brand);
+    // Попробуем сначала настоящий API, если не работает - demo
+    analyzeBrand();
 }
 
 // Request report function
@@ -225,9 +224,9 @@ function requestReport() {
         return;
     }
     
-    // Simulate sending
+    // Симулируем отправку
     showNotification('Thank you! Your report will be sent to ' + email + ' shortly.', 'success');
     emailInput.value = '';
     
-    // TODO: Connect to backend for email sending
+    // TODO: Подключить к backend для отправки email
 }
