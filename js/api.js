@@ -75,91 +75,176 @@ async function checkJobStatus(jobId, button, originalText, brand) {
     }
 }
 
-// Display enhanced results
+// Display enhanced results with circular progress
 function displayEnhancedResults(results) {
-    // FIX: Use results.score from Ultimate GEO v3.1 API
     const finalScore = results.score || results.averageScore || 0;
+    const providers = results.providers || [];
     
-    // Legacy support for old API format
-    const chatgptScore = results.chatgpt || finalScore;
-    const googleScore = results.google || finalScore;
-    
-    console.log('🎯 Final score:', finalScore, 'Results:', results);
+    console.log('🎯 Final score:', finalScore, 'Providers:', providers);
     
     let level, color, icon;
-    if (finalScore >= 80) { level = 'Excellent'; color = 'success'; icon = 'trophy'; }
-    else if (finalScore >= 60) { level = 'Good'; color = 'info'; icon = 'thumbs-up'; }
-    else if (finalScore >= 40) { level = 'Moderate'; color = 'warning'; icon = 'exclamation-triangle'; }
-    else { level = 'Low'; color = 'danger'; icon = 'exclamation-circle'; }
+    if (finalScore >= 80) { level = 'Excellent'; color = '#28a745'; icon = 'trophy'; }
+    else if (finalScore >= 60) { level = 'Good'; color = '#17a2b8'; icon = 'thumbs-up'; }
+    else if (finalScore >= 40) { level = 'Moderate'; color = '#ffc107'; icon = 'exclamation-triangle'; }
+    else { level = 'Low'; color = '#dc3545'; icon = 'exclamation-circle'; }
+    
+    // Provider configs with colors and info
+    const providerConfig = {
+        'chatgpt': { color: '#10a37f', name: 'ChatGPT', info: 'OpenAI GPT-4' },
+        'chatgpt-free': { color: '#10a37f', name: 'ChatGPT', info: 'OpenAI GPT-4' },
+        'deepseek': { color: '#4285f4', name: 'DeepSeek', info: 'DeepSeek V3' },
+        'mistral': { color: '#ff7f50', name: 'Mistral', info: 'Mistral Large' },
+        'grok': { color: '#1da1f2', name: 'Grok', info: 'xAI Grok-2' },
+        'gemini': { color: '#8e44ad', name: 'Gemini', info: 'Google Gemini' }
+    };
+    
+    // Build provider circles
+    let providerCircles = '';
+    providers.forEach(provider => {
+        const config = providerConfig[provider.name] || { color: '#6c757d', name: provider.name, info: 'AI Provider' };
+        const score = Math.round(provider.score || 0);
+        
+        providerCircles += `
+            <div class="col-md-4 col-6 mb-4">
+                <div class="text-center">
+                    <div class="circular-progress mx-auto" style="--progress: ${score}; --color: ${config.color};">
+                        <div class="progress-value">
+                            <div>${score}%</div>
+                        </div>
+                    </div>
+                    <h6 class="mt-3 mb-1">${config.name}</h6>
+                    <small class="text-muted">${config.info}</small>
+                </div>
+            </div>
+        `;
+    });
+    
+    // If no providers data, show average across main AIs
+    if (providers.length === 0) {
+        ['chatgpt', 'gemini', 'grok', 'deepseek', 'mistral'].forEach(name => {
+            const config = providerConfig[name];
+            providerCircles += `
+                <div class="col-md-4 col-6 mb-4">
+                    <div class="text-center">
+                        <div class="circular-progress mx-auto" style="--progress: ${Math.round(finalScore)}; --color: ${config.color};">
+                            <div class="progress-value">
+                                <div>${Math.round(finalScore)}%</div>
+                            </div>
+                        </div>
+                        <h6 class="mt-3 mb-1">${config.name}</h6>
+                        <small class="text-muted">${config.info}</small>
+                    </div>
+                </div>
+            `;
+        });
+    }
     
     const modalHTML = `
+        <style>
+            .circular-progress {
+                width: 120px;
+                height: 120px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                background: conic-gradient(
+                    var(--color) calc(var(--progress) * 1%),
+                    #e9ecef calc(var(--progress) * 1%)
+                );
+            }
+            
+            .circular-progress::before {
+                content: "";
+                position: absolute;
+                width: 90px;
+                height: 90px;
+                border-radius: 50%;
+                background: white;
+            }
+            
+            .progress-value {
+                position: relative;
+                font-size: 24px;
+                font-weight: bold;
+                color: #333;
+            }
+            
+            .main-score-circle {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .main-score-circle .progress-value {
+                font-size: 48px;
+            }
+            
+            .main-score-circle::before {
+                width: 140px;
+                height: 140px;
+            }
+        </style>
+        
         <div class="modal fade" id="resultsModal" tabindex="-1">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
-                    <div class="modal-header bg-primary text-white">
-                        <h5 class="modal-title">AI Visibility Analysis Results</h5>
-                        <button type="button" class="close text-white" data-dismiss="modal">
+                    <div class="modal-header border-0">
+                        <h5 class="modal-title">
+                            <i class="fas fa-chart-line mr-2"></i>
+                            AI Visibility Analysis Results
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal">
                             <span>&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <div class="row mb-4">
-                            <div class="col-md-8">
-                                <h4>${results.brandName || 'Unknown'}</h4>
-                                <p class="text-muted">AI visibility analysis complete</p>
-                            </div>
-                            <div class="col-md-4 text-center">
-                                <div class="card bg-${color} text-white">
-                                    <div class="card-body">
-                                        <i class="fas fa-${icon} fa-3x mb-2"></i>
-                                        <h3>${Math.round(finalScore)}%</h3>
-                                        <h5>${level}</h5>
-                                    </div>
+                    <div class="modal-body p-4">
+                        <!-- Overall Score -->
+                        <div class="text-center mb-5">
+                            <h3 class="mb-4">${results.brandName || 'Unknown Brand'}</h3>
+                            <div class="circular-progress main-score-circle mx-auto" style="--progress: ${Math.round(finalScore)}; --color: ${color};">
+                                <div class="progress-value">
+                                    <div>${Math.round(finalScore)}%</div>
                                 </div>
+                            </div>
+                            <h4 class="mt-4" style="color: ${color};">
+                                <i class="fas fa-${icon} mr-2"></i>${level}
+                            </h4>
+                            <p class="text-muted">Overall AI Visibility Score</p>
+                        </div>
+                        
+                        <!-- Provider Breakdown -->
+                        <div class="mb-4">
+                            <h5 class="mb-4">
+                                <i class="fas fa-robot mr-2"></i>
+                                AI Provider Analysis
+                            </h5>
+                            <div class="row">
+                                ${providerCircles}
                             </div>
                         </div>
                         
-                        <div class="row mb-4">
-                            <div class="col-md-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h6>ChatGPT Visibility: ${Math.round(chatgptScore)}%</h6>
-                                        <div class="progress" style="height: 25px;">
-                                            <div class="progress-bar bg-success" style="width: ${chatgptScore}%">
-                                                ${Math.round(chatgptScore)}%
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h6>Google AI Visibility: ${Math.round(googleScore)}%</h6>
-                                        <div class="progress" style="height: 25px;">
-                                            <div class="progress-bar bg-info" style="width: ${googleScore}%">
-                                                ${Math.round(googleScore)}%
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-header">Key Insights</div>
+                        <!-- Key Insights -->
+                        <div class="card border-0 bg-light">
                             <div class="card-body">
-                                <ul>
-                                    <li>Market Position: ${finalScore >= 70 ? 'Above average' : finalScore >= 40 ? 'Average' : 'Below average'}</li>
-                                    <li>Growth Potential: ${100 - Math.round(finalScore)}% improvement opportunity</li>
-                                    <li>AI Reach: ${finalScore >= 70 ? 'High' : finalScore >= 40 ? 'Moderate' : 'Limited'} exposure</li>
+                                <h6 class="mb-3">
+                                    <i class="fas fa-lightbulb mr-2"></i>
+                                    Key Insights
+                                </h6>
+                                <ul class="mb-0">
+                                    <li><strong>Market Position:</strong> ${finalScore >= 70 ? 'Above average' : finalScore >= 40 ? 'Average' : 'Below average'}</li>
+                                    <li><strong>Growth Potential:</strong> ${100 - Math.round(finalScore)}% improvement opportunity</li>
+                                    <li><strong>AI Reach:</strong> ${finalScore >= 70 ? 'High' : finalScore >= 40 ? 'Moderate' : 'Limited'} exposure</li>
+                                    ${results.tier === 'free' ? '<li class="text-info"><strong>Free Analysis:</strong> Upgrade for detailed breakdown across all 7 criteria</li>' : ''}
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer border-0">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <a href="pricing.html" class="btn btn-primary">Get Full Report</a>
+                        <a href="pricing.html" class="btn btn-primary">
+                            <i class="fas fa-star mr-2"></i>Get Full Report
+                        </a>
                     </div>
                 </div>
             </div>
