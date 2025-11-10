@@ -36,10 +36,11 @@ async function analyzeBrand() {
         if (!response.ok) throw new Error('Analysis failed');
         
         const data = await response.json();
+        console.log('✅ Job created:', data);
         checkJobStatus(data.jobId, button, originalText, brand);
         
     } catch (error) {
-        console.error('Error:', error);
+        console.error('❌ Error:', error);
         showNotification('Analysis service is currently unavailable', 'danger');
         button.disabled = false;
         button.innerHTML = originalText;
@@ -52,18 +53,23 @@ async function checkJobStatus(jobId, button, originalText, brand) {
         const response = await fetch(`${API_URL}/analyzer/results/${jobId}`);
         const data = await response.json();
         
+        console.log('📊 Status:', data.status, 'Data:', data);
+        
         if (data.status === 'completed') {
+            console.log('✅ Results:', data.result);
             data.result.brandName = brand || currentBrand;
             displayTerminalResults(data.result);
+            // ВАЖНО: Сбрасываем кнопку ПОСЛЕ показа результатов
             button.disabled = false;
             button.innerHTML = originalText;
         } else if (data.status === 'failed') {
             throw new Error('Analysis failed');
         } else {
+            // Продолжаем polling
             setTimeout(() => checkJobStatus(jobId, button, originalText, brand), 2000);
         }
     } catch (error) {
-        console.error('Error:', error);
+        console.error('❌ Error:', error);
         showNotification('Failed to get results', 'danger');
         button.disabled = false;
         button.innerHTML = originalText;
@@ -86,10 +92,24 @@ function getScoreClass(score) {
 
 // Display terminal-style results
 function displayTerminalResults(results) {
-    // Calculate overall AI visibility
+    console.log('🎨 Displaying results:', results);
+    
+    // Поддержка разных форматов ответа от backend
     const providers = ['chatgpt', 'deepseek', 'mistral', 'grok', 'gemini'];
-    const scores = providers.map(p => results[p] || 0);
+    
+    // Извлекаем scores из результата (может быть в разных форматах)
+    const getScore = (provider) => {
+        // Пробуем разные форматы
+        if (results[provider]) return Math.round(results[provider]);
+        if (results.providers && results.providers[provider]) return Math.round(results.providers[provider]);
+        if (results.scores && results.scores[provider]) return Math.round(results.scores[provider]);
+        return 0;
+    };
+    
+    const scores = providers.map(p => getScore(p));
     const avgScore = Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
+    
+    console.log('📈 Scores:', { providers, scores, avgScore });
     
     // Provider names for display
     const providerNames = {
@@ -101,8 +121,8 @@ function displayTerminalResults(results) {
     };
     
     // Generate bars for each provider
-    const providerBars = providers.map(provider => {
-        const score = results[provider] || 0;
+    const providerBars = providers.map((provider, index) => {
+        const score = scores[index];
         const bar = generateProgressBar(score);
         const className = getScoreClass(score);
         return `
@@ -119,8 +139,8 @@ function displayTerminalResults(results) {
     const overallClass = getScoreClass(avgScore);
     
     // Generate copyable text for social media
-    const copyableText = `Just analyzed my brand with @BrainIndexGEO:\n\n${providers.map(p => 
-        `${providerNames[p].padEnd(10)} ${generateProgressBar(results[p] || 0, 12)} ${results[p] || 0}/100`
+    const copyableText = `Just analyzed my brand with @BrainIndexGEO:\n\n${providers.map((p, i) => 
+        `${providerNames[p].padEnd(10)} ${generateProgressBar(scores[i], 12)} ${scores[i]}/100`
     ).join('\n')}\n\nAI visibility score: ${avgScore}/100\n\n${avgScore < 60 ? '😅 Time to optimize!' : '💪 Looking good!'}`;
     
     const modalHTML = `
@@ -218,7 +238,7 @@ function displayTerminalResults(results) {
             
             .terminal-title {
                 color: #e8e6e3;
-                font-family: 'IBM Plex Mono', 'Courier New', monospace;
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
                 font-size: 1rem;
                 font-weight: 600;
                 margin: 0;
@@ -227,6 +247,7 @@ function displayTerminalResults(results) {
             .terminal-prompt {
                 color: #00ACC1;
                 margin-right: 8px;
+                font-family: 'Courier New', monospace;
             }
             
             .terminal-close {
@@ -245,7 +266,7 @@ function displayTerminalResults(results) {
             .terminal-body {
                 background: #0D47A1;
                 padding: 1.5rem;
-                font-family: 'IBM Plex Mono', 'Courier New', monospace;
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
                 color: #e8e6e3;
             }
             
@@ -337,6 +358,7 @@ function displayTerminalResults(results) {
                 margin: 0;
                 font-size: 0.85rem;
                 white-space: pre-wrap;
+                font-family: 'Courier New', monospace;
             }
             
             .terminal-footer {
@@ -349,7 +371,7 @@ function displayTerminalResults(results) {
                 background: #FF6B35;
                 color: #ffffff;
                 border: none;
-                font-family: 'IBM Plex Mono', 'Courier New', monospace;
+                font-family: 'Inter', sans-serif;
                 font-weight: 600;
                 padding: 0.5rem 1rem;
                 margin-top: 0.5rem;
@@ -366,7 +388,7 @@ function displayTerminalResults(results) {
                 background: #FF6B35;
                 color: #ffffff;
                 border: 1px solid #FF6B35;
-                font-family: 'IBM Plex Mono', 'Courier New', monospace;
+                font-family: 'Inter', sans-serif;
                 font-weight: 600;
                 transition: all 0.3s ease;
             }
@@ -382,7 +404,7 @@ function displayTerminalResults(results) {
                 background: transparent;
                 color: #e8e6e3;
                 border: 1px solid #1565C0;
-                font-family: 'IBM Plex Mono', 'Courier New', monospace;
+                font-family: 'Inter', sans-serif;
                 transition: all 0.3s ease;
             }
             
