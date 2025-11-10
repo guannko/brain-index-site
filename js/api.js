@@ -202,22 +202,22 @@ function displayTerminalResults(results) {
             </div>
         </div>
         
-        <!-- Terminal CSS Styles -->
+        <!-- Terminal CSS Styles - Site Color Scheme -->
         <style>
             .terminal-modal {
-                background: #0a0e27;
-                border: 2px solid #00ff41;
-                box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+                background: #0D47A1;
+                border: 2px solid #1565C0;
+                box-shadow: 0 0 30px rgba(21, 101, 192, 0.4);
             }
             
             .terminal-header {
-                background: #0f1220;
-                border-bottom: 1px solid #00ff41;
+                background: #0a3d91;
+                border-bottom: 1px solid #1565C0;
                 padding: 1rem 1.5rem;
             }
             
             .terminal-title {
-                color: #00ff41;
+                color: #e8e6e3;
                 font-family: 'IBM Plex Mono', 'Courier New', monospace;
                 font-size: 1rem;
                 font-weight: 600;
@@ -225,12 +225,12 @@ function displayTerminalResults(results) {
             }
             
             .terminal-prompt {
-                color: #00d4ff;
+                color: #00ACC1;
                 margin-right: 8px;
             }
             
             .terminal-close {
-                color: #ff0055;
+                color: #FF6B35;
                 opacity: 1;
                 font-size: 2rem;
                 font-weight: 300;
@@ -238,15 +238,15 @@ function displayTerminalResults(results) {
             }
             
             .terminal-close:hover {
-                color: #ff0055;
+                color: #ff8c5a;
                 opacity: 1;
             }
             
             .terminal-body {
-                background: #0a0e27;
+                background: #0D47A1;
                 padding: 1.5rem;
                 font-family: 'IBM Plex Mono', 'Courier New', monospace;
-                color: #00ff41;
+                color: #e8e6e3;
             }
             
             .terminal-section {
@@ -254,7 +254,7 @@ function displayTerminalResults(results) {
             }
             
             .terminal-label {
-                color: #00d4ff;
+                color: #00ACC1;
                 font-size: 0.85rem;
                 font-weight: 600;
                 margin-bottom: 0.75rem;
@@ -275,12 +275,12 @@ function displayTerminalResults(results) {
             }
             
             .terminal-metric {
-                color: #00d4ff;
+                color: #00ACC1;
                 min-width: 80px;
             }
             
             .provider-name {
-                color: #00d4ff;
+                color: #00ACC1;
                 min-width: 100px;
             }
             
@@ -291,19 +291,19 @@ function displayTerminalResults(results) {
             }
             
             .score-high {
-                color: #00ff41;
+                color: #FF6B35;
             }
             
             .score-medium {
-                color: #ffaa00;
+                color: #00ACC1;
             }
             
             .score-low {
-                color: #ff0055;
+                color: #a0a0a0;
             }
             
             .terminal-separator {
-                color: #1a1f3a;
+                color: #2a4a6a;
                 margin: 1rem 0;
                 font-size: 0.75rem;
             }
@@ -313,19 +313,19 @@ function displayTerminalResults(results) {
             }
             
             .insight-line {
-                color: #a0a0a0;
+                color: #c8c6c3;
                 margin: 0.5rem 0;
                 font-size: 0.9rem;
             }
             
             .insight-icon {
-                color: #00d4ff;
+                color: #00ACC1;
                 margin-right: 0.5rem;
             }
             
             .terminal-copy {
-                background: #0f1220;
-                border: 1px solid #1a1f3a;
+                background: #0a3d91;
+                border: 1px solid #1565C0;
                 border-radius: 4px;
                 padding: 1rem;
                 margin-top: 0.75rem;
@@ -333,57 +333,62 @@ function displayTerminalResults(results) {
             }
             
             .terminal-copy pre {
-                color: #00ff41;
+                color: #e8e6e3;
                 margin: 0;
                 font-size: 0.85rem;
                 white-space: pre-wrap;
             }
             
             .terminal-footer {
-                background: #0f1220;
-                border-top: 1px solid #00ff41;
+                background: #0a3d91;
+                border-top: 1px solid #1565C0;
                 padding: 1rem 1.5rem;
             }
             
             .btn-terminal {
-                background: #00ff41;
-                color: #0a0e27;
+                background: #FF6B35;
+                color: #ffffff;
                 border: none;
                 font-family: 'IBM Plex Mono', 'Courier New', monospace;
                 font-weight: 600;
                 padding: 0.5rem 1rem;
                 margin-top: 0.5rem;
+                transition: all 0.3s ease;
             }
             
             .btn-terminal:hover {
-                background: #00d4ff;
-                color: #0a0e27;
+                background: #ff8c5a;
+                color: #ffffff;
+                transform: translateY(-2px);
             }
             
             .btn-terminal-primary {
-                background: #00ff41;
-                color: #0a0e27;
-                border: 1px solid #00ff41;
+                background: #FF6B35;
+                color: #ffffff;
+                border: 1px solid #FF6B35;
                 font-family: 'IBM Plex Mono', 'Courier New', monospace;
                 font-weight: 600;
+                transition: all 0.3s ease;
             }
             
             .btn-terminal-primary:hover {
-                background: #00d4ff;
-                border-color: #00d4ff;
-                color: #0a0e27;
+                background: #ff8c5a;
+                border-color: #ff8c5a;
+                color: #ffffff;
+                transform: translateY(-2px);
             }
             
             .btn-terminal-secondary {
                 background: transparent;
-                color: #00ff41;
-                border: 1px solid #00ff41;
+                color: #e8e6e3;
+                border: 1px solid #1565C0;
                 font-family: 'IBM Plex Mono', 'Courier New', monospace;
+                transition: all 0.3s ease;
             }
             
             .btn-terminal-secondary:hover {
-                background: #00ff41;
-                color: #0a0e27;
+                background: #1565C0;
+                color: #ffffff;
             }
             
             @media (max-width: 768px) {
