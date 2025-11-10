@@ -21,27 +21,25 @@ async function analyzeBrand() {
     button.disabled = true;
     button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Analyzing...';
     
-    console.log('📡 Sending request to:', `${API_URL}/analyzer/analyze`);
-    
     try {
         const response = await fetch(`${API_URL}/analyzer/analyze`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ input: brand })
+            body: JSON.stringify({
+                input: brand,
+                tier: 'free' // FREE tier = all 5 providers
+            })
         });
-        
-        console.log('📥 Response status:', response.status);
         
         if (!response.ok) throw new Error('Analysis failed');
         
         const data = await response.json();
-        console.log('📦 Job created:', data.jobId);
         checkJobStatus(data.jobId, button, originalText, brand);
         
     } catch (error) {
-        console.error('❌ Error:', error);
+        console.error('Error:', error);
         showNotification('Analysis service is currently unavailable', 'danger');
         button.disabled = false;
         button.innerHTML = originalText;
@@ -54,12 +52,9 @@ async function checkJobStatus(jobId, button, originalText, brand) {
         const response = await fetch(`${API_URL}/analyzer/results/${jobId}`);
         const data = await response.json();
         
-        console.log('📊 Job status:', data.status);
-        
         if (data.status === 'completed') {
-            console.log('✅ Analysis completed:', data.result);
             data.result.brandName = brand || currentBrand;
-            displayEnhancedResults(data.result);
+            displayTerminalResults(data.result);
             button.disabled = false;
             button.innerHTML = originalText;
         } else if (data.status === 'failed') {
@@ -68,187 +63,344 @@ async function checkJobStatus(jobId, button, originalText, brand) {
             setTimeout(() => checkJobStatus(jobId, button, originalText, brand), 2000);
         }
     } catch (error) {
-        console.error('❌ Error:', error);
+        console.error('Error:', error);
         showNotification('Failed to get results', 'danger');
         button.disabled = false;
         button.innerHTML = originalText;
     }
 }
 
-// Display enhanced results with circular progress
-function displayEnhancedResults(results) {
-    const finalScore = results.score || results.averageScore || 0;
-    const providers = results.providers || [];
+// Generate ASCII progress bar
+function generateProgressBar(score, width = 20) {
+    const filled = Math.round((score / 100) * width);
+    const empty = width - filled;
+    return '█'.repeat(filled) + '░'.repeat(empty);
+}
+
+// Get color class based on score
+function getScoreClass(score) {
+    if (score >= 75) return 'score-high';
+    if (score >= 50) return 'score-medium';
+    return 'score-low';
+}
+
+// Display terminal-style results
+function displayTerminalResults(results) {
+    // Calculate overall AI visibility
+    const providers = ['chatgpt', 'deepseek', 'mistral', 'grok', 'gemini'];
+    const scores = providers.map(p => results[p] || 0);
+    const avgScore = Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
     
-    console.log('🎯 Final score:', finalScore, 'Providers:', providers);
-    
-    let level, color, icon;
-    if (finalScore >= 80) { level = 'Excellent'; color = '#28a745'; icon = 'trophy'; }
-    else if (finalScore >= 60) { level = 'Good'; color = '#17a2b8'; icon = 'thumbs-up'; }
-    else if (finalScore >= 40) { level = 'Moderate'; color = '#ffc107'; icon = 'exclamation-triangle'; }
-    else { level = 'Low'; color = '#dc3545'; icon = 'exclamation-circle'; }
-    
-    // Provider configs with colors and info
-    const providerConfig = {
-        'chatgpt': { color: '#10a37f', name: 'ChatGPT', info: 'OpenAI GPT-4' },
-        'chatgpt-free': { color: '#10a37f', name: 'ChatGPT', info: 'OpenAI GPT-4' },
-        'deepseek': { color: '#4285f4', name: 'DeepSeek', info: 'DeepSeek V3' },
-        'mistral': { color: '#ff7f50', name: 'Mistral', info: 'Mistral Large' },
-        'grok': { color: '#1da1f2', name: 'Grok', info: 'xAI Grok-2' },
-        'gemini': { color: '#8e44ad', name: 'Gemini', info: 'Google Gemini' }
+    // Provider names for display
+    const providerNames = {
+        chatgpt: 'ChatGPT',
+        deepseek: 'DeepSeek',
+        mistral: 'Mistral',
+        grok: 'Grok',
+        gemini: 'Gemini'
     };
     
-    // Build provider circles
-    let providerCircles = '';
-    providers.forEach(provider => {
-        const config = providerConfig[provider.name] || { color: '#6c757d', name: provider.name, info: 'AI Provider' };
-        const score = Math.round(provider.score || 0);
-        
-        providerCircles += `
-            <div class="col-md-4 col-6 mb-4">
-                <div class="text-center">
-                    <div class="circular-progress mx-auto" style="--progress: ${score}; --color: ${config.color};">
-                        <div class="progress-value">
-                            <div>${score}%</div>
-                        </div>
-                    </div>
-                    <h6 class="mt-3 mb-1">${config.name}</h6>
-                    <small class="text-muted">${config.info}</small>
-                </div>
+    // Generate bars for each provider
+    const providerBars = providers.map(provider => {
+        const score = results[provider] || 0;
+        const bar = generateProgressBar(score);
+        const className = getScoreClass(score);
+        return `
+            <div class="terminal-line">
+                <span class="provider-name">${providerNames[provider].padEnd(10)}</span>
+                <span class="${className}">${bar}</span>
+                <span class="score-number ${className}">${score}/100</span>
             </div>
         `;
-    });
+    }).join('');
     
-    // If no providers data, show average across main AIs
-    if (providers.length === 0) {
-        ['chatgpt', 'gemini', 'grok', 'deepseek', 'mistral'].forEach(name => {
-            const config = providerConfig[name];
-            providerCircles += `
-                <div class="col-md-4 col-6 mb-4">
-                    <div class="text-center">
-                        <div class="circular-progress mx-auto" style="--progress: ${Math.round(finalScore)}; --color: ${config.color};">
-                            <div class="progress-value">
-                                <div>${Math.round(finalScore)}%</div>
-                            </div>
-                        </div>
-                        <h6 class="mt-3 mb-1">${config.name}</h6>
-                        <small class="text-muted">${config.info}</small>
-                    </div>
-                </div>
-            `;
-        });
-    }
+    // Overall bar
+    const overallBar = generateProgressBar(avgScore);
+    const overallClass = getScoreClass(avgScore);
+    
+    // Generate copyable text for social media
+    const copyableText = `Just analyzed my brand with @BrainIndexGEO:\n\n${providers.map(p => 
+        `${providerNames[p].padEnd(10)} ${generateProgressBar(results[p] || 0, 12)} ${results[p] || 0}/100`
+    ).join('\n')}\n\nAI visibility score: ${avgScore}/100\n\n${avgScore < 60 ? '😅 Time to optimize!' : '💪 Looking good!'}`;
     
     const modalHTML = `
-        <style>
-            .circular-progress {
-                width: 120px;
-                height: 120px;
-                border-radius: 50%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                position: relative;
-                background: conic-gradient(
-                    var(--color) calc(var(--progress) * 1%),
-                    #e9ecef calc(var(--progress) * 1%)
-                );
-            }
-            
-            .circular-progress::before {
-                content: "";
-                position: absolute;
-                width: 90px;
-                height: 90px;
-                border-radius: 50%;
-                background: white;
-            }
-            
-            .progress-value {
-                position: relative;
-                font-size: 24px;
-                font-weight: bold;
-                color: #333;
-            }
-            
-            .main-score-circle {
-                width: 180px;
-                height: 180px;
-            }
-            
-            .main-score-circle .progress-value {
-                font-size: 48px;
-            }
-            
-            .main-score-circle::before {
-                width: 140px;
-                height: 140px;
-            }
-        </style>
-        
         <div class="modal fade" id="resultsModal" tabindex="-1">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header border-0">
-                        <h5 class="modal-title">
-                            <i class="fas fa-chart-line mr-2"></i>
-                            AI Visibility Analysis Results
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content terminal-modal">
+                    <div class="modal-header terminal-header">
+                        <h5 class="modal-title terminal-title">
+                            <span class="terminal-prompt">$</span> brain-index analyze "${results.brandName || 'Unknown'}"
                         </h5>
-                        <button type="button" class="close" data-dismiss="modal">
-                            <span>&times;</span>
+                        <button type="button" class="close terminal-close" data-dismiss="modal">
+                            <span>×</span>
                         </button>
                     </div>
-                    <div class="modal-body p-4">
+                    <div class="modal-body terminal-body">
                         <!-- Overall Score -->
-                        <div class="text-center mb-5">
-                            <h3 class="mb-4">${results.brandName || 'Unknown Brand'}</h3>
-                            <div class="circular-progress main-score-circle mx-auto" style="--progress: ${Math.round(finalScore)}; --color: ${color};">
-                                <div class="progress-value">
-                                    <div>${Math.round(finalScore)}%</div>
-                                </div>
+                        <div class="terminal-section">
+                            <div class="terminal-label">» AI VISIBILITY SCORE</div>
+                            <div class="terminal-line terminal-main">
+                                <span class="terminal-metric">Overall</span>
+                                <span class="${overallClass}">${overallBar}</span>
+                                <span class="score-number ${overallClass}">${avgScore}/100</span>
                             </div>
-                            <h4 class="mt-4" style="color: ${color};">
-                                <i class="fas fa-${icon} mr-2"></i>${level}
-                            </h4>
-                            <p class="text-muted">Overall AI Visibility Score</p>
                         </div>
                         
-                        <!-- Provider Breakdown -->
-                        <div class="mb-4">
-                            <h5 class="mb-4">
-                                <i class="fas fa-robot mr-2"></i>
-                                AI Provider Analysis
-                            </h5>
-                            <div class="row">
-                                ${providerCircles}
-                            </div>
+                        <div class="terminal-separator">
+                            <span>─────────────────────────────────────────────────────</span>
+                        </div>
+                        
+                        <!-- Individual Providers -->
+                        <div class="terminal-section">
+                            <div class="terminal-label">» PROVIDER BREAKDOWN</div>
+                            ${providerBars}
+                        </div>
+                        
+                        <div class="terminal-separator">
+                            <span>─────────────────────────────────────────────────────</span>
                         </div>
                         
                         <!-- Key Insights -->
-                        <div class="card border-0 bg-light">
-                            <div class="card-body">
-                                <h6 class="mb-3">
-                                    <i class="fas fa-lightbulb mr-2"></i>
-                                    Key Insights
-                                </h6>
-                                <ul class="mb-0">
-                                    <li><strong>Market Position:</strong> ${finalScore >= 70 ? 'Above average' : finalScore >= 40 ? 'Average' : 'Below average'}</li>
-                                    <li><strong>Growth Potential:</strong> ${100 - Math.round(finalScore)}% improvement opportunity</li>
-                                    <li><strong>AI Reach:</strong> ${finalScore >= 70 ? 'High' : finalScore >= 40 ? 'Moderate' : 'Limited'} exposure</li>
-                                    ${results.tier === 'free' ? '<li class="text-info"><strong>Free Analysis:</strong> Upgrade for detailed breakdown across all 7 criteria</li>' : ''}
-                                </ul>
+                        <div class="terminal-section">
+                            <div class="terminal-label">» KEY INSIGHTS</div>
+                            <div class="terminal-insights">
+                                <div class="insight-line">
+                                    <span class="insight-icon">${avgScore >= 70 ? '✓' : avgScore >= 40 ? '⚠' : '✗'}</span>
+                                    Market Position: <span class="${overallClass}">${avgScore >= 70 ? 'Above average' : avgScore >= 40 ? 'Average' : 'Below average'}</span>
+                                </div>
+                                <div class="insight-line">
+                                    <span class="insight-icon">↑</span>
+                                    Growth Potential: <span class="score-medium">${100 - avgScore}% improvement opportunity</span>
+                                </div>
+                                <div class="insight-line">
+                                    <span class="insight-icon">📊</span>
+                                    AI Reach: <span class="${overallClass}">${avgScore >= 70 ? 'High' : avgScore >= 40 ? 'Moderate' : 'Limited'} exposure</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Copyable text -->
+                        <div class="terminal-section">
+                            <div class="terminal-label">» SHARE ON SOCIAL MEDIA</div>
+                            <div class="terminal-copy">
+                                <pre id="copyableText">${copyableText}</pre>
+                                <button class="btn btn-sm btn-terminal" onclick="copyToClipboard()">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer border-0">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <a href="pricing.html" class="btn btn-primary">
-                            <i class="fas fa-star mr-2"></i>Get Full Report
+                    <div class="modal-footer terminal-footer">
+                        <button type="button" class="btn btn-terminal-secondary" data-dismiss="modal">
+                            <span class="terminal-prompt">$</span> exit
+                        </button>
+                        <a href="pricing.html" class="btn btn-terminal-primary">
+                            <span class="terminal-prompt">$</span> upgrade --tier pro
                         </a>
                     </div>
                 </div>
             </div>
         </div>
+        
+        <!-- Terminal CSS Styles -->
+        <style>
+            .terminal-modal {
+                background: #0a0e27;
+                border: 2px solid #00ff41;
+                box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+            }
+            
+            .terminal-header {
+                background: #0f1220;
+                border-bottom: 1px solid #00ff41;
+                padding: 1rem 1.5rem;
+            }
+            
+            .terminal-title {
+                color: #00ff41;
+                font-family: 'IBM Plex Mono', 'Courier New', monospace;
+                font-size: 1rem;
+                font-weight: 600;
+                margin: 0;
+            }
+            
+            .terminal-prompt {
+                color: #00d4ff;
+                margin-right: 8px;
+            }
+            
+            .terminal-close {
+                color: #ff0055;
+                opacity: 1;
+                font-size: 2rem;
+                font-weight: 300;
+                text-shadow: none;
+            }
+            
+            .terminal-close:hover {
+                color: #ff0055;
+                opacity: 1;
+            }
+            
+            .terminal-body {
+                background: #0a0e27;
+                padding: 1.5rem;
+                font-family: 'IBM Plex Mono', 'Courier New', monospace;
+                color: #00ff41;
+            }
+            
+            .terminal-section {
+                margin-bottom: 1.5rem;
+            }
+            
+            .terminal-label {
+                color: #00d4ff;
+                font-size: 0.85rem;
+                font-weight: 600;
+                margin-bottom: 0.75rem;
+                letter-spacing: 0.5px;
+            }
+            
+            .terminal-line {
+                display: flex;
+                align-items: center;
+                margin: 0.5rem 0;
+                font-size: 0.95rem;
+                gap: 1rem;
+            }
+            
+            .terminal-main {
+                font-size: 1.1rem;
+                margin: 1rem 0;
+            }
+            
+            .terminal-metric {
+                color: #00d4ff;
+                min-width: 80px;
+            }
+            
+            .provider-name {
+                color: #00d4ff;
+                min-width: 100px;
+            }
+            
+            .score-number {
+                min-width: 60px;
+                text-align: right;
+                font-weight: 600;
+            }
+            
+            .score-high {
+                color: #00ff41;
+            }
+            
+            .score-medium {
+                color: #ffaa00;
+            }
+            
+            .score-low {
+                color: #ff0055;
+            }
+            
+            .terminal-separator {
+                color: #1a1f3a;
+                margin: 1rem 0;
+                font-size: 0.75rem;
+            }
+            
+            .terminal-insights {
+                margin-top: 0.75rem;
+            }
+            
+            .insight-line {
+                color: #a0a0a0;
+                margin: 0.5rem 0;
+                font-size: 0.9rem;
+            }
+            
+            .insight-icon {
+                color: #00d4ff;
+                margin-right: 0.5rem;
+            }
+            
+            .terminal-copy {
+                background: #0f1220;
+                border: 1px solid #1a1f3a;
+                border-radius: 4px;
+                padding: 1rem;
+                margin-top: 0.75rem;
+                position: relative;
+            }
+            
+            .terminal-copy pre {
+                color: #00ff41;
+                margin: 0;
+                font-size: 0.85rem;
+                white-space: pre-wrap;
+            }
+            
+            .terminal-footer {
+                background: #0f1220;
+                border-top: 1px solid #00ff41;
+                padding: 1rem 1.5rem;
+            }
+            
+            .btn-terminal {
+                background: #00ff41;
+                color: #0a0e27;
+                border: none;
+                font-family: 'IBM Plex Mono', 'Courier New', monospace;
+                font-weight: 600;
+                padding: 0.5rem 1rem;
+                margin-top: 0.5rem;
+            }
+            
+            .btn-terminal:hover {
+                background: #00d4ff;
+                color: #0a0e27;
+            }
+            
+            .btn-terminal-primary {
+                background: #00ff41;
+                color: #0a0e27;
+                border: 1px solid #00ff41;
+                font-family: 'IBM Plex Mono', 'Courier New', monospace;
+                font-weight: 600;
+            }
+            
+            .btn-terminal-primary:hover {
+                background: #00d4ff;
+                border-color: #00d4ff;
+                color: #0a0e27;
+            }
+            
+            .btn-terminal-secondary {
+                background: transparent;
+                color: #00ff41;
+                border: 1px solid #00ff41;
+                font-family: 'IBM Plex Mono', 'Courier New', monospace;
+            }
+            
+            .btn-terminal-secondary:hover {
+                background: #00ff41;
+                color: #0a0e27;
+            }
+            
+            @media (max-width: 768px) {
+                .terminal-line {
+                    font-size: 0.75rem;
+                    gap: 0.5rem;
+                }
+                
+                .provider-name {
+                    min-width: 70px;
+                }
+                
+                .score-number {
+                    min-width: 50px;
+                }
+            }
+        </style>
     `;
     
     const oldModal = document.getElementById('resultsModal');
@@ -258,9 +410,17 @@ function displayEnhancedResults(results) {
     $('#resultsModal').modal('show');
 }
 
+// Copy to clipboard
+function copyToClipboard() {
+    const text = document.getElementById('copyableText').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+        showNotification('Copied to clipboard! Share on social media 🚀', 'success');
+    });
+}
+
 // For compatibility with existing code
 function displayResults(results) {
-    displayEnhancedResults(results);
+    displayTerminalResults(results);
 }
 
 function showNotification(message, type = 'info') {
@@ -295,7 +455,6 @@ function analyzeDemo() {
     button.disabled = true;
     button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Analyzing...';
     
-    // Попробуем сначала настоящий API, если не работает - demo
     analyzeBrand();
 }
 
@@ -309,9 +468,6 @@ function requestReport() {
         return;
     }
     
-    // Симулируем отправку
     showNotification('Thank you! Your report will be sent to ' + email + ' shortly.', 'success');
     emailInput.value = '';
-    
-    // TODO: Подключить к backend для отправки email
 }
